@@ -1,0 +1,51 @@
+<div class="users-header-content">
+    <h2>Registrar usuario.</h2>
+    <a href="javascript:history.back(1)">Volver</a>
+</div>
+<div class="box-content">
+    <form action="<?=BASE_URL?>users/register" method="post" autocomplete="off" id="new_user_form" class="form-horizontal">
+
+        <div class="form-messages" style="display:none">
+            <div class="image-load"></div>
+            <div class="error-message"></div>
+        </div>
+
+        <span class="required-fields-label">* Campos obligatorios</span>
+
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="full_name">Nombre completo:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="full_name" id="full_name" onkeypress="OnlyLetters(this)" onkeyup="OnlyLetters(this)" maxlength="80" placeholder="Ingrese nombre completo.">
+            </div>            
+        </div> 
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="username">Usuario:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="username" id="username" maxlength="40" placeholder="Ingrese nombre de usuario">
+            </div>            
+        </div>
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="role">Tipo de usuario:</label>
+            <div class="col-sm-10">
+                <select name="role" id="role" class="form-control">
+                    <option value="0" hidden >Seleccione un tipo de usuario.</option>
+                    <?php foreach($this->roles as $rol):?>
+                        <option value="<?=$rol['id']?>"><?=$rol['rol_name']?></option>
+                    <?php endforeach;?>
+                    <span id="role_description"></span>
+                </select>
+            </div>            
+        </div>
+         <div class="form-group" id="li_correo" style="display:none">
+            <label  class="required-field control-label col-sm-2" for="correo">Correo:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" name="correo" id="correo" placeholder="Ingrese correo electrónico.">
+            </div>            
+        </div>
+        <div class="form-group" >        
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>

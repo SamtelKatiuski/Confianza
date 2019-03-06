@@ -1,0 +1,47 @@
+<!-- CONTENEDOR RECARGA NUEVO CLIENTE ESTADO CAPTURA -->
+<div class="container-fluid">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">PROCESO DOCUMENTAL</div>
+            <div class="panel-body">
+                <form action="<?=BASE_URL?>estado_clientes_sarlaft/consulta_ult_estado" name="formulario_consulta_clientes_sarlaft" method="POST">
+                    <div class="form-group">
+                        <label for="documento_cliente">NUMERO DOCUMENTO CLIENTE A CONSULTAR:</label>
+                        <input type="text" class="form-control" name="documento_cliente" data-require="true">
+                        <small class="help-error-block"></small>
+                    </div>
+                    <div class="form-group" id="tipo_documento" style="display:none">
+                        <label for="documento_cliente">TIPO DOCUMENTO:</label>
+                        <input type="text" class="form-control" name="tipo_documento" disabled readonly>
+                    </div>
+                    <div class="form-group" id="client_name" style="display:none">
+                        <label for="documento_cliente">NOMBRE DE CLIENTE:</label>
+                        <input type="text" class="form-control" name="nombre_cliente" disabled readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="">FECHA ULTIMA ACTUALIZACION</label>
+                        <input type="date" class="form-control" readonly="readonly" id="ult_fecha_actualizacion">
+                    </div>
+                    <button class="btn btn-success" id="btn-consultar">Consultar <span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-md-offset-2" id="contenido-response">
+        <table class="table table-striped table-bordered" id="table-respuesta" style="display: none">
+            <thead>
+                <tr>
+                    <th class="text-center" style="color: #1f70a9">Señor usuario tenga en cuenta las siguientes recomendaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th id="resppuesta-consulta" height="100" class="text-center"></th>
+                </tr>
+                <tr>
+                    <th class="text-center" style="color: #1f70a9">No olvide que el diligenciamiento del formulario Sarlaft solo es requerido una vez por cliente.</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> 

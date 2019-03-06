@@ -1,0 +1,26 @@
+<div class="users-header-content">
+    <h2>Gestión de usuarios.</h2>
+    <a href="<?=BASE_URL?>users/nuevo_usuario">Registrar usuario</a>
+</div>
+<div class="box-content">
+    <div class="list_users panels-content table-responsive" style="display:none;width:96%; margin: 10px auto; padding: 15px 8px 12px;  ">
+        <table id="table-listado-usuarios" class="table table-striped table-bordered " cellspacing="0" style="min-width: 100%; width: 100%"></table>
+    </div>    
+</div>
+
+<!-- Ventana modal de confirmación de borrado de usuarios -->
+<div class="modal-box modal-delete-user" style="display: none">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>¿Desea eliminar este usuario?</h2>
+            <span class="close-modal-box">X</span>
+        </div>
+        <div class="modal-content-container">
+            <p>¿Está seguro de eliminar este usuario?</p>
+            <div class="modal-buttons">
+                <button class="confirmation-button" user-id="0">Si</button>
+                <button class="negation-button">No</button>
+            </div>
+        </div>
+    </div>
+</div>

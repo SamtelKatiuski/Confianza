@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="titulo">
+		<h2>Migracion de Archivos</h2>
+	</div>
+	<hr>
+	<form action="<?=BASE_URL?>Migracion/LoadMigrateFileXLSX" method="POST" enctype="multipart/form-data" name="form-migracion">
+		<div class="form-group">
+			<label for="tipo_migracion">Tipo de Migración</label>
+			<select class="form-control" id="tipo_migracion" name="tipo_migracion">
+				<option value="" hidden>Seleccione una opción</option>
+				<option value="radicacion">Radicación</option>
+				<option value="captura">Captura</option>
+				<option value="anexos">Anexos</option>
+				<option value="completitud_verificacion">Completitud / Verificación</option>
+				<option value="liberacionpendientesmigracion">Liberar Clientes Migración</option>
+			</select>
+		</div>
+		<div class="form-group hidden" id="archivo_migracion">
+			<label for="archivo_migracion">Archivo</label>
+			<div class="input-group">
+				<input type="file" name="archivo_migracion" id="archivo_migracion" class="form-control" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-up"></span></span>
+			</div>
+		</div>
+		<div class="form-group hidden" id="opc_migracion_captura">
+			<label for="opc_migracion_captura">Migración Captura Opciones:</label>
+			<select class="form-control" id="opc_migracion_captura" name="opc_migracion_captura">
+				<option value="" hidden>Seleccione una opción</option>
+				<option value="CLIENTES_NATURALES">Persona Natural</option>
+				<option value="CLIENTES_JURIDICOS">Persona Juridica</option>
+			</select>
+		</div>
+		<hr>
+		<div class="form-group pull-right">
+			<button class="btn btn-success disabled" id="subir_archivo_migracion" disabled>Cargar <span class="glyphicon glyphicon-open"></span></button>
+			<button class="btn btn-toogle hidden" id="reload_page" onclick="window.location.reload();" hidden><span class="glyphicon glyphicon-repeat"></span></button>
+		</div>
+	</form>
+</div>

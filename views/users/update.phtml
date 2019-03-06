@@ -1,0 +1,97 @@
+<div class="users-header-content">
+    <h2>Modificar usuario.</h2>
+    <a href="javascript:history.back(1)">Volver</a>
+</div>
+<div class="box-content">
+    <form action="<?=BASE_URL?>users/update" method="post" autocomplete="off" id="update_user_form" class="form-horizontal">
+        <div class="form-messages" style="display:none">
+            <div class="image-load"></div>
+            <div class="error-message"></div>
+        </div>
+
+        <span class="required-fields-label">* Campos obligatorios</span>
+        <input type="hidden" name="full_id" id="full_id" value="<?=$this->user['id']?>">
+
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="full_name">Nombre completo:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="full_name" id="full_name" onkeypress="OnlyLetters(this)" onkeyup="OnlyLetters(this)" maxlength="80" placeholder="Ingrese nombre completo." value="<?=$this->user['nombre']?>">
+            </div>            
+        </div> 
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="username">Usuario:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="username" id="username" maxlength="40" placeholder="Ingrese nombre de usuario" value="<?=$this->user['username']?>">
+            </div>            
+        </div>
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="role">Tipo de usuario:</label>
+            <div class="col-sm-10">
+                <select name="role" id="role" class="form-control">
+                    <option value="0" hidden >Seleccione un tipo de usuario.</option>
+                    <?php foreach($this->roles as $rol):?>
+                        <option value="<?=$rol['id']?>" <?=($this->user['role_type'] == $rol['id'] ? 'selected' : '') ?> ><?=$rol['rol_name']?></option>
+                    <?php endforeach;?>
+                    <span id="role_description"></span>
+                </select>
+            </div>            
+        </div>
+         <div class="form-group" id="li_correo" style="display:none">
+            <label  class="required-field control-label col-sm-2" for="correo">Correo:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" name="correo" id="correo" placeholder="Ingrese correo electrónico." value="<?=$this->user['correo']?>">
+            </div>            
+        </div>
+        <div class="form-group">
+            <label  class="required-field control-label col-sm-2" for="status">Estado:</label>
+            <div class="col-sm-10">
+                <select name="status" id="status" class="form-control">
+                    <option value="" hidden >Seleccione un estado.</option>
+                    <option value="1" <?=($this->user['status'] == 1 ? 'selected' : '') ?> >Activo</option>
+                    <option value="0" <?=($this->user['status'] == 0? 'selected' : '') ?> >Inactivo</option>
+                    <span id="role_description"></span>
+                </select>
+            </div>            
+        </div> 
+        <div class="form-group" >        
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Guardar</button> <button type="button" class="btn btn-primary" onclick="activar();">Cambiar contrase&ntildea</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- Ventana modal de cambio de contraseña. -->
+<div class="modal-box modal-change-password" id="change_password_modal" style="display:none">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>Cambio de contraseña.</h2>
+            <span class="required-fields-label">* Campos obligatorios</span>
+        </div>
+        <div class="modal-content-container">
+            <div class="modal-content">
+                <form action="#" autocomplete="off" method="post" id="form-pass-change" >
+                  <ul>
+                    <div class="form-messages" style="display:none">
+                      <div class="image-load"></div>
+                      <div class="error-message"></div>
+                  </div>
+                    <li>
+                      <label class="required-field">Nueva contraseña:</label>
+                      <input type="password" id="new-password">
+                    </li>
+                    <li>
+                      <label class="required-field">Verificación de contraseña:</label>
+                      <input type="password" id="verification-password">
+                    </li>
+                  </ul>
+                </form>
+            </div>
+            <div class="modal-buttons">
+                <button style="background-color:#2c74af;color:white" onclick='$("#form-pass-change").submit();' >Aceptar</button>
+                <button onclick="desactivar();"  style="background-color:#ee3322;color:white" class="cancellation-button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

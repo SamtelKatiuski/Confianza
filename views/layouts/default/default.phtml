@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- AGREGA EL TITULO A LA PAGINA PRINCIPAL -->
+	<title>
+		<?php if(isset($this->titulo)):?>
+			<?=APP_NAME?> - <?=$this->titulo?>
+		<?php else:?>
+			<?=APP_NAME?>
+		<?php endif;?>
+	</title>
+
+	<!-- CARGA LOS ARCHIVOS JS POR DEFECTO DEL SISTEMA -->
+	<script src="<?= BASE_URL?>public/js/jquery-3.2.1.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/jquery-migrate-3.0.0.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/jquery-ui.js"></script>
+	<script src="<?= BASE_URL?>views/layouts/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/validate/jquery.validate.js"></script>
+	<script src="<?= BASE_URL?>public/js/jquery-mask.js"></script>
+	<script src="<?= BASE_URL?>public/js/waitForImages.js"></script>
+	<script src="<?= BASE_URL?>public/js/jquery.toast.js"></script>
+	<script src="<?= BASE_URL?>public/js/pdfobject.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/select2.full.js"></script>
+	<script src="<?= BASE_URL?>public/js/jquery.dataTables.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/buttons.print.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/dataTables.bootstrap.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/dataTables.buttons.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/jszip.dataTables.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/buttons.html5.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/buttons.flash.min.js"></script>
+	<script src="<?= BASE_URL?>public/js/dx.all.js"></script>
+	<script src="<?= BASE_URL?>public/js/cldr.js"></script>
+	<script src="<?= BASE_URL?>public/js/cldr/event.js"></script>
+	<script src="<?= BASE_URL?>public/js/cldr/supplemental.js"></script>
+	<script src="<?= BASE_URL?>public/js/globalize.js"></script>
+	<script src="<?= BASE_URL?>public/js/globalize/message.js"></script>
+	<script src="<?= BASE_URL?>public/js/globalize/number.js"></script>
+	<script src="<?= BASE_URL?>public/js/globalize/currency.js"></script>
+	<script src="<?= BASE_URL?>public/js/globalize/date.js"></script>
+
+	<!-- ARCHIVO DE LA FUNCIONES GLOBALES -->
+	<script src="<?= $_layoutParams['ruta_js']?>functions.js"></script>
+	
+	<!-- TRAE LOS JS QUE SE LLAMAN DESDE EL CONTROLADOR -->
+	<?php if(isset($_layoutParams['js']) && count($_layoutParams['js'])):?>
+		<?php foreach($_layoutParams['js'] as $js):?>		
+			<script src="<?=$js?>"></script>
+		<?php endforeach;?>
+	<?php endif;?>
+	
+	<!-- CREA VARIABLIES GLOBALES PARA TODO EL SISTEMA -->
+	<script>
+		var base_url = '<?=BASE_URL?>';		
+		var user_busy = false;
+		var popUp = null;
+	</script>
+	
+	<!-- AGREGA LOS ESTILOS POR DEFECTO A LAS VISTAS -->
+	<link rel="stylesheet" href="<?= $_layoutParams['ruta_css']?>style.css">
+	
+	<link rel="icon" href="<?= BASE_URL?>public/img/favicon_confianza.ico">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/jquery-ui.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/fonts.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>views/layouts/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/validate/bootstrapValidator.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/select2.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/select2-bootstrap.min.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/jquery.toast.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/buttons.dataTables.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/dx.common.css">
+	<link rel="stylesheet" href="<?= BASE_URL?>public/css/dx.light.css">
+</head>
+<body>
+
+	<!-- Barra de navegación principal, solo se visualiza si existe una sesión iniciada -->
+	<?php if(Session::get('Mundial_authenticate')):?>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+			 	<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span> 
+					</button>
+					<a href="#" class="navbar-left">
+						<img src="<?=BASE_URL?>public/img/logo_confianza.jpg" style="max-width:190px; height: 80px">
+					</a>
+				</div>				
+				<div class="collapse navbar-collapse" id="myNavbar" style="margin-top:18px">
+					<ul class="nav navbar-nav" style="margin-left: 25px;">
+						<!-- Menu de usuario parametrizado en public/menu/menu.php -->
+						<?php if(isset($_layoutParams['menu'])):?>
+							<?php foreach($_layoutParams['menu'] as $menu):?>
+								<?php $_style = ($item && $menu['id'] == $item ? "active" : "" )?>
+								<?php if(!(Session::getLevel(Session::get('Mundial_user_rol')) < Session::getLevel($menu['user_rol']))):?>
+									<li class="<?=$_style;?>" >
+										<a href="<?=$menu['enlace'];?>" ><?= $menu['titulo'];?></a>
+									</li>				
+								<?php endif;?>
+							<?php endforeach;?>
+						<?php endif;?>
+					</ul>
+	
+					<ul class="nav navbar-nav navbar-right">
+		                <li class="dropdown">
+		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                        <span class="glyphicon glyphicon-user" style="font-size: 20px;"></span> 
+		                        <span class="glyphicon glyphicon-chevron-down"></span>
+		                    </a>
+		                    <ul class="dropdown-menu">	
+	                    		<li>
+		                            <div class="navbar-login">
+		                                <div class="row">
+		                                    <div class="col-lg-4">
+		                                        <p class="text-center">
+		                                            <span class="glyphicon glyphicon-user icon-size"></span>
+		                                        </p>
+		                                    </div>
+		                                    <div class="col-lg-8">
+		                                        <p class="text-left"><strong><?=Session::get('Mundial_authenticate_name_user')?></strong></p>
+		                                        <p class="text-left small"><strong><?=Session::get('Mundial_user_rol')?></strong></p>
+		                                        <p><span class="glyphicon glyphicon-calendar"></span> <?= date("d-m-Y") ?></p>		                                        
+		                                        <p class="text-left">
+	                                            	<a href="<?=BASE_URL . "users/logout"?>" class="btn btn-danger btn-block btn-sm">Cerrar Sesion</a>
+		                                        </p>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </li>
+		                    </ul>
+		                </li>
+		            </ul>
+				</div>
+			</div>
+		</nav>
+	<?php endif;?>
+
+	<!-- Contenido completo de página -->
+	<?php if(Session::get('Mundial_authenticate')):?>
+		<div class="content">
+			<?php include_once $rutaVista;?>	
+			<script>
+				//Recargar y cerrar session por inactividad
+				$( document ).ready(function() {
+					killerSession();
+				}); 
+				function killerSession() 
+				{
+					setTimeout('window.location = window.location = base_url+"users/timeout"',3600000);//1 hora
+				}
+			</script>
+		</div>
+	<?php else: ?>
+			<?php include_once $rutaVista;?>
+	<?php endif;?>
+	
+	<!-- VERIFICA LA AUTENTICACION DEL CLIENTE Y VERIFICA SI ESTE YA CAMBIO LA CONTRASEÑA POR PRIMERA VEZ -->
+	<?php if(Session::get('Mundial_authenticate')):?>
+	
+		<!-- Ventana modal para cambio de contraseña por vencimiento -->
+		<?php if(Session::get("Mundial_change_password")):?>
+	
+			<!-- Ventana modal de cambio de contraseña. -->
+			<div class="modal-box modal-change-password">
+			    <div class="modal-content-box">
+			        <div class="modal-header">
+			            <h2>Cambio de contraseña.</h2>
+			            <span class="required-fields-label">* Campos obligatorios</span>
+			        </div>
+			        <div class="modal-content-container">
+			            <div class="modal-content">
+			                <form action="#" autocomplete="off" method="post" class="change-password-modal-form">
+			                	<ul>
+	
+			                		<div class="form-messages" style="display:none">
+						                <div class="image-load"></div>
+						                <div class="error-message"></div>
+						            </div>
+			                		<li>
+			                			<label class="required-field">Contraseña actual:</label>
+			                			<input type="password" id="actual-password">
+		                			</li>
+			                		<li>
+			                			<label class="required-field">Nueva contraseña:</label>
+			                			<input type="password" id="new-password">
+		                			</li>
+			                		<li>
+			                			<label class="required-field">Verificación de contraseña:</label>
+			                			<input type="password" id="verification-password">
+		                			</li>
+			                	</ul>
+			                </form>
+			            </div>
+			            <div class="modal-buttons">
+			                <button class="confirmation-button">Aceptar</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		<?php endif;?>
+	<?php endif;?>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<div class="users-header-content">
+    <h2>Gestión de usuarios.</h2>
+    <a href="<?=BASE_URL?>users/nuevo_usuario">Registrar usuario</a>
+</div>
+<div class="box-content">
+    <!-- Verificar si existen usuarios -->
+    <?php if(count($this->usuarios)):?>
+        <!-- Visualizar listado de usuarios -->        
+        <?php foreach($this->usuarios as $user):?>
+            <div class="user-item user-items-user-<?=$user['id']?>">
+                <ul>
+                    <li>
+                        <label>Nombre:</label>
+                        <p><?=$user['nombre']?></p>
+                    </li>
+                    <li>
+                        <label>Usuario:</label>
+                        <p><?=$user['username']?></p>
+                    </li>
+                    <li>
+                        <label>Tipo de usuario:</label>
+                        <p><?=$user['rol_name']?></p>
+                    </li>
+                    <li>
+                        <label>Estado:</label>
+                        <p><?= ($user['status'] == 1 ? 'Activo' : 'Inactivo') ?></p>
+                    </li>
+                    <li>
+                        <div class="user-item-options">
+                            <a class="user-item-option-update" href="<?=BASE_URL?>users/modificar_usuario?id=<?=$user['id']?>">Modificar</a>
+                            <a class="user-item-option-delete" href="delete">Eliminar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        <?php endforeach;?>        
+    <?php else:?>
+        <p class="list-empty">No hay usuarios registrados.</p>
+    <?php endif;?>
+</div>
+
+
+<!-- Ventana modal de confirmación de borrado de usuarios -->
+<div class="modal-box modal-delete-user" style="display: none">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>¿Desea eliminar este usuario?</h2>
+            <span class="close-modal-box">X</span>
+        </div>
+        <div class="modal-content-container">
+            <div class="modal-content">
+                <p>¿Está seguro de eliminar este usuario?</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="confirmation-button" user-id="0">Si</button>
+                <button class="negation-button">No</button>
+            </div>
+        </div>
+    </div>
+</div>

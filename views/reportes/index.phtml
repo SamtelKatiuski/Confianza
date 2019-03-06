@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <h2><?=$this->titulo?></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <form action="<?=BASE_URL?>reportes/cargarReporteGeneral" name="form-reportes-generales" enctype="multipart/form-data" method="POST">                    
+                <div class="form-group">
+                    <label class="control-label">Tipo de Reporte:</label>
+                    <select name="opcion_reporte" class="form-control">
+                        <option value="" hidden>Seleccione el tipo de reporte</option>
+                        <!-- <option value="reporte_radicacion_check_list_documents">REPORTE DE RADICACION + CHECK LIST DOCUMENTOS</option>
+                        <option value="reporte_gestion_ppes_benef_final">REPORTE GESTION PPES - BENEFICIARIO FINAL</option> -->
+                        <option value="reporte_verificacion_completitud">REPORTE DE VERIFICACION Y COMPLETITUD</option>
+                        <option value="reporte_pendientes">REPORTE FORMULARIOS PENDIENTES</option>
+                        <option value="reporte_cruce_clientes_faltantes">REPORTE PRODUCCION SARLAFT -  FALTANTES</option>
+                        <option value="reporte_cruce_clientes_sobrantes"> REPORTE PRODUCCION SARLAFT - SOBRANTES</option>
+                        <option value="reporte_facturacion">REPORTE FACTURACION</option>
+                        <option value="reporte_capturas">REPORTE CAPTURA</option>
+                        <option value="reporte_capturas_natural">REPORTE CAPTURA CLIENTES NATURALES</option>
+                        <option value="reporte_capturas_juridico">REPORTE CAPTURA CLIENTES JURÍDICOS</option>
+                    </select>
+                </div>
+                <!-- Selección de fechas para filtrado de reporte -->
+                <div class="panel panel-default hidden"  id="filtro_fechas">
+                    <div class="panel-body">
+                        <div class="form-group" id="archivo_cruce_zurich">
+                            <label>Filtrar reporte:</label>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6 fields-container">
+                                <label for="fecha_inicio">FECHA INICIO REPORTE:</label>
+                                <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio">
+                            </div>
+                            <div class="col-md-6 fields-container">
+                                <label for="fecha_fin">FECHA FIN REPORTE:</label>
+                                <input type="date" class="form-control" name="fecha_fin" id="fecha_fin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Seleccion de archivo plano -->
+                <div class="form-group hidden" id="archivo_cruce_zurich">
+                    <label for="archivo_cruce_zurich">Cargar Archivo Plano:</label>
+                    <input type="file" name="archivo_cruce_zurich" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+                </div>
+                <hr>
+                
+                <button class="btn btn-success" id="cargar_archivo_cruce">Cargar <span class="glyphicon glyphicon-upload"></span></button>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <div class="content-reporte table-responsive" style="border: 1px solid #ccc; padding: 10px;">
+                <table name="tabla-reportes-generales"></table>
+            </div>
+        </div>    
+    </div>
+</div>

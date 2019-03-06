@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="<?= BASE_URL;?>public/css/reset.css">
+<div class="container-fluid">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#visualizacion_archivos" aria-expanded="true" aria-controls="collapseTwo">VISUALIZACIÓN DE ARCHIVOS.</div>
+            <div class="panel-body" id="visualizacion_archivos">
+                <form action="#" method="post" autocomplete="off"  name="formulario_visualizacion" class="search-folders-form" >
+                    <div class="form_messages" style="display:none"></div>
+                    <div class="panel-body">
+                        <div class="col-md-6 fields-container">
+                            <label for="nombre_cliente">NOMBRE DE CLIENTE:</label>
+                            <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" >
+                        </div>
+                        <div class="col-md-6 fields-container">
+                            <label for="numero_documento">DOCUMENTO DE CLIENTE:</label>
+                            <input type="text" class="form-control" name="numero_documento" id="numero_documento" >
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6 fields-container">
+                            <div style="margin-top:6px">
+                                <button class="btn btn-success" type="submit" >Consultar  <span class="glyphicon glyphicon-search"></span></button>
+                                <button class="btn btn-danger" type="reset">Limpiar  <span class="glyphicon glyphicon-trash"></span></button>
+                            </div>                            
+                        </div>                        
+                    </div>                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="folder-content" style="display:none">   
+    <div class="folder-list-content">       
+    </div>
+    <div class="files-viewer" style="display:none">     
+    </div>
+</div>
