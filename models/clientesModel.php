@@ -1166,4 +1166,18 @@ class clientesModel extends Model
         else
             return $result->fetch(PDO::FETCH_ASSOC);
     }
+    
+    public function getUltimaExpedicionDoc($idCliente) {
+        $sql = "SELECT NOMBRE_ARCHIVO, FECHA_EMISION FROM relacion_archivo_radicacion WHERE CLIENTE_ID = :id_cliente";
+        $result = $this->_db->prepare($sql);
+
+        $result->bindValue(":id_cliente", $idCliente);
+
+        $resultado = $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
