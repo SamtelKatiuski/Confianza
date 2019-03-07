@@ -1394,8 +1394,8 @@ class migracionController extends Controller
 
         $check_list = array();
 
-        // Como primer instancia requiere el documento SAA
-        $documentos_requiridos[]= "SAA";
+        // Como primer instancia requiere el documento FCC
+        $documentos_requiridos[]= "FCC";
 
         $lineas_negocio_cliente = $this->_clientes->getAllLineaNegocioClienteBy($cliente);
 

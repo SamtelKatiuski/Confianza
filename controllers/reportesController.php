@@ -138,7 +138,7 @@ class reportesController extends Controller
 				'caption'       => 'RADICACION PROCESO'
 			),
 			array(
-				'dataField'     => 'SAA',
+				'dataField'     => 'FCC',
 				'dataType'      => 'string' 
 			),
 			array(

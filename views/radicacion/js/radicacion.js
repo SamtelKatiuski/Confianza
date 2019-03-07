@@ -398,7 +398,7 @@ function validarSarlarf(){
 	$("#table-content-files-rename tbody tr").each(function(){
 		var value = $(this).find("input[name='file_renombrado[" + $(this).attr("id") + "]']").val();
 		var subs = value.substring(0, 3);
-		if(subs == "SAA"){
+		if(subs == "FCC"){
 			cantFilesSAA++;
 		}
 	});
@@ -592,7 +592,7 @@ var SearchRadicacion = function(cliente){
 				//Guarda el formulario de radicacion
 				$('button#guardar_radicacion').on('click', function(event) {
 
-					var form = $('form[name="form-radicacion"]');						
+					var form = $('form[name="form-radicacion"]');
 					//Envio del la informacion
 					$.ajax({
 						url: $(form).attr('action'),

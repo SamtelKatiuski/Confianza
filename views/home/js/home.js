@@ -191,7 +191,7 @@ function loadForm (cliente){
                     if($(window).width() > 700){
                         alert("Ajuste la pantalla con las teclas Windows + tecla izquierda");
                     }
-                    preview($.urlParam('capture_client'),'SAA');
+                    preview($.urlParam('capture_client'),'FCC');
                 }
 
                 //Carga los documentos del cliente despues de cargar el formulario

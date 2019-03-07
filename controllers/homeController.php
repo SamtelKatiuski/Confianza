@@ -101,7 +101,7 @@ class homeController extends Controller {
                     //var_dump($id);
                     if(!isset($InfoCliente['error'])){
                         
-                        $chk_sarlaft_client = $this->_clientes->getInfoFileByClientId($id,'SAA');
+                        $chk_sarlaft_client = $this->_clientes->getInfoFileByClientId($id,'FCC');
 
                         if($chk_sarlaft_client && isset($chk_sarlaft_client["FOLDER_ARCHIVO"]) && file_exists(FOLDERS_PATH . $chk_sarlaft_client["FOLDER_ARCHIVO"])){
 
@@ -412,7 +412,7 @@ class homeController extends Controller {
                                         ===================================================================*/
 
                                             // Consulta que exista un formulario SARLAFT con el codigo
-                                            $check_list_sarlaft = $this->_clientes->getInfoFileByClientId($dataQuery['cliente'],'SAA');
+                                            $check_list_sarlaft = $this->_clientes->getInfoFileByClientId($dataQuery['cliente'],'FCC');
 
                                             // Verifica la repuesta de la consulta del formulario
                                             if(!$check_list_sarlaft){
