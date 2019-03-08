@@ -1,0 +1,413 @@
+<style type="text/css">
+	input[type="email"]{
+		text-transform: lowercase;
+	}
+</style>
+<div class="container">
+	<div class="col-md-12">
+
+		<!-- ENCABEZADO PAGINA  -->
+		<div class="row" style="border-bottom: 1px solid #ddd;">
+			<h4 class="col-xs-3 col-md-3  pull-left">N° Radicaciones Hoy: <?=isset($this->CantidadRadicacionesUser) ? $this->CantidadRadicacionesUser["CANTIDAD_RADICACIONES"] : $cantidadRadicacionesUser["CANTIDAD_RADICACIONES"];?></h4>
+			<h4 class="col-xs-6 col-md-6 text-center" id="estado_cliente"><?=(isset($InfoRadicado["ESTADO_PROCESO_ID"])) ? (isset($documentos_pendientes) ? $InfoRadicado["ESTADO_FORM"].'( '.implode(",",$documentos_pendientes["CADENA_PENDIENTES"]).' )' : $InfoRadicado["ESTADO_FORM"])  : '' ?></h4>
+			<h4 class="col-xs-3 col-md-3  pull-right text-right">N° Documentos Hoy: <?=isset($this->CantidadRadicacionesUser) ? $this->CantidadRadicacionesUser["CANTIDAD_DOCUMENTOS"] : $cantidadRadicacionesUser["CANTIDAD_DOCUMENTOS"];?></h4>
+		</div>
+		
+		<!-- TITULO -->
+		<div class="row">
+			<h2 class="col-xs-6 col-md-3" style="text-align:left; margin-bottom: 30px;">
+				<?php echo $this->titulo ?>
+				<button class="btn btn-sm btn-toogle <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" id="nuevo-radicado">Nuevo 
+		    		<span class="glyphicon glyphicon-plus"></span>
+		    	</button>
+			</h2>
+			<div class="col-xs-6 col-md-3 pull-right" style="font-size: 18px;bottom: 0px;margin-top: 2%; text-align: right;">
+		    	<span style="font-size: 18px;bottom: 0px;margin-top: 10px;" id="NRadicado"><?=(isset($InfoRadicado["CONSECUTIVO_RADICADO"])) ? $InfoRadicado["CONSECUTIVO_RADICADO"] : '';?></span>
+				<span  class="label label-<?=(isset($InfoRadicado["FORMULARIO"])) ? (($InfoRadicado["FORMULARIO"] == 'Nuevo') ? 'danger' : 'default') : '';?>" style="font-size: 12px;bottom: 0px;margin-top: 10px;margin-left: 6px;" id="ClienteRadicado"><?=(isset($InfoRadicado["FORMULARIO"])) ? $InfoRadicado["FORMULARIO"] : '';?></span>
+			</div>
+		</div>
+
+		<!-- CAMPO NUMERO DE IDENTIFICACION -->
+		<form action="<?=BASE_URL?>radicacion/saveRadicacion" method="POST" autocomplete="off" name="form-radicacion" enctype="multipart/form-data">
+			<div class="row">
+				<div class="row col-md-12">
+
+					<div class="form-group hidden">
+					  	<input type="hidden" id="cliente_id" name="cliente_id" <?=(isset($InfoRadicado["CLIENTE_ID"])) ? "value='".$InfoRadicado["CLIENTE_ID"]."'" : '';?> class="form-control">
+					  	<input type="hidden" id="radicacion_id" name="radicacion_id" <?=(isset($InfoRadicado["RADICACION_ID"])) ? "value='".$InfoRadicado["RADICACION_ID"]."'" : '';?> class="form-control">
+					  	<input type="hidden" id="ANT_ESTADO_PROCESO_ID" name="ANT_ESTADO_PROCESO_ID" <?=(isset($InfoRadicado["ANT_ESTADO_PROCESO_ID"])) ? "value='".$InfoRadicado["ANT_ESTADO_PROCESO_ID"]."'" : '';?> class="form-control">
+					  	<input type="hidden" id="ESTADO_PROCESO_ID" name="ESTADO_PROCESO_ID" <?=(isset($InfoRadicado["ESTADO_PROCESO_ID"])) ? "value='".$InfoRadicado["ESTADO_PROCESO_ID"]."'" : '';?> class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label for="numero_identificacion" data-label="numero_identificacion" class="categoria">Numero Identificación</label>
+						<div class="input-group">
+						  	<input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion" placeholder="Ingrese numero de identificacion" onkeyup="OnlyNumbers(this)" <?=(isset($InfoRadicado["NUM_DOCUMENTO_CLIENTE"])) ? "value='".$InfoRadicado["NUM_DOCUMENTO_CLIENTE"]."'" : '';?>>
+						  	<span class="input-group-addon" id="searchRadicacion" style="cursor:pointer;"><span class="glyphicon glyphicon-search"></span></span>
+						</div>
+					</div>
+					
+					<!-- ELIMINACIÓN DE CLIENTE. SOLO PARA PERFIL ADMINISTRADOR -->
+					<?php if(Session::getLevel(Session::get("Mundial_user_rol")) == Session::getLevel("Gerente")):?>
+						<?php if(isset($InfoRadicado["NUM_DOCUMENTO_CLIENTE"])):?>
+							<div class="col-md-3 form-group" style="margin: 28px 0 0 0;">
+								<button type="button" class="btn btn-sm btn-danger" onclick="DeleteCliente(this,<?=(isset($InfoRadicado["CLIENTE_ID"])) ? $InfoRadicado["CLIENTE_ID"] : 'undefined';?>)" style="cursor:pointer;" title="Eliminar cliente."><span class="glyphicon glyphicon-trash "></span></button>
+							</div>
+						<?php endif;?>
+					<?php endif;?>
+
+					<div class="col-md-3 form-group pull-right">
+					  	<label for="numero_planilla" data-label="numero_planilla" class="categoria">Número de Planilla</label>
+					  	<input type="text" id="numero_planilla" name="numero_planilla" class="form-control" placeholder="Número de planilla" disabled="true" <?=(isset($InfoRadicado["NUMERO_PLANILLA"])) ? "value='".$InfoRadicado["NUMERO_PLANILLA"]."'" : '';?> onkeypress="ValidateRegex(/[^a-zA-Z0-9\s\-]*$/g,this)" data-required="true">
+					</div>
+				</div>
+				<hr class="col-md-12">
+				<div class="row col-md-12">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="fecha_diligenciamiento" class="control-label">Fecha diligenciamiento</label>
+							<input type="date" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" disabled="true" max=<?=(date("Y-m-d"))?> <?=(isset($InfoRadicado["FECHA_DILIGENCIAMIENTO"])) ? "value='".$InfoRadicado["FECHA_DILIGENCIAMIENTO"]."'" : '';?>>
+							<label for="sin_fecha_diligenciamiento" class="control-label">Sin fecha:</label>
+							<input type="checkbox" name="sin_fecha_diligenciamiento" disabled="true">
+							<small class="help-error-block"></small>
+						</div>
+						<div class="form-group">
+							<hr>
+				  			<strong>
+				  				<h4 data-label="tipo_cliente" class="categoria">Tipo</h4>
+				  			</strong>
+						  	<div class="radio">
+								<label><input type="radio" data-required="true" name="tipo_cliente" value="Cliente"  disabled="true" <?=(isset($InfoRadicado["TIPO_RADICACION"]) && $InfoRadicado["TIPO_RADICACION"] == 'Cliente') ? "checked" : '';?>>Cliente</label>
+							</div>
+							<div class="radio">
+							  	<label><input type="radio" name="tipo_cliente"  value="Intermediario" disabled="true" <?=(isset($InfoRadicado["TIPO_RADICACION"]) && $InfoRadicado["TIPO_RADICACION"] == 'Intermediario') ? "checked" : '';?>>Intermediario</label>
+							</div>
+							<small class="help-error-block"></small>
+						</div>
+						<div class="form-group">
+							<hr>
+							<strong>
+								<h4 data-label="tipo_medio" class="categoria">Medio</h4>
+							</strong>
+						  	<div class="radio">
+								<label><input type="radio" data-required="true" name="tipo_medio"  value="Fisico" disabled="true" <?=(isset($InfoRadicado["TIPO_MEDIO"]) && $InfoRadicado["TIPO_MEDIO"] == 'Fisico') ? "checked" : '';?>>Fisico</label>
+							</div>
+							<div class="radio">
+							  	<label><input type="radio" name="tipo_medio"  value="Digital" disabled="true" <?=(isset($InfoRadicado["TIPO_MEDIO"]) && $InfoRadicado["TIPO_MEDIO"] == 'Digital') ? "checked" : '';?>>Digital</label>
+							</div>
+							<small class="help-error-block"></small>
+						</div>
+					</div>
+					<div class="col-md-4">
+					  	<div class="form-group">
+							<strong>
+								<h4 data-label="devuelto" class="categoria">Devuelto</h4>
+							</strong>
+						  	<div class="radio">
+								<label><input type="radio" data-required="true" name="devuelto" value="Si" disabled="true"" <?=(isset($InfoRadicado["DEVUELTO"]) && $InfoRadicado["DEVUELTO"] == 'Si') ? "checked" : '';?>>Si</label>
+							</div>
+							<div class="radio">
+							  	<label><input type="radio" name="devuelto"  value="No" disabled="true" <?=(isset($InfoRadicado["DEVUELTO"]) && $InfoRadicado["DEVUELTO"] == 'No') ? "checked" : '';?>>No</label>
+							</div>
+							<small class="help-error-block"></small>
+						</div>
+						<div class="form-group">
+							<hr>
+						  	<strong>
+						  		<h4 data-label="separado" class="categoria">Separado</h4>
+						  	</strong>
+						  	<div class="radio">
+								<label><input type="radio" data-required="true" name="separado"  value="Si" disabled="true" <?=(isset($InfoRadicado["SEPARADO"]) && $InfoRadicado["SEPARADO"] == 'Si') ? "checked" : '';?>>Si</label>
+							</div>
+							<div class="radio">
+							  	<label><input type="radio" name="separado"  value="No" disabled="true" <?=(isset($InfoRadicado["SEPARADO"]) && $InfoRadicado["SEPARADO"] == 'No') ? "checked" : '';?>>No</label>
+							</div>
+							<small class="help-error-block"></small>
+						</div>
+						<div class="form-group" id="cantidad_separado" <?=(!isset($InfoRadicado["CANTIDAD_SEPARADA"]) || $InfoRadicado["CANTIDAD_SEPARADA"] == 0) ? 'style="display:none"' : '' ?>>
+							<label data-label="cantidad_separada" class="categoria">Cantidad Separada</label>
+						  	<input type="number" id="cantidad_separada" name="cantidad_separada" class="form-control" placeholder="Ingrese la cantidad veces separado" min="0" onkeyup="OnlyNumbers(this)" disabled="true" <?=(isset($InfoRadicado["CANTIDAD_SEPARADA"])) ? "value='{$InfoRadicado["CANTIDAD_SEPARADA"]}'" : "";?>>
+						  	<small class="help-error-block"></small>
+						</div>
+						<div class="form-group" style="display: none;" id="digitalizado">
+					  		<strong>
+					  			<h4 data-label="digitalizado" class="categoria">Digitalizado</h4>
+					  		</strong>
+						  	<div class="radio">
+								<label><input type="radio" name="digitalizado"  value="Si" disabled="true" <?=(isset($InfoRadicado["DIGITALIZADO"]) && $InfoRadicado["DIGITALIZADO"] == 'Si') ? "checked" : '';?>>Si</label>
+							</div>
+							<div class="radio">
+							  	<label><input type="radio" name="digitalizado"  value="No" disabled="true" <?=(isset($InfoRadicado["DIGITALIZADO"]) && $InfoRadicado["DIGITALIZADO"] == 'No') ? "checked" : '';?>>No</label>
+							</div>
+							<small class="help-error-block"></small>
+						</div>
+						<div class="form-group">
+							<hr>
+					  		<strong>
+					  			<h4 data-label="formulario" class="categoria">Formulario</h4>
+					  		</strong>
+						  	<div class="radio">
+								<label><input type="radio" name="formulario"  value="Nuevo" disabled="true" <?=(isset($InfoRadicado["FORMULARIO_V"]) && $InfoRadicado["FORMULARIO_V"] == 'Nuevo') ? 'checked' : '' ?>>Nuevo</label>
+							</div>
+							<div class="radio">
+							  	<label><input type="radio" name="formulario"  value="Viejo" disabled="true" <?=(isset($InfoRadicado["FORMULARIO_V"]) && $InfoRadicado["FORMULARIO_V"] == 'Viejo') ? 'checked' : '' ?>>Viejo</label>
+							</div>
+							<small class="help-error-block"></small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<strong>
+								<label data-label="cantidad_documentos" class="categoria">Cantidad de documentos</label>
+							</strong>
+						  	<input type="number" id="cantidad_documentos" data-required="true" name="cantidad_documentos" class="form-control" placeholder="Ingrese la cantidad de documentos" min="1" onkeyup="OnlyNumbers(this)" disabled="true" <?=(isset($InfoRadicado["CANTIDAD_DOCUMENTOS"])) ? "value='{$InfoRadicado["CANTIDAD_DOCUMENTOS"]}'" : '';?> readonly="readonly">
+						  	<small class="help-error-block"></small>
+						</div>
+						<!-- <div class="form-group" id="medio_recepcion">
+							<strong>
+								<label data-label="medio_recepcion" class="categoria">Medio Recepción</label>
+							</strong>
+							<?php $medio_recepcion = array('CORREO','FISICO'); ?>
+							<select name="medio_recepcion" id="medio_recepcion" data-required='true' class="form-control" disabled="true">
+								<option value="" hidden>Seleccione el tipo de recepción</option>
+								<?php foreach ($medio_recepcion as $medio_recep):?>
+									<option value="<?=$medio_recep;?>" <?=($InfoRadicado["MEDIO_RECEPCION"] == $medio_recep) ? 'selected' : ''; ?>><?=$medio_recep;?></option>
+								<?php endforeach; ?>
+							</select>
+						  	<small class="help-error-block"></small>
+						</div> -->
+						<div class="form-group" id="fecha_recepcion">
+							<label data-label="fecha_recepcion" class="categoria">Fecha Recepción</label>
+								<input type="date" id="fecha_recepcion" data-required="true" name="fecha_recepcion" max="<?=(date("Y-m-d"))?>" class="form-control" disabled="true" <?=(isset($InfoRadicado["FECHA_RECEPCION"])) ? "value='{$InfoRadicado["FECHA_RECEPCION"]}'" : '';?>>
+								<small class="help-error-block"></small>
+						</div>
+						<div class="form-group" id="hora_recepcion">
+							<label data-label="hora_recepcion" class="categoria">Hora Recepción</label>
+								<input type="time" id="hora_recepcion" data-required="true" name="hora_recepcion" class="form-control" disabled="true" <?=(isset($InfoRadicado["HORA_RECEPCION"])) ? "value='{$InfoRadicado["HORA_RECEPCION"]}'" : '';?>>
+								<small class="help-error-block"></small>
+						</div>
+						<div class="form-group" id="radicacion_proceso">
+							<strong>
+								<label data-label="radicacion_proceso" class="categoria">Proceso Radicacion</label>
+							</strong>
+							<?php $radicacion_proceso = array('LEGAL','AREA'); ?>
+							<select name="radicacion_proceso" id="radicacion_proceso" data-required='true' class="form-control" disabled="true">
+								<option value="" hidden>Seleccione el tipo de recepción</option>
+								<?php foreach ($radicacion_proceso as $radicacion_pro):?>
+									<option value="<?=$radicacion_pro;?>" <?=($InfoRadicado["RADICACION_PROCESO"] == $radicacion_pro) ? 'selected' : ''; ?>><?=$radicacion_pro;?></option>
+								<?php endforeach; ?>
+							</select>
+						  	<small class="help-error-block"></small>
+						</div>
+					</div>
+				</div>
+				<div class="row col-md-12" style="border-top: 1px solid #ddd; padding: 20px 0px 0px 0px;">
+						<div class="col-md-6">
+							<strong>
+								<label data-label="correo_radicacion" class="categoria">Correo Cliente</label>
+							</strong>
+							<div class="form-group">
+							  	<input type="email" id="correo_radicacion" data-required="true" name="correo_radicacion" class="form-control" placeholder="Ingrese el correo del usuario" disabled="true" onchange="ValidateEmail(this)" <?=(isset($InfoRadicado["CORREO_RADICACION"])) ? "value='{$InfoRadicado["CORREO_RADICACION"]}'" : '';?>>
+							  	<small class="help-error-block"></small>
+							</div>
+							<hr>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="checkbox" name="check_observaciones" id="check_observaciones" disabled="true" onclick="checkboxEnabledField(true,this,'#radicacion_observacion','hide')">
+								<label for="observaciones" data-label="radicacion_observacion" class="categoria">Observaciones</label>
+								<textarea class="form-control" name="radicacion_observacion" id="radicacion_observacion" rows="10" cols="50" disabled="true" style="display:none"><?=$InfoRadicado['RADICADO_OBSERVACION'];?></textarea>
+								<small class="help-error-block"></small>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<hr>
+							<div class="pull-left">
+							<input type="checkbox" name="formulario_sarlaft" id="formulario_sarlaft" disabled="true" <?=(isset($InfoRadicado["FORMULARIO_SARLAFT"]) && $InfoRadicado["FORMULARIO_SARLAFT"] == 1) ? 'checked="checked" value="1"' : 'value="0"';?>>
+								<label for="formulario_sarlaft">Formulario Sarlaft</label>
+							</div>
+						</div>
+						<div class="col-md-12 <?=((!isset($InfoRadicado["FORMULARIO"]) || $InfoRadicado["FORMULARIO"] == 'Viejo') && (!isset($InfoRadicado["RADICACION_ID"]) && empty($InfoRadicado["RADICACION_ID"]))) ? 'hidden' : ''?>" id="table-renombramientos">
+							<hr>
+							<button type="button" id="add-file-rename" class="btn btn-success">Agregar Archivo <span class="glyphicon glyphicon-plus"></span></button>
+							<hr>
+							<div id="content-files-radicacion">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered" id="table-content-files-rename" disabled="disabled">
+										<thead>
+											<tr>
+												<th>Archivo</th>
+												<th>Renombramiento</th>
+												<th>Acciones</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+			<hr>
+			<button type="button" class="btn btn-success pull-right" disabled="disabled" id="verificar_radicacion">
+				Verificar Radicacion <span class="glyphicon glyphicon-list-alt"></span>
+			</button>
+		</form>	
+	</div>
+	
+	<!-- MODAL PARA LA CREACION DE UN CLIENTE -->
+	<div class="modal fade bs-example-modal-lg" id="modal-new-client" tabindex="-1" role="dialog" aria-labelledby="Registro Nuevo Cliente">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+		    	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    	<h4 class="modal-title">Registro Nuevo Cliente</h4>
+		    </div>
+		    <div class="modal-body">
+		    	<form action="<?=BASE_URL?>radicacion/saveClientNew" method="POST" autocomplete="off" name="form-radicacion-new-cliente">
+					<div class="form-group">
+	                    <label>Tipo documento Cliente</label>
+	                    <select class="form-control" name="tipo_documento">
+	                        <option value="" hidden>Seleccione tipo de documento</option>
+	                        <?php foreach($this->SelectTipoDocumento as $row):?>
+	                            <option value="<?=$row['id']?>" ><?=$row['descripcion'] . '(' . $row['codigo'] . ')' ?></option>
+	                        <?php endforeach;?>
+	                    </select>
+	                </div>
+	                <div class="form-group">
+	                    <label for="documentClient">Numero Identificación</label>
+	                    <input type="text" class="form-control" name="documentClient" readonly="readonly">
+	                </div>
+                </form>
+		    </div>
+	    	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		        <button type="button" class="btn btn-success" id="save-new-client">Registrar <span class="glyphicon glyphicon-user"></span></button>
+		    </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- MODAL DE VERIFICACION DE LOS CAMPOS -->
+	<div class="modal fade bs-example-modal-lg" id="modal-radicacion" tabindex="-1" role="dialog" aria-labelledby="">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+		    	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    	<h4 class="modal-title">Verificacion de Radicacion</h4>
+		    </div>
+		    <div class="modal-body"></div>
+	    	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		        <?php if(isset($InfoRadicado["RADICACION_ID"]) && !empty($InfoRadicado["RADICACION_ID"])):?>
+		        	<button type="button" class="btn btn-success" id="modificar_radicacion">Modificar Radicacion <span class="glyphicon glyphicon-save"></span></button></button>
+		        <?php else:?>
+		        	<button type="button" class="btn btn-success" id="guardar_radicacion">Guardar Radicacion <span class="glyphicon glyphicon-save"></span></button></button>
+	        	<?php endif;?>
+		    </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="modal-renombramiento-file" role="dialog">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+		    	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    	<h4 class="modal-title" id="modalTitle">Modulo Renombramiento</h4>
+		    </div>
+	    	<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12 hidden" >
+						<div class="form-group">
+							<label for="pos_file_rename">Posicion archivo renombrado:</label>
+							<input type="hidden" id="pos_file_rename" disabled="disabled" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="renombramiento_tipo_documento">Tipo de Documento</label>
+							<select name="renombramiento_tipo_documento" id="renombramiento_tipo_documento" class="select2"></select>
+						</div>
+						<div class="form-group">
+							<label for="renombramiento_tipo_id">Tipo ID</label>
+							<input type="text" name="renombramiento_tipo_id" class="form-control" value="<?=$tipo_documento_cliente['codigo']?>" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label for="renombramiento_numero_identificacion">Id cliente</label>
+							<input type="text" name="renombramiento_numero_identificacion" class="form-control" <?=(isset($InfoRadicado["NUM_DOCUMENTO_CLIENTE"])) ? "value='".$InfoRadicado["NUM_DOCUMENTO_CLIENTE"]."'" : '';?> readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label for="renombramiento_nombre_cliente">Nombre cliente</label>
+							<input type="text" name="renombramiento_nombre_cliente" class="form-control" style="text-transform: uppercase;" onkeyup="WithoutAccents(this)" <?=(isset($nombreCliente) ? 'value="' . strtoupper($nombreCliente) . '"' : '')?>>
+						</div>
+						<div class="form-group">
+							<label for="renombramiento_fecha_actual">Fecha Renombramiento</label>
+							<input type="date" name="renombramiento_fecha_actual" value="<?=date('Y-m-d')?>" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="renombramiento_anio_actual">Año Renombramiento</label>
+							<input type="text" name="renombramiento_anio_actual" value="<?=date('Y')?>" class="form-control" readonly="readonly">
+						</div>
+						<!-- <div class="form-group">
+						    <label for="renombramiento_no_poliza">N° Poliza</label>
+						    <input type="text" name="renombramiento_no_poliza" class="form-control" style="text-transform: uppercase;">
+						</div> -->
+						<div class="form-group">
+						    <label for="renombramiento_no_siniestro">N° Siniestro</label>
+						    <input type="text" name="renombramiento_no_siniestro" class="form-control" style="text-transform: uppercase;">
+						</div>
+						<div class="form-group">
+						    <label for="renombramiento_tipo_id_consorcio">Tipo ID Consorcio</label>
+						    <select class="form-control" name="renombramiento_tipo_id_consorcio">
+								<option value="">Seleccione Tipo ID Consorcio</option>
+								<?php foreach($tiposDocumentosClientes as $row):?>
+                                    <option value="<?=$row['codigo']?>" ><?=$row['descripcion'] . '(' . $row['codigo'] . ')' ?></option>
+                                <?php endforeach;?>
+							</select>
+						</div>
+						<div class="form-group">
+						    <label for="renombramiento_num_id_consorcio">Numero ID Consorcio</label>
+						    <input type="text" name="renombramiento_num_id_consorcio" class="form-control">
+						</div>
+						<div class="form-group">
+						    <label for="renombramiento_nombre_consorcio">Nombre del Consorcio</label>
+						    <input type="text" name="renombramiento_nombre_consorcio" class="form-control" style="text-transform: uppercase;" onkeyup="WithoutAccents(this)">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<button class="btn btn-sucesss pull-right" id="btn-cargar-renombramiento">Cargar <span class="glyphicon glyphicon-save"></span></button>
+					</div>
+				</div>
+	    	</div>
+	    	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" id="btn-cancel" data-dismiss="modal">Cerrar</button>
+		    </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- MODAL DE ERRORES -->
+<div class="">
+	<div class="modal fade bs-example-modal-lg" id="modal-errores" tabindex="-1" role="dialog" aria-labelledby="Modal de errores en campos">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+		    	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    	<h4 class="modal-title" id="ModalLabelTitle">Los siguientes campos no se han completado</h4>
+		    </div>
+	    	<ul class="lista_errores"></ul>
+	    	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		    </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- GESTION DE RADICACIONES (MODIFICACIÓN - ELIMINACIÓN) -->
+<?php if(Session::getLevel(Session::get("Mundial_user_rol")) == Session::getLevel("Gerente")):?>
+	<div class="gestion_radicacion panels-content table-responsive" style="width:96%; margin: 10px auto; display: none; padding: 15px 8px 12px; border: 1px solid #C7C7C7; ">
+		<table id="table-listado-radicaciones" class="table table-striped table-bordered " cellspacing="0" style="min-width: 100%; width: 100%"></table>
+	</div>
+<?php endif;?>
