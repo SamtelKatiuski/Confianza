@@ -337,9 +337,9 @@ class radicacionController extends Controller
 
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        $fileMoved['fecha'] .= "-00";
+                                        $fileMoved['fecha'] .= "-01";
                                     }else if(strlen($fileMoved['fecha'])==4){
-                                        $fileMoved['fecha'] .= "-00-00";
+                                        $fileMoved['fecha'] .= "-01-01";
                                     }
                                     $dataRel = array(
                                         "RADICACION_ID" => $resultado_save_radicado,
@@ -955,9 +955,9 @@ class radicacionController extends Controller
                                 foreach ($moveFiles as $fileMoved) {
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        $fileMoved['fecha'] .= "-00";
+                                        $fileMoved['fecha'] .= "-01";
                                     }else if(strlen($fileMoved['fecha'])==4){
-                                        $fileMoved['fecha'] .= "-00-00";
+                                        $fileMoved['fecha'] .= "-01-01";
                                     } 
 
                                     $dataRel = array(

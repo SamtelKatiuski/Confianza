@@ -449,7 +449,6 @@ $(document).ready(function() {
 	});
 	
 	$('body').on('keypress', 'input[name="renombramiento_fecha_emision_anio"]', function(event) {
-		debugger;
 		if (this.value.length > 3) {
 			if (event.which != 8) {
 				return false;

@@ -2703,6 +2703,7 @@ class reportesController extends Controller
 				$reporteClientes[$resultado['CLIENTE_ID']]['FECHA_RADICACION'] = $resultado['FECHA_RADICACION'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['USUARIO_RADICADOR'] = $resultado['USUARIO_RADICADOR'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['TIPO_ID_CLIENTE'] = $resultado['TIPO_ID_CLIENTE'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['NOMBRE_CLIENTE'] = $resultado['NOMBRE_CLIENTE'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['FECHA_ULTIMA_ACTUALIZACION_' . $resultado['TIPO_DOC']] = $resultado['FECHA_EMISION'];
 			}
 			

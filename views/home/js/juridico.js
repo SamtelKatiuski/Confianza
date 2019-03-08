@@ -200,19 +200,15 @@ $(document).ready(function(){
 
         var form = $('form[name="form-captura-persona-juridica"]');
         var formName = form.name
-debugger;
         if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,2,4,13,11,3,15,16,9,14]) != -1){
-debugger;
             GuardarFormularioCaptura(form);
         }else if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[6,5]) != -1){
-debugger;
             if($('select[name="llamada_cliente_sarlaft"]').val() != 'MODIFICACION'){
                     GuardarFormularioCompletitud_Verificacion(form);
             }else{
                 GuardarFormulario(form);
             }
         }else{
-            debugger;
             alert("Error");
         }
     });
