@@ -4,7 +4,7 @@ $(document).ready(function(){
         if($.inArray(event.target.value,['reporte_cruce_clientes_faltantes','reporte_cruce_clientes_sobrantes']) != -1){
             $('div#archivo_cruce_zurich').removeClass('hidden');
             $('div#filtro_fechas').addClass('hidden');
-        }else if($.inArray(event.target.value,['reporte_pendientes' ,'reporte_facturacion' ,'reporte_capturas' ,'reporte_capturas_natural' ,'reporte_capturas_juridico']) != -1){
+        }else if($.inArray(event.target.value,['reporte_pendientes' ,'reporte_facturacion' ,'reporte_capturas' ,'reporte_capturas_natural' ,'reporte_capturas_juridico', 'reporte_actualizacion_documentos']) != -1){
             $('div#filtro_fechas').removeClass('hidden');
             $('div#archivo_cruce_zurich').addClass('hidden');
 
@@ -29,7 +29,7 @@ $(document).ready(function(){
                 }else{
                     alert('No se ha cargado ningun archivo');
                 }
-            }else if($.inArray(form.find('select[name="opcion_reporte"]').val(),['reporte_pendientes' ,'reporte_facturacion' ,'reporte_capturas' ,'reporte_capturas_natural' ,'reporte_capturas_juridico']) != -1){
+            }else if($.inArray(form.find('select[name="opcion_reporte"]').val(),['reporte_pendientes' ,'reporte_facturacion' ,'reporte_capturas' ,'reporte_capturas_natural' ,'reporte_capturas_juridico', 'reporte_actualizacion_documentos']) != -1){
                 if(($('input#fecha_inicio').val() == '' || $('input#fecha_fin').val() == '' )){
                     alert("No se han seleccionado fechas de rango de reporte.")
                 }else {

@@ -160,6 +160,9 @@ class radicacionController extends Controller
 
                         foreach ($data['file_renombrado'] as $keyFile => $valueFile) {
 
+                            $archivo[$keyFile-1] = explode(" ", $valueFile);$valueFile = $archivo[$keyFile-1][0];
+                            $fecha = explode(":", $archivo[$keyFile-1][1]);$archivo[$keyFile-1][1] = $fecha[1];
+
                             $files_move['files_move_total']++;
                             $_FILES['archivo_renombramiento_' . $keyFile]['name'] = strtoupper(Security::normalizeChars(Security::limpiarCadena($valueFile)).'.'.pathinfo($_FILES['archivo_renombramiento_' . $keyFile]['name'], PATHINFO_EXTENSION));
                             $resultMoveRenombramiento = Helpers::LoadFile($_FILES['archivo_renombramiento_' . $keyFile],['PNG','PDF','DOC','DOCX','JPG','JPEG','XLSX','XLS'],ROOT_ORGANIZED_FILE);
@@ -167,8 +170,11 @@ class radicacionController extends Controller
                             // Valida que los arhcivos de hallan cargado correctamente en el sistema
                             if(!isset($resultMoveRenombramiento['error'])){
 
+                                //Obtiene el nombre del archivo para insertar en relación_archivo_radicacion
+                                $moveFiles[$keyFile-1]['nombre'] = $resultMoveRenombramiento['success']['ruta_temp'];
+                                $moveFiles[$keyFile-1]['fecha'] = $archivo[$keyFile-1][1];
+
                                 $files_move['files_move_ok']++;
-                                array_push($moveFiles, $_FILES['archivo_renombramiento_' . $keyFile]['name'] );
 
                                 $TipoArchivo = $this->_files->getFileIDByCodigo(substr($valueFile,0,3));
 
@@ -328,11 +334,18 @@ class radicacionController extends Controller
                                 // Almacenamiento de relación entre archivo subido y radicación - JAV01 - 20180409
                                 
                                 foreach ($moveFiles as $fileMoved) {
-                                    
+
+                                    $partesRuta = explode('\\', $fileMoved['nombre']);
+                                    if(strlen($fileMoved['fecha'])==7){
+                                        $fileMoved['fecha'] .= "-01";
+                                    }else if(strlen($fileMoved['fecha'])==4){
+                                        $fileMoved['fecha'] .= "-01-01";
+                                    }
                                     $dataRel = array(
                                         "RADICACION_ID" => $resultado_save_radicado,
                                         "CLIENTE_ID" => $dataQuery["cliente_id"],
-                                        "NOMBRE_ARCHIVO" => $fileMoved
+                                        "NOMBRE_ARCHIVO" => $partesRuta[count($partesRuta)-1],
+                                        "FECHA_EMISION" => $fileMoved['fecha']
                                     );
 
                                     $this->_crud->Save("relacion_archivo_radicacion", $dataRel);
@@ -759,13 +772,15 @@ class radicacionController extends Controller
                             'files_move_total' => 0,
                             'files_move_ok' => 0,
                             'files_move_error' => array(),
-                        );                        
-
+                        );
                         // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
 
                         if(isset($data['file_renombrado'])){
                             
                             foreach ($data['file_renombrado'] as $keyFile => $valueFile) {
+
+                                $archivo[$keyFile-1] = explode(" ", $valueFile);$valueFile = $archivo[$keyFile-1][0];
+                                $fecha = explode(":", $archivo[$keyFile-1][1]);$archivo[$keyFile-1][1] = $fecha[1];
 
                                 $files_move['files_move_total']++;
                                 $_FILES['archivo_renombramiento_' . $keyFile]['name'] = strtoupper(Security::normalizeChars(Security::limpiarCadena($valueFile)).'.'.pathinfo($_FILES['archivo_renombramiento_' . $keyFile]['name'], PATHINFO_EXTENSION));
@@ -774,8 +789,11 @@ class radicacionController extends Controller
                                 // Valida que los arhcivos de hallan cargado correctamente en el sistema
                                 if(!isset($resultMoveRenombramiento['error'])){
 
+                                    //Obtiene el nombre del archivo para insertar en relación_archivo_radicacion
+                                    $moveFiles[$keyFile-1]['nombre'] = $resultMoveRenombramiento['success']['ruta_temp'];
+                                    $moveFiles[$keyFile-1]['fecha'] = $archivo[$keyFile-1][1];
+
                                     $files_move['files_move_ok']++;
-                                    array_push($moveFiles, $_FILES['archivo_renombramiento_' . $keyFile]['name'] );
                                     $TipoArchivo = $this->_files->getFileIDByCodigo(substr($valueFile,0,3));
 
                                     $consultaArchivoPendiente = $this->_clientes->VerifyFilePendientClient($data["cliente_id"],$TipoArchivo['id']);
@@ -935,11 +953,18 @@ class radicacionController extends Controller
                                 // Almacenamiento de relación entre archivo subido y radicación - JAV01 - 20180409
                                 
                                 foreach ($moveFiles as $fileMoved) {
-                                    
+                                    $partesRuta = explode('\\', $fileMoved['nombre']);
+                                    if(strlen($fileMoved['fecha'])==7){
+                                        $fileMoved['fecha'] .= "-00";
+                                    }else if(strlen($fileMoved['fecha'])==4){
+                                        $fileMoved['fecha'] .= "-00-00";
+                                    } 
+
                                     $dataRel = array(
                                         "RADICACION_ID" => $data["radicacion_id"],
                                         "CLIENTE_ID" => $dataQuery["cliente_id"],
-                                        "NOMBRE_ARCHIVO" => $fileMoved
+                                        "NOMBRE_ARCHIVO" => $partesRuta[count($partesRuta)-1],
+                                        "FECHA_EMISION" => $fileMoved['fecha']
                                     );
 
                                     $this->_crud->Save("relacion_archivo_radicacion", $dataRel);

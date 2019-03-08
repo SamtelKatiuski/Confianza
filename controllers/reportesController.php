@@ -91,6 +91,9 @@ class reportesController extends Controller
 			case 'reporte_capturas_juridico':
 				$return = $this->reporteCapturasJuridico($fechasReporte);
 				break;
+			case 'reporte_actualizacion_documentos':
+				$return = $this->reporteActualizacionDocumentos($fechasReporte);
+				break;
 			default:
 				
 				break;
@@ -2606,4 +2609,111 @@ class reportesController extends Controller
 
 		return $dataTable;
 	}
+
+	public function reporteActualizacionDocumentos($fechasReporte = array()){
+		$resultadoReporte = $this->_reportes->getDatosFechasDocumentos($fechasReporte);
+				
+		$dataTable = array('data' => array());
+		$dataTable["fileName"] = 'REPORTE ACTUALIZACION DOCUMENTOS';
+		$dataTable['columns'] = [
+			array(
+				'dataField' => 'FECHA_RADICACION',
+				'dataType'  => 'date',
+				'format'  	=> 'dd/MM/yyyy',
+				'caption'   => 'FECHA RADICACION'
+			),
+			array(
+				'dataField' => 'USUARIO_RADICADOR',
+				'dataType'  => 'string',
+				'caption'   => 'USUARIO RADICADOR'
+			),
+			array(
+				'dataField' => 'TIPO_ID_CLIENTE',
+				'dataType'  => 'string',
+				'caption'   => 'TIPO ID CLIENTE'
+			),
+			array(
+				'dataField' => 'NOMBRE_CLIENTE',
+				'dataType'  => 'string',
+				'caption'   => 'NOMBRE CLIENTE'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_RUT',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION RUT'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_CCO',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION CCO'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_DDC',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION DDC'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_ACC',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION ACC'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_EFC',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION EFC'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_EFI',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION EFI'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_NEF',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION NEF'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_RTA',
+				'dataType'  => 'date',
+				'format'  	=> 'yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION RTA'
+			),
+			array(
+				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_RET',
+				'dataType'  => 'date',
+				'format'  	=> 'yyyy',
+				'caption'   => 'FECHA ULTIMA ACTUALIZACION RET'
+			),
+		];
+
+		if(!isset($resultadoReporte['error'])){
+
+			$reporteClientes = array();
+			$reporteClientesFinal = array();
+
+			foreach($resultadoReporte as $resultado){
+				$reporteClientes[$resultado['CLIENTE_ID']]['CLIENTE_ID'] = $resultado['CLIENTE_ID'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['FECHA_RADICACION'] = $resultado['FECHA_RADICACION'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['USUARIO_RADICADOR'] = $resultado['USUARIO_RADICADOR'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['TIPO_ID_CLIENTE'] = $resultado['TIPO_ID_CLIENTE'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['FECHA_ULTIMA_ACTUALIZACION_' . $resultado['TIPO_DOC']] = $resultado['FECHA_EMISION'];
+			}
+			
+			foreach($reporteClientes as $reporte){
+				array_push($reporteClientesFinal, $reporte);
+			}
+
+			$dataTable["data"] = $reporteClientesFinal;
+		}
+
+		return $dataTable;
+	}
+
 }

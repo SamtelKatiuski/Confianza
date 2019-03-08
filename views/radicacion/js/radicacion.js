@@ -273,6 +273,8 @@ $(document).ready(function() {
 
 		var requeridos = [
 			'renombramiento_tipo_documento',
+			'renombramiento_fecha_emision_mes',
+			'renombramiento_fecha_emision_anio',
 			'renombramiento_tipo_id',
 			'renombramiento_numero_identificacion',
 			'renombramiento_nombre_cliente',
@@ -288,7 +290,25 @@ $(document).ready(function() {
 				  return value != val;
 				});
 			}else{
-				alert('Debe diligenciar el campo ' + $('label[for="' + val + '"]').text() + ' como minimo para el renombramiento');
+				if(val == "renombramiento_fecha_emision_mes"){
+					if($('div.'+val+'').prop('hidden')){
+						requeridos = $.grep(requeridos, function(value) {
+							return value != val;
+						  });
+					}else{
+						alert('Debe diligenciar el campo ' + $('label[for="' + val + '"]').text() + ' como minimo para el renombramiento');
+					}
+				}else if(val == "renombramiento_fecha_emision_anio"){
+					if($('div.'+val+'').prop('hidden')){
+						requeridos = $.grep(requeridos, function(value) {
+							return value != val;
+						  });
+					}else{
+						alert('Debe diligenciar el campo ' + $('label[for="' + val + '"]').text() + ' como minimo para el renombramiento');
+					}
+				} else{
+					alert('Debe diligenciar el campo ' + $('label[for="' + val + '"]').text() + ' como minimo para el renombramiento');
+				}
 			}
 		});
 
@@ -326,7 +346,15 @@ $(document).ready(function() {
 				}
 			});
 
-			$('table#table-content-files-rename tbody').find('tr#'+$('input[id="pos_file_rename"]').val()+' th').find(':input[name="file_renombrado[' + $(':input[id="pos_file_rename"]').val() + ']"]').val(nameRenombramiento.join('-'));
+			var fecha_emision;
+			if($(':input[name="renombramiento_fecha_emision_mes"]').val() != undefined && $(':input[name="renombramiento_fecha_emision_mes"]').val().length){
+				fecha_emision = " Fecha_Emisión:" + $(':input[name="renombramiento_fecha_emision_mes"]').val();
+			}else if($(':input[name="renombramiento_fecha_emision_anio"]').val() != undefined && $(':input[name="renombramiento_fecha_emision_anio"]').val().length){
+				fecha_emision = " Fecha_Emisión:" + $(':input[name="renombramiento_fecha_emision_anio"]').val();
+			} else{
+				fecha_emision = "";
+			}
+			$('table#table-content-files-rename tbody').find('tr#'+$('input[id="pos_file_rename"]').val()+' th').find(':input[name="file_renombrado[' + $(':input[id="pos_file_rename"]').val() + ']"]').val(nameRenombramiento.join('-') + fecha_emision);
 			$('div#modal-renombramiento-file').modal('hide');
 		}
 
@@ -388,6 +416,44 @@ $(document).ready(function() {
 			}
 		}else{
 			alert('No se ha escogido el tipo de documento del cliente');
+		}
+	});
+
+	$('body').on('change', 'select[name="renombramiento_tipo_documento"]', function(){
+		switch ($('select[name="renombramiento_tipo_documento"]').val()){
+			case "RUT":
+			case "CCO":
+			case "DDC":
+			case "ACC":
+			case "EFC":
+			case "EFI":
+			case "NEF":
+				$('div.renombramiento_fecha_emision_mes').prop('hidden', false);
+				$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
+				$('input[name="renombramiento_fecha_emision_anio"]').val("");
+				break;
+			case "RTA":
+			case "RET":
+				$('div.renombramiento_fecha_emision_anio').prop('hidden', false);
+				$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
+				$('input[name="renombramiento_fecha_emision_mes"]').val("");
+				break;
+			default :
+				$('input[name="renombramiento_fecha_emision_mes"]').val("");
+				$('input[name="renombramiento_fecha_emision_anio"]').val("");
+				$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
+				$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
+				break;
+		}
+		
+	});
+	
+	$('body').on('keypress', 'input[name="renombramiento_fecha_emision_anio"]', function(event) {
+		debugger;
+		if (this.value.length > 3) {
+			if (event.which != 8) {
+				return false;
+			}
 		}
 	});
 });
