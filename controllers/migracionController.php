@@ -174,7 +174,7 @@ class migracionController extends Controller
 																'cantidad_documentos' => $TempRowData[10],	
 																'medio_recepcion' => ucwords($TempRowData[13]),
 																'radicacion_proceso' => $TempRowData[14],
-																'formulario_repetido' => ($exist_fecha_diligenciamiento) ? 1 : 0,
+																'repetido' => ($exist_fecha_diligenciamiento) ? 1 : 0,
 																'correo_radicacion' => strtolower($TempRowData[15]),
 																'linea_negocio_id' => $TempRowData[16],
 																'radicacion_observacion' => $TempRowData[17],

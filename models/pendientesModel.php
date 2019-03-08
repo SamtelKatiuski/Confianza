@@ -36,7 +36,7 @@ class pendientesModel extends Model
                         WHERE
                             ZR2.cliente_id = ZR.cliente_id
                             AND ZR2.formulario_sarlaft = 1
-                            AND ZR2.formulario_repetido = 0 
+                            AND ZR2.repetido = 0 
                             AND ZR2.devuelto = 'No'
                             AND ZR2.radicacion_proceso = 'LEGAL'
                     )
@@ -80,7 +80,7 @@ class pendientesModel extends Model
                             WHERE
                                 ZR2.cliente_id = ZR.cliente_id
                                 AND ZR2.formulario_sarlaft = 1
-                                AND ZR2.formulario_repetido = 0 
+                                AND ZR2.repetido = 0 
                                 AND ZR2.devuelto = 'No'
                                 AND ZR2.radicacion_proceso = 'LEGAL'
                         )
@@ -133,7 +133,7 @@ class pendientesModel extends Model
             INNER JOIN tipos_documentos TD ON TD.id = clientes.tipo_documento
             INNER JOIN zr_radicacion ZR ON ZR.cliente_id = CJ.cliente
             AND ZR.formulario_sarlaft = 1
-            AND ZR.formulario_repetido = 0 
+            AND ZR.repetido = 0 
             AND ZR.devuelto = 'No'
             AND ZR.radicacion_proceso = 'LEGAL'
             INNER JOIN zr_estado_proceso_clientes_sarlaft ZEPCS ON ZEPCS.PROCESO_CLIENTE_ID = CJ.cliente
@@ -161,7 +161,7 @@ class pendientesModel extends Model
             INNER JOIN tipos_documentos TD ON TD.id = clientes.tipo_documento
             INNER JOIN zr_radicacion ZR ON ZR.cliente_id = CN.cliente
             AND ZR.formulario_sarlaft = 1
-            and ZR.formulario_repetido = 0
+            and ZR.repetido = 0
             AND ZR.devuelto = 'No'
             AND ZR.radicacion_proceso = 'LEGAL'
             INNER JOIN zr_estado_proceso_clientes_sarlaft ZEPCS ON ZEPCS.PROCESO_CLIENTE_ID = CN.cliente

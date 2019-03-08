@@ -348,9 +348,9 @@ $(document).ready(function() {
 
 			var fecha_emision;
 			if($(':input[name="renombramiento_fecha_emision_mes"]').val() != undefined && $(':input[name="renombramiento_fecha_emision_mes"]').val().length){
-				fecha_emision = " Fecha_Emisión:" + $(':input[name="renombramiento_fecha_emision_mes"]').val();
+				fecha_emision = "~Fecha_Emisión:" + $(':input[name="renombramiento_fecha_emision_mes"]').val();
 			}else if($(':input[name="renombramiento_fecha_emision_anio"]').val() != undefined && $(':input[name="renombramiento_fecha_emision_anio"]').val().length){
-				fecha_emision = " Fecha_Emisión:" + $(':input[name="renombramiento_fecha_emision_anio"]').val();
+				fecha_emision = "~Fecha_Emisión:" + $(':input[name="renombramiento_fecha_emision_anio"]').val();
 			} else{
 				fecha_emision = "";
 			}

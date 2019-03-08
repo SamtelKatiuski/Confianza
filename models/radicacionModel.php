@@ -136,7 +136,7 @@ class radicacionModel extends Model {
 				FROM zr_radicacion
 				WHERE zr_radicacion.cliente_id = :id
 				AND zr_radicacion.formulario_sarlaft = 1
-				AND zr_radicacion.formulario_repetido = 0
+				AND zr_radicacion.repetido = 0
 				AND zr_radicacion.fecha_diligenciamiento = :fecha
 				GROUP BY zr_radicacion.fecha_diligenciamiento
 				HAVING COUNT(*) > 0";

@@ -154,13 +154,13 @@ class radicacionController extends Controller
                             'files_move_total' => 0,
                             'files_move_ok' => 0,
                             'files_move_error' => array(),
-                        );                        
+                        );
 
                         // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
 
                         foreach ($data['file_renombrado'] as $keyFile => $valueFile) {
 
-                            $archivo[$keyFile-1] = explode(" ", $valueFile);$valueFile = $archivo[$keyFile-1][0];
+                            $archivo[$keyFile-1] = explode("~", $valueFile);$valueFile = $archivo[$keyFile-1][0];
                             $fecha = explode(":", $archivo[$keyFile-1][1]);$archivo[$keyFile-1][1] = $fecha[1];
 
                             $files_move['files_move_total']++;
@@ -309,11 +309,11 @@ class radicacionController extends Controller
 
                                 if((date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) == date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"])))){
                                     $cliente_repetido++;
-                                    $dataQuery['formulario_repetido'] = 1;                              
+                                    $dataQuery['repetido'] = 1;                              
                                 }
                             }
 
-                            if(isset($dataQuery['formulario_repetido']) && $dataQuery['formulario_repetido'] == 1){
+                            if(isset($dataQuery['repetido']) && $dataQuery['repetido'] == 1){
                                 $dataQuery['devuelto'] = 'Si';
                             }
 
@@ -321,7 +321,7 @@ class radicacionController extends Controller
                             $resultado_save_radicado = $this->_crud->Save('zr_radicacion',$dataQuery, true);
                             
 
-                            if(!isset($resultado_save_radicado['error'])){
+                            if(!(isset($resultado_save_radicado['error']) || is_null($resultado_save_radicado))){
 
                                 $return['radicacion'] = array(
                                     'nuevo_cliente' => false,
@@ -337,9 +337,9 @@ class radicacionController extends Controller
 
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        $fileMoved['fecha'] .= "-01";
+                                        $fileMoved['fecha'] .= "-00";
                                     }else if(strlen($fileMoved['fecha'])==4){
-                                        $fileMoved['fecha'] .= "-01-01";
+                                        $fileMoved['fecha'] .= "-00-00";
                                     }
                                     $dataRel = array(
                                         "RADICACION_ID" => $resultado_save_radicado,
