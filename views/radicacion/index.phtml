@@ -64,7 +64,7 @@
 				<div class="row col-md-12">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="fecha_diligenciamiento" class="control-label">Fecha diligenciamiento</label>
+							<label for="fecha_diligenciamiento" data-label="fecha_diligenciamiento" class="control-label">Fecha diligenciamiento</label>
 							<input type="date" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" disabled="true" max=<?=(date("Y-m-d"))?> <?=(isset($InfoRadicado["FECHA_DILIGENCIAMIENTO"])) ? "value='".$InfoRadicado["FECHA_DILIGENCIAMIENTO"]."'" : '';?>>
 							<label for="sin_fecha_diligenciamiento" class="control-label">Sin fecha:</label>
 							<input type="checkbox" name="sin_fecha_diligenciamiento" disabled="true">
