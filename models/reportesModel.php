@@ -133,7 +133,8 @@ class reportesModel extends Model
                 TD.codigo AS TIPO_ID_CLIENTE,
                 LEFT(RAR.nombre_archivo, 3) AS TIPO_DOC,
                 AO.nombre_cliente AS NOMBRE_CLIENTE,
-                MAX(RAR.fecha_emision) AS FECHA_EMISION
+                MAX(RAR.fecha_emision) AS FECHA_EMISION,
+                (SELECT MAX(fecha_diligenciamiento) FROM zr_radicacion) AS FCC
                 FROM relacion_archivo_radicacion RAR
                 INNER JOIN clientes Cl ON CL.id = RAR.cliente_id
                 INNER JOIN tipos_documentos TD ON CL.tipo_documento = TD.id

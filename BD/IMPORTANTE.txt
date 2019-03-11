@@ -1,2 +1,0 @@
-./confianza - corresponde a la base de datos original
-./consulta_cliente_sarlaft - corresponde al procedimiento almacenado modificado para la tabla zr_radicacion

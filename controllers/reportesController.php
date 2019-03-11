@@ -2648,58 +2648,64 @@ class reportesController extends Controller
 				'caption'   => 'NOMBRE CLIENTE'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_RUT',
+				'dataField' => 'FCC',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION RUT'
+				'caption'   => 'FCC'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_CCO',
+				'dataField' => 'RUT',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION CCO'
+				'caption'   => 'RUT'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_DDC',
+				'dataField' => 'CCO',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION DDC'
+				'caption'   => 'CCO'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_ACC',
+				'dataField' => 'DDC',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION ACC'
+				'caption'   => 'DDC'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_EFC',
+				'dataField' => 'ACC',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION EFC'
+				'caption'   => 'ACC'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_EFI',
+				'dataField' => 'EFC',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION EFI'
+				'caption'   => 'EFC'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_NEF',
+				'dataField' => 'EFI',
 				'dataType'  => 'date',
 				'format'  	=> 'MM/yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION NEF'
+				'caption'   => 'EFI'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_RTA',
+				'dataField' => 'NEF',
+				'dataType'  => 'date',
+				'format'  	=> 'MM/yyyy',
+				'caption'   => 'NEF'
+			),
+			array(
+				'dataField' => 'RTA',
 				'dataType'  => 'date',
 				'format'  	=> 'yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION RTA'
+				'caption'   => 'RTA'
 			),
 			array(
-				'dataField' => 'FECHA_ULTIMA_ACTUALIZACION_RET',
+				'dataField' => 'RET',
 				'dataType'  => 'date',
 				'format'  	=> 'yyyy',
-				'caption'   => 'FECHA ULTIMA ACTUALIZACION RET'
+				'caption'   => 'RET'
 			),
 		];
 
@@ -2714,7 +2720,8 @@ class reportesController extends Controller
 				$reporteClientes[$resultado['CLIENTE_ID']]['USUARIO_RADICADOR'] = $resultado['USUARIO_RADICADOR'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['TIPO_ID_CLIENTE'] = $resultado['TIPO_ID_CLIENTE'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['NOMBRE_CLIENTE'] = $resultado['NOMBRE_CLIENTE'];
-				$reporteClientes[$resultado['CLIENTE_ID']]['FECHA_ULTIMA_ACTUALIZACION_' . $resultado['TIPO_DOC']] = $resultado['FECHA_EMISION'];
+				$reporteClientes[$resultado['CLIENTE_ID']][$resultado['TIPO_DOC']] = $resultado['FECHA_EMISION'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['FCC'] = $resultado['FCC'];
 			}
 			
 			foreach($reporteClientes as $reporte){
