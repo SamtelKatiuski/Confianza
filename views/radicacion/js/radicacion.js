@@ -357,7 +357,13 @@ $(document).ready(function() {
 			$('table#table-content-files-rename tbody').find('tr#'+$('input[id="pos_file_rename"]').val()+' th').find(':input[name="file_renombrado[' + $(':input[id="pos_file_rename"]').val() + ']"]').val(nameRenombramiento.join('-') + fecha_emision);
 			$('div#modal-renombramiento-file').modal('hide');
 		}
-
+		/**
+		 * Limpia los campos de fecha y año de emision
+		 */
+		$('input[id=renombramiento_fecha_emision_mes]').val('');
+		$('input[id=renombramiento_fecha_emision_anio]').val('');
+		$('div#div_fecha_expedicion').attr('hidden', 'true');
+		$('div#div_anio_expedicion').attr('hidden', 'true');
 		validarSarlarf();
 	});
 
