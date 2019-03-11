@@ -30,6 +30,8 @@ class radicacionModel extends Model {
 					Radicacion.radicacion_observacion AS RADICADO_OBSERVACION,
 					Radicacion.created AS FECHA_CREACION,
 					Radicacion.formulario_sarlaft AS FORMULARIO_SARLAFT,
+					Radicacion.fecha_recepcion AS FECHA_RECEPCION,
+					Radicacion.hora_recepcion AS HORA_RECEPCION,
 					(SELECT ESTADO_PROCESO_ID FROM zr_estado_proceso_clientes_sarlaft WHERE PROCESO_CLIENTE_ID = ZEPCS.PROCESO_CLIENTE_ID AND ESTADO_PROCESO_ID != ZEPCS.ESTADO_PROCESO_ID ORDER BY ID DESC LIMIT 1) AS ANT_ESTADO_PROCESO_ID,
 					ZEPCS.ESTADO_PROCESO_ID,
 					ES.desc_type AS ESTADO_FORM
@@ -273,7 +275,9 @@ class radicacionModel extends Model {
 				Radicacion.linea_negocio_id AS LINEA_NEGOCIO_ID,
 				Radicacion.radicacion_observacion AS RADICADO_OBSERVACION,
 				Radicacion.created AS FECHA_CREACION,
-				Radicacion.formulario_sarlaft AS FORMULARIO_SARLAFT
+				Radicacion.formulario_sarlaft AS FORMULARIO_SARLAFT,
+				Radicacion.fecha_recepcion AS FECHA_RECEPCION,
+				Radicacion.hora_recepcion AS HORA_RECEPCION
 				FROM zr_radicacion AS Radicacion 
 				INNER JOIN clientes AS Cliente ON Radicacion.cliente_id = Cliente.id
 				WHERE Radicacion.id = :id";

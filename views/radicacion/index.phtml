@@ -175,6 +175,16 @@
 							</select>
 						  	<small class="help-error-block"></small>
 						</div> -->
+						<div class="form-group" id="fecha_recepcion">
+							<label data-label="fecha_recepcion" class="categoria">Fecha Recepción</label>
+								<input type="date" id="fecha_recepcion" data-required="true" name="fecha_recepcion" max="<?=(date("Y-m-d"))?>" class="form-control" disabled="true" <?=(isset($InfoRadicado["FECHA_RECEPCION"])) ? "value='{$InfoRadicado["FECHA_RECEPCION"]}'" : '';?>>
+								<small class="help-error-block"></small>
+						</div>
+						<div class="form-group" id="hora_recepcion">
+							<label data-label="hora_recepcion" class="categoria">Hora Recepción</label>
+								<input type="time" id="hora_recepcion" data-required="true" name="hora_recepcion" class="form-control" disabled="true" <?=(isset($InfoRadicado["HORA_RECEPCION"])) ? "value='{$InfoRadicado["HORA_RECEPCION"]}'" : '';?>>
+								<small class="help-error-block"></small>
+						</div>
 						<div class="form-group" id="radicacion_proceso">
 							<strong>
 								<label data-label="radicacion_proceso" class="categoria">Proceso Radicacion</label>

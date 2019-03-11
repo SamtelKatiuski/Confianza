@@ -688,6 +688,11 @@ class reportesController extends Controller
 				'caption'       => 'INTENTO LLAMADA'
 			),
 			array(
+				'dataField'     => 'INTERMEDIARIO_CLIENTE',
+				'dataType'      => 'number',
+				'caption'       => 'INTERMEDIARIO O CLIENTE'
+			),
+			array(
 				'dataField'     => 'FORMA_RECEPCION',
 				'dataType'      => 'string',
 				'caption'       => 'FORMA RECEPCION'
@@ -696,6 +701,11 @@ class reportesController extends Controller
 				'dataField'     => 'TIPO_FORMULARIO',
 				'dataType'      => 'string',
 				'caption'       => 'TIPO FORMULARIO NUEVO/VIEJO'
+			),
+			array(
+				'dataField'     => 'TIPO_DOCUMENTO',
+				'dataType'      => 'string',
+				'caption'       => 'TIPO DOCUMENTO'
 			),
 			array(
 				'dataField'     => 'TIPO_LLAMADA',
