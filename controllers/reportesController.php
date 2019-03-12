@@ -2638,9 +2638,19 @@ class reportesController extends Controller
 				'caption'   => 'USUARIO RADICADOR'
 			),
 			array(
+				'dataField' => 'USUARIO_SUSCRIPTOR',
+				'dataType'  => 'string',
+				'caption'   => 'USUARIO SUSCRIPTOR'
+			),
+			array(
 				'dataField' => 'TIPO_ID_CLIENTE',
 				'dataType'  => 'string',
 				'caption'   => 'TIPO ID CLIENTE'
+			),
+			array(
+				'dataField' => 'NUMERO_ID_CLIENTE',
+				'dataType'  => 'string',
+				'caption'   => 'NUMERO ID CLIENTE'
 			),
 			array(
 				'dataField' => 'NOMBRE_CLIENTE',
@@ -2718,7 +2728,9 @@ class reportesController extends Controller
 				$reporteClientes[$resultado['CLIENTE_ID']]['CLIENTE_ID'] = $resultado['CLIENTE_ID'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['FECHA_RADICACION'] = $resultado['FECHA_RADICACION'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['USUARIO_RADICADOR'] = $resultado['USUARIO_RADICADOR'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['USUARIO_SUSCRIPTOR'] = $resultado['USUARIO_SUSCRIPTOR'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['TIPO_ID_CLIENTE'] = $resultado['TIPO_ID_CLIENTE'];
+				$reporteClientes[$resultado['CLIENTE_ID']]['NUMERO_ID_CLIENTE'] = $resultado['NUMERO_ID_CLIENTE'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['NOMBRE_CLIENTE'] = $resultado['NOMBRE_CLIENTE'];
 				$reporteClientes[$resultado['CLIENTE_ID']][$resultado['TIPO_DOC']] = $resultado['FECHA_EMISION'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['FCC'] = $resultado['FCC'];

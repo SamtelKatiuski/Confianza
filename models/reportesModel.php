@@ -127,22 +127,25 @@ class reportesModel extends Model
     }   
     
     public function getDatosFechasDocumentos($fechasReporte = array()){
-        $sql = "SELECT CL.id AS CLIENTE_ID,
-                DATE_FORMAT(ZR.created, '%Y-%m-%d') AS FECHA_RADICACION,
-                US.nombre AS USUARIO_RADICADOR,
-                TD.codigo AS TIPO_ID_CLIENTE,
-                LEFT(RAR.nombre_archivo, 3) AS TIPO_DOC,
-                AO.nombre_cliente AS NOMBRE_CLIENTE,
-                MAX(RAR.fecha_emision) AS FECHA_EMISION,
-                (SELECT MAX(fecha_diligenciamiento) FROM zr_radicacion) AS FCC
-                FROM relacion_archivo_radicacion RAR
-                INNER JOIN clientes Cl ON CL.id = RAR.cliente_id
-                INNER JOIN tipos_documentos TD ON CL.tipo_documento = TD.id
-                INNER JOIN zr_radicacion ZR ON ZR.id = RAR.radicacion_id
-                INNER JOIN archivo_organizado AO ON ZR.id = AO.radicacion_id
-                INNER JOIN users US ON ZR.funcionario_id = US.id
-                WHERE RAR.FECHA_EMISION BETWEEN :inicio AND :fin
-                GROUP BY CLIENTE_ID, TIPO_DOC";
+        $sql = "SELECT
+        CL.id AS CLIENTE_ID,
+        DATE_FORMAT(ZR.created, '%Y-%m-%d') AS FECHA_RADICACION,
+        US.nombre AS USUARIO_RADICADOR,
+        (SELECT correo_radicacion FROM zr_radicacion WHERE created = (SELECT MAX(created) FROM zr_radicacion WHERE cliente_id = CL.id)) AS USUARIO_SUSCRIPTOR,
+        TD.codigo AS TIPO_ID_CLIENTE,
+        CL.documento AS NUMERO_ID_CLIENTE,
+        AO.nombre_cliente AS NOMBRE_CLIENTE,
+        LEFT(RAR.nombre_archivo, 3) AS TIPO_DOC,
+        (SELECT MAX(fecha_emision) FROM relacion_archivo_radicacion WHERE LEFT(relacion_archivo_radicacion.nombre_archivo, 3) = TIPO_DOC AND cliente_id = CL.id) AS FECHA_EMISION,
+        (SELECT MAX(fecha_diligenciamiento) FROM zr_radicacion WHERE correo_radicacion = ZR.correo_radicacion) AS FCC
+        FROM relacion_archivo_radicacion RAR
+        INNER JOIN clientes Cl ON CL.id = RAR.cliente_id
+        INNER JOIN tipos_documentos TD ON CL.tipo_documento = TD.id
+        INNER JOIN zr_radicacion ZR ON ZR.id = RAR.radicacion_id
+        INNER JOIN archivo_organizado AO ON ZR.id = AO.radicacion_id
+        INNER JOIN users US ON ZR.funcionario_id = US.id
+        WHERE RAR.FECHA_EMISION BETWEEN :inicio AND :fin
+        ORDER BY CLIENTE_ID";
 
         $result = $this->_db->prepare($sql);
         
