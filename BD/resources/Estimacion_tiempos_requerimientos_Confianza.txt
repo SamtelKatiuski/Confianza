@@ -1,0 +1,16 @@
+** Cambiar el capo de número de planilla de acuerdo a la estructura dada **
+
+-Creando los nuevos controles: 10m
+-Asignando estilos y posicion de los controles: 5m
+-Obteniendo la lista de sucursales: 10m
+-validando el campo abierto: 10m
+-creando el evento para el campo de año: 5m
+-Obteniendo la lista de años: 10m
+TIEMPO TOTAL: 50m
+
+** Adicionar en verificación preguntas de si o no **
+
+-Creando todos los campos de selección de si o no por cada pregunta: 2h
+-Asignando estilos y posicion de los controles: 5m
+-Validar la visualización de los controles de si o no cuando el estado sea VERIFICACION: 10m
+-
