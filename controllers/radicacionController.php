@@ -67,7 +67,8 @@ class radicacionController extends Controller
                             $documentos_pendientes["CADENA_PENDIENTES"][] = $documento_pendiente["DOCUMENTOS_PENDIENTES_CODIGO"];
                         }
                     }
-
+                    $sucursal                              = $this->_global->getSucursales();
+                    $anio                                  = $this->_global->getAnios();
                     $this->titulo                          = "Radicacion";
                     $InfoRadicado["NUM_DOCUMENTO_CLIENTE"] = $data['documentClient'];
                     $tipo_documento_cliente                = $this->_global->getTipoDocumentoByID($InfoRadicado['TIPO_DOCUMENTO_CLIENTE']);
@@ -684,7 +685,8 @@ class radicacionController extends Controller
             if(!isset($InfoRadicado['error'])){
 
                 if($InfoRadicado){
-
+                    $sucursal                              = $this->_global->getSucursales();
+                    $anio                                  = $this->_global->getAnios();
                     $this->titulo                          = "Radicacion";
                     $InfoRadicado["NUM_DOCUMENTO_CLIENTE"] = $InfoRadicado['CLIENTE_DOCUMENTO'];
                     $tipo_documento_cliente                = $this->_global->getTipoDocumentoByID($InfoRadicado['TIPO_DOCUMENTO_CLIENTE']);

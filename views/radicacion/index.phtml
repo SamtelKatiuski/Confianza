@@ -2,6 +2,10 @@
 	input[type="email"]{
 		text-transform: lowercase;
 	}
+	.control_num_planilla {
+		width: 32.5%;
+		height: 34px;
+	}
 </style>
 <div class="container">
 	<div class="col-md-12">
@@ -50,14 +54,32 @@
 					<?php if(Session::getLevel(Session::get("Mundial_user_rol")) == Session::getLevel("Gerente")):?>
 						<?php if(isset($InfoRadicado["NUM_DOCUMENTO_CLIENTE"])):?>
 							<div class="col-md-3 form-group" style="margin: 28px 0 0 0;">
-								<button type="button" class="btn btn-sm btn-danger" onclick="DeleteCliente(this,<?=(isset($InfoRadicado["CLIENTE_ID"])) ? $InfoRadicado["CLIENTE_ID"] : 'undefined';?>)" style="cursor:pointer;" title="Eliminar cliente."><span class="glyphicon glyphicon-trash "></span></button>
+								<button type="button" class="btn btn-sm btn-danger" onclick="DeleteCliente(this,<?=(isset($InfoRadicado['CLIENTE_ID'])) ? $InfoRadicado['CLIENTE_ID'] : 'undefined';?>)" style="cursor:pointer;" title="Eliminar cliente."><span class="glyphicon glyphicon-trash "></span></button>
 							</div>
 						<?php endif;?>
 					<?php endif;?>
 
-					<div class="col-md-3 form-group pull-right">
+					<div class="col-md-4 form-group pull-right">
+						<div>
 					  	<label for="numero_planilla" data-label="numero_planilla" class="categoria">Número de Planilla</label>
-					  	<input type="text" id="numero_planilla" name="numero_planilla" class="form-control" placeholder="Número de planilla" disabled="true" <?=(isset($InfoRadicado["NUMERO_PLANILLA"])) ? "value='".$InfoRadicado["NUMERO_PLANILLA"]."'" : '';?> onkeypress="ValidateRegex(/[^a-zA-Z0-9\s\-]*$/g,this)" data-required="true">
+						</div>
+						<div id="controls_num_planilla">
+							<select id="sucursal_num_planilla" class="control_num_planilla" disabled="true">
+								<option value="">Sucursal...</option>
+								<?php foreach ($sucursal as $itemSucursal):?>
+									<option value="<?=$itemSucursal['Sucursal'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode(' ', $InfoRadicado["NUMERO_PLANILLA"])[0]) == $itemSucursal['Sucursal']) ? 'selected' : ''; ?>><?=$itemSucursal['Sucursal'];?></option>
+								<?php endforeach; ?>
+							</select>
+							<input type="text" class="control_num_planilla" id="input_num_planilla" disabled="true" value="<?= (isset($InfoRadicado['NUMERO_PLANILLA']) && !empty($InfoRadicado['NUMERO_PLANILLA'])) ? explode(' ', $InfoRadicado['NUMERO_PLANILLA'])[1] : ''; ?>">
+							<select id="anio_num_planilla" class="control_num_planilla" disabled="true">
+								<option value="">Año...</option>
+								<?php foreach ($anio as $itemAnio):?>
+									<option value="<?=$itemAnio['Anio'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode(' ', $InfoRadicado["NUMERO_PLANILLA"])[2]) == $itemAnio['Anio']) ? 'selected' : ''; ?>><?=$itemAnio['Anio'];?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					  <input type="hidden" id="numero_planilla" name="numero_planilla" class="form-control" disabled="true" data-required="true" value="<?=(isset($InfoRadicado['NUMERO_PLANILLA']) && !empty($InfoRadicado['NUMERO_PLANILLA'])) ? $InfoRadicado['NUMERO_PLANILLA'] : '';?>">
+						<small class="help-error-block"></small>
 					</div>
 				</div>
 				<hr class="col-md-12">

@@ -348,6 +348,9 @@ function ValidateField(field,tag,type){
                 if(type == 'checkbox'){
                     ValidateCheckbox(field);
                 }
+                if (type == 'hidden') {
+                    ValidateFieldEmpty(field);
+                }
                 break;
             case 'SELECT':
                 ValidateFieldSelect(field);

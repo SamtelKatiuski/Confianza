@@ -160,5 +160,23 @@ class globalModel extends Model
             return $result->fetch(PDO::FETCH_ASSOC); 
     }
 
-    
+    public function getSucursales(){
+        $result = $this->_db->prepare("SELECT * FROM sucursal");
+        $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+    public function getAnios(){
+        $result = $this->_db->prepare("SELECT * FROM anio");
+        $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
 }

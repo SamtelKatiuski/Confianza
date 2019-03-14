@@ -9,6 +9,24 @@
     input[type="text"]{
         text-transform: uppercase;
     }
+
+    .radio_fields_verificacion {
+        display: inline-block;
+        width: 9.7%;
+        text-align: center;
+    }
+
+    .label_right_verificacion {
+        margin: 10px 0 0 5px;
+    }
+
+    .label_left_verificacion {
+        margin: 10px 5px 0 0;
+    }
+
+    .label_fields_verificacion {
+        display: block;
+    }
 </style> 
 
 <!-- accordion con los datos del formulario de juridica version 2.0 --> 
@@ -259,22 +277,27 @@
                 <div class="panel-body">
 
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['razon_social']))): ?>
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label for="razon_social" class="required-field">Razón o Demoninación Social:</label>
-                            <input type="text" class="form-control" name="razon_social" id="razon_social" value="<?=$cliente['razon_social']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                            <input type="text" class="form-control" name="razon_social" id="razon_social" style="display: inline-block; width: 90%;" value="<?=$cliente['razon_social']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                            <div class="radio_fields_verificacion">
+                                <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                <label class="label_left_verificacion" for="verificacion_razon_social"><input type="radio" value="SI" name="verificacion_razon_social">SI</label>
+                                <label class="label_right_verificacion" for="verificacion_razon_social"><input type="radio" value="NO" name="verificacion_razon_social">NO</label>
+                            </div>
                             <hr>
                         </div>
                     <?php endif; ?>
 
                     <div class="row">
 
-                        <div class="col-md-6 form-group" >
+                        <div class="col-md-6 form-group">
                             <label for="info_no_nit" class="required-field">NIT:</label>
                             <input class="form-control" type="number" name="info_no_nit" value='<?=$InfoCliente['documento']?>' readonly="readonly" data-required="true">
                         </div>
 
                         <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && $cliente['info_basica_digito_verificacion'] == '')): ?>
-                            <div class="col-md-6 form-group" >
+                            <div class="col-md-6 form-group">
                                 <label for="info_basica_digito_verificacion" class="required-field">Dígito de verificación (DV):</label>
                                 <input type="number" class="form-control" name="info_basica_digito_verificacion" id="info_basica_digito_verificacion" value="<?=$cliente['info_basica_digito_verificacion']?>" min="0" max-length="1" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
