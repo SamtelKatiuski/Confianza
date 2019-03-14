@@ -289,8 +289,8 @@ class homeController extends Controller {
                                     }else if($InfoCliente["TIPO_PERSONA"] == "JUR"){
                                         $nameView = "juridico";
                                     }
-//var_dump($$InfoCliente);
-                        //exit;
+                                    //var_dump($$InfoCliente);
+                                    //exit;
                                     // Verifica si llega la variable $nameView para enviar la vista o si no lo envia  a la 404 
                                     if(isset($nameView) && !empty($nameView)){
                                         $pathView = ROOT . "views/home/" . $nameView . ".phtml";

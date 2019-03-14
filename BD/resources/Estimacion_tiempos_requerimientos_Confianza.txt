@@ -1,3 +1,4 @@
+-------------------------------------------------------------------------------
 ** Cambiar el capo de número de planilla de acuerdo a la estructura dada **
 
 -Creando los nuevos controles: 10m
@@ -6,11 +7,36 @@
 -validando el campo abierto: 10m
 -creando el evento para el campo de año: 5m
 -Obteniendo la lista de años: 10m
-TIEMPO TOTAL: 50m
+-Validar el guardado de los datos: 10m
+-Validar la obtención del los datos: 10m
+TIEMPO TOTAL: 1h 10m
 
+-------------------------------------------------------------------------------
 ** Adicionar en verificación preguntas de si o no **
 
--Creando todos los campos de selección de si o no por cada pregunta: 2h
--Asignando estilos y posicion de los controles: 5m
--Validar la visualización de los controles de si o no cuando el estado sea VERIFICACION: 10m
--
+-Creando todos los campos de selección de si o no por cada pregunta: JURIDICO = 2h | NATURAL = 2h 30m
+-Asignando estilos y posicion de los controles: JURIDICO/NATURAL = 5m
+-Validar la visualización de todos los controles de si o no cuando el estado sea VERIFICACION: JURIDICO = 4h 20m | NATURAL = 2h 20m
+-Crear el campo el la base de datos: JURIDICO/NATURAL = 5m
+-Guardar y obtener los valores de la base de datos: JURIDICO = 2h 20m | NATURAL = 1h 30m
+TIEMPO TOTAL: JURIDICO = 8h 30m | NATURAL = 6h 30m
+
+-------------------------------------------------------------------------------
+** Crear un módulo donde sólo se traigan los campos de actualización, según el abreviado escogido en la radicacion **
+
+---- Para el abreviado MAC ----
+
+-Validar que la selección del abreviado sea el correspondiente y adjuntar el evento: JURIDICO/NATURAL = 30m
+-Guardar los datos en cliente_sarlaft_natural o cliente_sarlaft_juridico al momento de guardar la radicacion: JURIDICO/NATURAL = 30m
+-Crear el campo en zr_radicacion: JURIDICO/NATURAL = 5m
+-Guardar en el nuevo campo en zr_radicacion: JURIDICO/NATURAL = 20m
+-Modificar procedimiento consulta_cliente_sarlaft para obtener el nuevo campo de zr_radicacion: JURIDICO/NATURAL = 5m
+-Validar cada control del formulario de captura para solo mostrar los campos de actualización: JURIDICO = 4h 30m | NATURAL = 3h
+-Validar el guardado del formulario: JURIDICO/NATURAL = 10m
+
+---- Para el abreviado FAC
+
+-Validar que la selección del abreviado sea el correspondiente y adjuntar el evento: JURIDICO/NATURAL = 30m
+-Actualizar la fecha de diligenciamiento en zr_radicacion: JURIDICO/NATURAL = 10m
+-Validar la visualización correcta en el módulo consulta de fechas y el reporte de actualización de documentos: JURIDICO/NATURAL = 1h 30m
+TIEMPO TOTAL: JURIDICO = 8h 30m | NATURAL = 3h
