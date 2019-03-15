@@ -742,6 +742,9 @@ function resetForm(formName){
      .not(':button, :submit, :reset, :hidden').each(function(index,el){
         resetField(el);
      });
+     $('input[type=hidden][name=numero_planilla]').each(function(index,el){
+        resetField(el);
+    });
 }
 
 //Reinicia un campo por el tipo de campo

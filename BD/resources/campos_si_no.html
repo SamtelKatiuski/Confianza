@@ -1,0 +1,17 @@
+<div class="radio_fields_verificacion">
+    <label class="label_fields_verificacion required-field">¿Verificado?</label>
+    <label class="label_left_verificacion" for="verificacion_razon_social"><input type="radio" value="SI" name="verificacion_razon_social">SI</label>
+    <label class="label_right_verificacion" for="verificacion_razon_social"><input type="radio" value="NO" name="verificacion_razon_social">NO</label>
+</div>
+
+input_fields_verificacion
+
+
+<!--para la clase del input-->
+<?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>
+<!--para el div que contiene los radios-->
+<?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+<?php endif; ?>
+
+
+<?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?>

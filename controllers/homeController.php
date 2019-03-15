@@ -103,7 +103,9 @@ class homeController extends Controller {
                         
                         $chk_sarlaft_client = $this->_clientes->getInfoFileByClientId($id,'FCC');
 
-                        if($chk_sarlaft_client && isset($chk_sarlaft_client["FOLDER_ARCHIVO"]) && file_exists(FOLDERS_PATH . $chk_sarlaft_client["FOLDER_ARCHIVO"])){
+                        $chk_sarlaft_client = str_replace(['xampp', 'htdocs'], ['wamp', 'www'], $chk_sarlaft_client);
+
+                        if($chk_sarlaft_client && isset($chk_sarlaft_client["FOLDER_ARCHIVO"]) && file_exists(/* FOLDERS_PATH . */ $chk_sarlaft_client["FOLDER_ARCHIVO"])){
 
                             if($tipo_cliente['TIPO_PERSONA'] == 'NAT'){
 
