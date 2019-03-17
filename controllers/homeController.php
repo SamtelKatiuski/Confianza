@@ -863,6 +863,25 @@ class homeController extends Controller {
 
                                         //Verifica que no halla generado error en el momento de guardar el cliente dentro del sistema
                                         if(!isset($resultadoSaveCaptura['error'])){
+
+                                            if($data['tipo_cliente'] == 'JUR'){
+                                                $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_juridico_verificado');
+                                                if(!isset($columnsVerificado["error"])){
+                                                    /**
+                                                     * Obtengo en $valuesVerificado los valores de los campos de verificación obtenidos
+                                                     */
+                                                    /* foreach ($columnsVerificado as $valueColumnsVerificado) {
+                                                        if (array_key_exists($valueColumnsVerificado, $data)) {
+                                                            $valuesVerificado[$valueColumnsVerificado] = $data[$valueColumnsVerificado];
+                                                        }
+                                                    } */
+                                                    $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
+                                                    $dataQueryVerificado['cliente_sarlaft_juridico_id'] = $dataQuery['id'];
+                                                    if (!empty($dataQueryVerificado)) {
+                                                        $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);
+                                                    }
+                                                }                                            
+                                            }
                                             
                                             //Verifica si el estado en el que llego el documento es: PROCESO CAPTURA, PENDIENTE(FIRMA,HUELLA,ENTREVISTA),MIGRACION,FINALIZADO
                                             if(in_array($data['estado_form_id'],[1,11,13,3])){
