@@ -819,12 +819,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $contador = 0; ?>
+                                                    <?php $contador = 0; $contadorVerificados = -1; ?>
                                                     <?php if(isset($accionistas)): ?>
-                                                        <?php foreach($accionistas as $row): $contador++;?>
+                                                        <?php foreach($accionistas as $row): $contador++; $contadorVerificados++; ?>
                                                             <tr>
                                                                 <th class="hidden">
                                                                     <input type="hidden" name="anexo_ppe_accionistas[<?=$contador?>][anexo_accionista_id]" <?=(isset($row["id"]) ? "value='{$row["id"]}'" : "")?>>
+                                                                    <input type="hidden" name="verificacion_accionista_<?=$contador?>_id" <?=(isset($accionistasVerificados[$contadorVerificados]['id']) && !empty($accionistasVerificados[$contadorVerificados]['id'])) ? "value='{$accionistasVerificados[$contadorVerificados]['id']}'" : ''; ?>>
                                                                 </th>
                                                                 <th>
                                                                 <button type="button" class="btn btn-sm btn-danger" onclick="DeleteAccionista(this,<?=(isset($row['id']) ? $row['id'] : '0');?>,'accionista_documento_<?=$contador?>')" style="cursor:pointer;" title="Eliminar accionista"><span class="glyphicon glyphicon-trash"></span></button>
@@ -834,7 +835,7 @@
                                                                     <select name="anexo_ppe_accionistas[<?=$contador?>][accionista_tipo_documento]" id="accionista_tipo_documento_<?=$contador?>" class="form-control add_anexos_accionistas">
                                                                         <option value="" hidden>Seleccione tipo de documento.</option>
                                                                         <?php foreach($tiposDocumentos as $roww):?>
-                                                                            <option value="<?=$roww['id']?>" <?= $row['accionista_tipo_documento'] == $roww['id'] ? 'selected' : '' ?> ><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
+                                                                            <option value="<?=$row['id']?>" <?= $row['accionista_tipo_documento'] == $roww['id'] ? 'selected' : '' ?> ><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
                                                                         <?php endforeach;?>
                                                                     </select>
                                                                 </th>
@@ -843,8 +844,8 @@
                                                                     <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                                                         <div class="radio_fields_verificacion" style="width: 40%; bottom: 0;">
                                                                             <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                                                            <label for="verificacion_accionistas_<?=$contador;?>_accionista_documento"><input type="radio" value="SI" name="verificacion_accionistas_<?=$contador;?>_accionista_documento">SI</label>
-                                                                            <label for="verificacion_accionistas_<?=$contador;?>_accionista_documento"><input type="radio" value="NO" name="verificacion_accionistas_<?=$contador;?>_accionista_documento">NO</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_documento"><input type="radio" value="SI" name="verificacion_accionista_<?=$contador;?>_documento" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'] == 'SI') ? 'checked' : ''; ?>>SI</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_documento"><input type="radio" value="NO" name="verificacion_accionista_<?=$contador;?>_documento" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'] == 'NO') ? 'checked' : ''; ?>>NO</label>
                                                                         </div>
                                                                     <?php endif; ?>
                                                                 </th>
@@ -853,8 +854,8 @@
                                                                     <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                                                         <div class="radio_fields_verificacion" style="width: 40%; bottom: 0;">
                                                                             <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                                                            <label for="verificacion_accionistas_<?=$contador;?>_accionista_nombres_completos"><input type="radio" value="SI" name="verificacion_accionistas_<?=$contador;?>_accionista_nombres_completos">SI</label>
-                                                                            <label for="verificacion_accionistas_<?=$contador;?>_accionista_nombres_completos"><input type="radio" value="NO" name="verificacion_accionistas_<?=$contador;?>_accionista_nombres_completos">NO</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_nombres"><input type="radio" value="SI" name="verificacion_accionista_<?=$contador;?>_nombres" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'] == 'SI') ? 'checked' : ''; ?>>SI</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_nombres"><input type="radio" value="NO" name="verificacion_accionista_<?=$contador;?>_nombres" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'] == 'NO') ? 'checked' : ''; ?>>NO</label>
                                                                         </div>
                                                                     <?php endif; ?>
                                                                 </th>
@@ -863,8 +864,8 @@
                                                                     <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                                                         <div class="radio_fields_verificacion" style="width: 40%; bottom: 0;">
                                                                             <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                                                            <label for="verificacion_accionistas_<?=$contador;?>_accionista_participacion"><input type="radio" value="SI" name="verificacion_accionistas_<?=$contador;?>_accionista_participacion">SI</label>
-                                                                            <label for="verificacion_accionistas_<?=$contador;?>_accionista_participacion"><input type="radio" value="NO" name="verificacion_accionistas_<?=$contador;?>_accionista_participacion">NO</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_participacion"><input type="radio" value="SI" name="verificacion_accionista_<?=$contador;?>_participacion" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'] == 'SI') ? 'checked' : ''; ?>>SI</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_participacion"><input type="radio" value="NO" name="verificacion_accionista_<?=$contador;?>_participacion" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'] == 'NO') ? 'checked' : ''; ?>>NO</label>
                                                                         </div>
                                                                     <?php endif; ?>
                                                                 </th>

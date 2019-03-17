@@ -416,7 +416,7 @@ class clientesModel extends Model
     =================================================================*/
     
         // Guarda los anexos del cliente natural o juridico
-        public function saveAnexos($table,$data) {
+        public function saveAnexos($table, $data, $last_id = false) {
             foreach ($data as $KeyDataSQL => $valueDataSQL) {
                 $valuesColumnsSQL[":".$KeyDataSQL] = $valueDataSQL;
             }
@@ -445,10 +445,16 @@ class clientesModel extends Model
 
             $resultado = $result->execute();
 
-            if(!is_null($result->errorInfo()[2]))
+            if(!is_null($result->errorInfo()[2])) {
                 return $result->errorInfo()[2];
-            else
+            } else {
+                if ($last_id) {
+                    $result = $this->_db->prepare('SELECT LAST_INSERT_ID() AS LAST_ID');
+                    $result->execute();
+                    return $result->fetch(PDO::FETCH_ASSOC);
+                }
                 return $resultado;
+            }
         }
 
         // Actualiza la informacion de los anexos del cliente por el id
@@ -1200,6 +1206,20 @@ class clientesModel extends Model
         $result = $this->_db->prepare($sql);
 
         $result->bindValue(":id_natural", $id);
+
+        $resultado = $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getVerificadoAccionistas($id) {
+        $sql = "SELECT * FROM accionistas_verificado WHERE accionista_id = :id_accionista";
+        $result = $this->_db->prepare($sql);
+
+        $result->bindValue(":id_accionista", $id);
 
         $resultado = $result->execute();
 

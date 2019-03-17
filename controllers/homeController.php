@@ -242,6 +242,9 @@ class homeController extends Controller {
                                         // solo si llegan anexo_accionistas si es Juridico
                                         if($cliente["anexo_accionistas"] == 1){
                                             $accionistas = $this->_clientes->getAccionistasClienteById($id);
+                                            foreach ($accionistas as $valueAccionista) {
+                                                $accionistasVerificados[] = $this->_clientes->getVerificadoAccionistas($valueAccionista['id']);
+                                            }
                                         }
 
                                         // solo si se anexan sub_accionistas
@@ -1043,7 +1046,11 @@ class homeController extends Controller {
                                                         //Obtiene los nombres de las columnas
                                                         $columnsSQLAccionistas = $this->_global->getColumnsTable('accionistas');
 
+                                                        $accionistaActual = 0;
+
                                                         foreach ($data["anexo_ppe_accionistas"] as $valueAnexosAccionistasCliente) {
+
+                                                            $accionistaActual++;
 
                                                             //Combina los valores con los nombres de las columnas
                                                             $TempAnexoAccionistas = Helpers::formatData($columnsSQLAccionistas,$valueAnexosAccionistasCliente);
@@ -1060,15 +1067,84 @@ class homeController extends Controller {
 
                                                                     if(!isset($updateAccionista['error'])){
                                                                         $anexo_accionistas++;
+                                                                        $columnsAccionistasVerificados = $this->_global->getColumnsTable('accionistas_verificados');
+                                                                        if (!isset($columnsAccionistasVerificados['error'])) {
+                                                                            $accionistasVerificados = [];
+                                                                            /**
+                                                                             * Obtiene los valores de verificación del accionista correspondiente
+                                                                             */
+                                                                            foreach ($data as $keyData => $valueData) {
+                                                                                if (substr_count($keyData, 'verificacion_accionista_'.$accionistaActual)) {
+                                                                                    $accionistasVerificados[$keyData] = $valueData;
+                                                                                }
+                                                                            }
+                                                                            /**
+                                                                             * Obtiene los datos de verificado y los guarda en la tabla
+                                                                             */
+                                                                            if (isset($accionistasVerificados) && !empty($accionistasVerificados)) {
+                                                                                /**
+                                                                                 * Reemplazo las claves para que concuerden con las columnas de la tabla
+                                                                                 */
+                                                                                foreach ($accionistasVerificados as $keyAccionista => $valueAccionista) {
+                                                                                    if (substr_count($keyAccionista, 'documento')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_documento', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'nombres')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_nombres', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'participacion')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_participacion', $keyAccionista)] = $valueAccionista;
+                                                                                    }
+                                                                                    unset($accionistasVerificados[$keyAccionista]);
+                                                                                }
+                                                                                /**
+                                                                                 * Si existe el id para actualizar en la tabla
+                                                                                 */
+                                                                                if (isset($data['verificacion_accionista_'.$accionistaActual.'_id']) && !empty($data['verificacion_accionista_'.$accionistaActual.'_id'])) {
+                                                                                    $accionistasVerificados['id'] = $data['verificacion_accionista_'.$accionistaActual.'_id'];
+                                                                                    $updateAccionistaVerificado = $this->_crud->Update('accionistas_verificados', $accionistasVerificados);
+                                                                                }
+                                                                            }
+                                                                        }
                                                                     }else{
                                                                         throw new Exception('No se pudo actualizar la informacion del accionista: ' . $TempAnexoAccionistas['accionista_documento'] . ' por: ' . $updateAccionista['error']);
                                                                     }
                                                                 }else{
 
-                                                                    $saveAccionista = $this->_clientes->saveAnexos('accionistas',$TempAnexoAccionistas);
+                                                                    $saveAccionista = $this->_clientes->saveAnexos('accionistas',$TempAnexoAccionistas, true);
 
                                                                     if(!isset($saveAccionista['error'])){
                                                                         $anexo_accionistas++;
+                                                                        $columnsAccionistasVerificados = $this->_global->getColumnsTable('accionistas_verificados');
+                                                                        if (!isset($columnsAccionistasVerificados['error'])) {
+                                                                            $accionistasVerificados = [];
+                                                                            /**
+                                                                             * Obtiene los valores de verificación del accionista correspondiente
+                                                                             */
+                                                                            foreach ($data as $keyData => $valueData) {
+                                                                                if (substr_count($keyData, 'verificacion_accionista_'.$accionistaActual)) {
+                                                                                    $accionistasVerificados[$keyData] = $valueData;
+                                                                                }
+                                                                            }
+                                                                            /**
+                                                                             * Obtiene los datos de verificado y los guarda en la tabla
+                                                                             */
+                                                                            if (isset($accionistasVerificados) && !empty($accionistasVerificados)) {
+                                                                                /**
+                                                                                 * Reemplazo las claves para que concuerden con las columnas de la tabla
+                                                                                 */
+                                                                                foreach ($accionistasVerificados as $keyAccionista => $valueAccionista) {
+                                                                                    if (substr_count($keyAccionista, 'documento')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_documento', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'nombres')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_nombres', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'participacion')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_participacion', $keyAccionista)] = $valueAccionista;
+                                                                                    }
+                                                                                    unset($accionistasVerificados[$keyAccionista]);
+                                                                                }
+                                                                                $accionistasVerificados['accionista_id'] = $saveAccionista['LAST_ID'];
+                                                                                $saveAccionistaVerificado = $this->_crud->Save('accionistas_verificados', $accionistasVerificados);
+                                                                            }
+                                                                        }
                                                                     }else{
                                                                         throw new Exception('No se pudo registrar la informacion del accionista: ' . $TempAnexoAccionistas['accionista_documento'] . ' por: ' . $saveAccionista['error']);
                                                                     }
