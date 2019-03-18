@@ -12,7 +12,7 @@
 
     .radio_fields_verificacion {
         display: inline-block;
-        width: 9.7%;
+        width: 9%;
         text-align: center;
         position: relative;
         bottom: 10px;
@@ -292,8 +292,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_razon_social"><input type="radio" value="SI" name="verificacion_razon_social">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_razon_social"><input type="radio" value="NO" name="verificacion_razon_social">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_razon_social"><input type="radio" value="SI" name="verificacion_razon_social" <?=((isset($cliente['verificacion_razon_social']) && !empty($cliente['verificacion_razon_social'])) && ($cliente['verificacion_razon_social'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_razon_social"><input type="radio" value="NO" name="verificacion_razon_social" <?=((isset($cliente['verificacion_razon_social']) && !empty($cliente['verificacion_razon_social'])) && ($cliente['verificacion_razon_social'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                             <hr>
@@ -307,8 +307,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion" style="margin-left: 20px; bottom: 25px; width: 10.8%;">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_tipo_documento"><input type="radio" value="SI" name="verificacion_tipo_documento">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_tipo_documento"><input type="radio" value="NO" name="verificacion_tipo_documento">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_documento"><input type="radio" value="SI" name="verificacion_documento" <?=((isset($cliente['verificacion_documento']) && !empty($cliente['verificacion_documento'])) && ($cliente['verificacion_documento'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_documento"><input type="radio" value="NO" name="verificacion_documento" <?=((isset($cliente['verificacion_documento']) && !empty($cliente['verificacion_documento'])) && ($cliente['verificacion_documento'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -356,8 +356,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="SI" name="verificacion_direccion_oficina_principal">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="NO" name="verificacion_direccion_oficina_principal">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="SI" name="verificacion_direccion_oficina_principal" <?=((isset($cliente['verificacion_direccion_oficina_principal']) && !empty($cliente['verificacion_direccion_oficina_principal'])) && ($cliente['verificacion_direccion_oficina_principal'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="NO" name="verificacion_direccion_oficina_principal" <?=((isset($cliente['verificacion_direccion_oficina_principal']) && !empty($cliente['verificacion_direccion_oficina_principal'])) && ($cliente['verificacion_direccion_oficina_principal'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -387,8 +387,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_departamento_empresa"><input type="radio" value="SI" name="verificacion_departamento_empresa">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_departamento_empresa"><input type="radio" value="NO" name="verificacion_departamento_empresa">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_departamento_empresa"><input type="radio" value="SI" name="verificacion_departamento_empresa" <?=((isset($cliente['verificacion_departamento_empresa']) && !empty($cliente['verificacion_departamento_empresa'])) && ($cliente['verificacion_departamento_empresa'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_departamento_empresa"><input type="radio" value="NO" name="verificacion_departamento_empresa" <?=((isset($cliente['verificacion_departamento_empresa']) && !empty($cliente['verificacion_departamento_empresa'])) && ($cliente['verificacion_departamento_empresa'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -406,8 +406,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_ciudad_empresa"><input type="radio" value="SI" name="verificacion_ciudad_empresa">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_ciudad_empresa"><input type="radio" value="NO" name="verificacion_ciudad_empresa">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_ciudad_empresa"><input type="radio" value="SI" name="verificacion_ciudad_empresa" <?=((isset($cliente['verificacion_ciudad_empresa']) && !empty($cliente['verificacion_ciudad_empresa'])) && ($cliente['verificacion_ciudad_empresa'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_ciudad_empresa"><input type="radio" value="NO" name="verificacion_ciudad_empresa" <?=((isset($cliente['verificacion_ciudad_empresa']) && !empty($cliente['verificacion_ciudad_empresa'])) && ($cliente['verificacion_ciudad_empresa'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -420,8 +420,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_oficina_principal_telefono"><input type="radio" value="SI" name="verificacion_oficina_principal_telefono">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_oficina_principal_telefono"><input type="radio" value="NO" name="verificacion_oficina_principal_telefono">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_oficina_principal_telefono"><input type="radio" value="SI" name="verificacion_oficina_principal_telefono" <?=((isset($cliente['verificacion_oficina_principal_telefono']) && !empty($cliente['verificacion_oficina_principal_telefono'])) && ($cliente['verificacion_oficina_principal_telefono'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_oficina_principal_telefono"><input type="radio" value="NO" name="verificacion_oficina_principal_telefono" <?=((isset($cliente['verificacion_oficina_principal_telefono']) && !empty($cliente['verificacion_oficina_principal_telefono'])) && ($cliente['verificacion_oficina_principal_telefono'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -458,8 +458,8 @@
                         <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                             <div class="radio_fields_verificacion" style="bottom: 0px;">
                                 <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                <label class="label_left_verificacion" for="verificacion_ciiu_actividad_economica"><input type="radio" value="SI" name="verificacion_ciiu_actividad_economica">SI</label>
-                                <label class="label_right_verificacion" for="verificacion_ciiu_actividad_economica"><input type="radio" value="NO" name="verificacion_ciiu_actividad_economica">NO</label>
+                                <label class="label_left_verificacion" for="verificacion_ciiu_actividad_economica"><input type="radio" value="SI" name="verificacion_ciiu_actividad_economica" <?=((isset($cliente['verificacion_ciiu_actividad_economica']) && !empty($cliente['verificacion_ciiu_actividad_economica'])) && ($cliente['verificacion_ciiu_actividad_economica'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                <label class="label_right_verificacion" for="verificacion_ciiu_actividad_economica"><input type="radio" value="NO" name="verificacion_ciiu_actividad_economica" <?=((isset($cliente['verificacion_ciiu_actividad_economica']) && !empty($cliente['verificacion_ciiu_actividad_economica'])) && ($cliente['verificacion_ciiu_actividad_economica'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                             </div>
                         <?php endif; ?>
                         <div class="form-group" id="ofi_principal_ciiu_cod_otro" <?=($cliente['ofi_principal_ciiu'] != 2222) ? 'style="display: none"' : '' ?>>
@@ -472,8 +472,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_ciiu_cod"><input type="radio" value="SI" name="verificacion_ciiu_cod">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_ciiu_cod"><input type="radio" value="NO" name="verificacion_ciiu_cod">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_ciiu_cod"><input type="radio" value="SI" name="verificacion_ciiu_cod" <?=((isset($cliente['verificacion_ciiu_cod']) && !empty($cliente['verificacion_ciiu_cod'])) && ($cliente['verificacion_ciiu_cod'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_ciiu_cod"><input type="radio" value="NO" name="verificacion_ciiu_cod" <?=((isset($cliente['verificacion_ciiu_cod']) && !empty($cliente['verificacion_ciiu_cod'])) && ($cliente['verificacion_ciiu_cod'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -491,8 +491,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_sector"><input type="radio" value="SI" name="verificacion_sector">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_sector"><input type="radio" value="NO" name="verificacion_sector">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_sector"><input type="radio" value="SI" name="verificacion_sector" <?=((isset($cliente['verificacion_sector']) && !empty($cliente['verificacion_sector'])) && ($cliente['verificacion_sector'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_sector"><input type="radio" value="NO" name="verificacion_sector" <?=((isset($cliente['verificacion_sector']) && !empty($cliente['verificacion_sector'])) && ($cliente['verificacion_sector'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -554,8 +554,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_rep_legal_primer_apellido"><input type="radio" value="SI" name="verificacion_rep_legal_primer_apellido">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_rep_legal_primer_apellido"><input type="radio" value="NO" name="verificacion_rep_legal_primer_apellido">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_rep_legal_primer_apellido"><input type="radio" value="SI" name="verificacion_rep_legal_primer_apellido" <?=((isset($cliente['verificacion_rep_legal_primer_apellido']) && !empty($cliente['verificacion_rep_legal_primer_apellido'])) && ($cliente['verificacion_rep_legal_primer_apellido'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_rep_legal_primer_apellido"><input type="radio" value="NO" name="verificacion_rep_legal_primer_apellido" <?=((isset($cliente['verificacion_rep_legal_primer_apellido']) && !empty($cliente['verificacion_rep_legal_primer_apellido'])) && ($cliente['verificacion_rep_legal_primer_apellido'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -568,8 +568,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_rep_legal_segundo_apellido"><input type="radio" value="SI" name="verificacion_rep_legal_segundo_apellido">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_rep_legal_segundo_apellido"><input type="radio" value="NO" name="verificacion_rep_legal_segundo_apellido">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_rep_legal_segundo_apellido"><input type="radio" value="SI" name="verificacion_rep_legal_segundo_apellido" <?=((isset($cliente['verificacion_rep_legal_segundo_apellido']) && !empty($cliente['verificacion_rep_legal_segundo_apellido'])) && ($cliente['verificacion_rep_legal_segundo_apellido'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_rep_legal_segundo_apellido"><input type="radio" value="NO" name="verificacion_rep_legal_segundo_apellido" <?=((isset($cliente['verificacion_rep_legal_segundo_apellido']) && !empty($cliente['verificacion_rep_legal_segundo_apellido'])) && ($cliente['verificacion_rep_legal_segundo_apellido'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -582,8 +582,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_rep_legal_nombres"><input type="radio" value="SI" name="verificacion_rep_legal_nombres">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_rep_legal_nombres"><input type="radio" value="NO" name="verificacion_rep_legal_nombres">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_rep_legal_nombres"><input type="radio" value="SI" name="verificacion_rep_legal_nombres" <?=((isset($cliente['verificacion_rep_legal_nombres']) && !empty($cliente['verificacion_rep_legal_nombres'])) && ($cliente['verificacion_rep_legal_nombres'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_rep_legal_nombres"><input type="radio" value="NO" name="verificacion_rep_legal_nombres" <?=((isset($cliente['verificacion_rep_legal_nombres']) && !empty($cliente['verificacion_rep_legal_nombres'])) && ($cliente['verificacion_rep_legal_nombres'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -614,8 +614,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion" style="float: right; position: relative; bottom: 70px;">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="SI" name="verificacion_rep_legal_tipo_documento">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="NO" name="verificacion_rep_legal_tipo_documento">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="SI" name="verificacion_rep_legal_tipo_documento" <?=((isset($cliente['verificacion_rep_legal_tipo_documento']) && !empty($cliente['verificacion_rep_legal_tipo_documento'])) && ($cliente['verificacion_rep_legal_tipo_documento'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="NO" name="verificacion_rep_legal_tipo_documento" <?=((isset($cliente['verificacion_rep_legal_tipo_documento']) && !empty($cliente['verificacion_rep_legal_tipo_documento'])) && ($cliente['verificacion_rep_legal_tipo_documento'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -628,8 +628,8 @@
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_rep_legal_numero_documento"><input type="radio" value="SI" name="verificacion_rep_legal_numero_documento">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_rep_legal_numero_documento"><input type="radio" value="NO" name="verificacion_rep_legal_numero_documento">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_rep_legal_numero_documento"><input type="radio" value="SI" name="verificacion_rep_legal_numero_documento" <?=((isset($cliente['verificacion_rep_legal_numero_documento']) && !empty($cliente['verificacion_rep_legal_numero_documento'])) && ($cliente['verificacion_rep_legal_numero_documento'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_rep_legal_numero_documento"><input type="radio" value="NO" name="verificacion_rep_legal_numero_documento" <?=((isset($cliente['verificacion_rep_legal_numero_documento']) && !empty($cliente['verificacion_rep_legal_numero_documento'])) && ($cliente['verificacion_rep_legal_numero_documento'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -809,29 +809,30 @@
                                       <h4 class="modal-title" style="font-size: 20px !important;">Diligencie el siguiente cuadro</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover" style="width: 1600px !important;">
+                                        <div class="table-responsive" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="overflow-y: hidden; width: auto; white-space: nowrap;"' : ''; ?>>
+                                            <table class="table table-bordered table-hover" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 2700px !important;"' : 'style="width: 1600px !important;"'; ?>>
                                                 <thead>
                                                     <tr style="color: #000;font-weight: bold;background: #6666666b;"><th colspan="8" class="text-center" style="font-size: 20px;">Accionistas</th></tr>
                                                     <tr>
                                                         <th>ELIMINAR</th>
-                                                        <th>TIPO ID</th>
-                                                        <th>NUMERO ID</th>
-                                                        <th>NOMBRE</th>
-                                                        <th width="50">% PARTICIPACIÓN</th>
+                                                        <th <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 18%;"' : ''; ?>>TIPO ID</th>
+                                                        <th <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 24%;"' : ''; ?>>NUMERO ID</th>
+                                                        <th <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 24%;"' : ''; ?>>NOMBRE</th>
+                                                        <th <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 24%;"' : 'width="50"'; ?>>% PARTICIPACIÓN</th>
                                                         <th>¿Es persona juridica que cotiza en bolsa?</th>
                                                         <th>¿Expuesto publicamente?</th>
                                                         <th>¿Tributación en otro país?</th>
-                                                        <th width="150">¿Cuál?</th>
+                                                        <th <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 24%;"' : 'width="150"'; ?>>¿Cuál?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $contador = 0; ?>
+                                                    <?php $contador = 0; $contadorVerificados = -1; ?>
                                                     <?php if(isset($accionistas)): ?>
-                                                        <?php foreach($accionistas as $row): $contador++;?>
+                                                        <?php foreach($accionistas as $row): $contador++; $contadorVerificados++; ?>
                                                             <tr>
                                                                 <th class="hidden">
                                                                     <input type="hidden" name="anexo_ppe_accionistas[<?=$contador?>][anexo_accionista_id]" <?=(isset($row["id"]) ? "value='{$row["id"]}'" : "")?>>
+                                                                    <input type="hidden" name="verificacion_accionista_<?=$contador?>_id" <?=(isset($accionistasVerificados[$contadorVerificados]['id']) && !empty($accionistasVerificados[$contadorVerificados]['id'])) ? "value='{$accionistasVerificados[$contadorVerificados]['id']}'" : ''; ?>>
                                                                 </th>
                                                                 <th>
                                                                 <button type="button" class="btn btn-sm btn-danger" onclick="DeleteAccionista(this,<?=(isset($row['id']) ? $row['id'] : '0');?>,'accionista_documento_<?=$contador?>')" style="cursor:pointer;" title="Eliminar accionista"><span class="glyphicon glyphicon-trash"></span></button>
@@ -841,18 +842,39 @@
                                                                     <select name="anexo_ppe_accionistas[<?=$contador?>][accionista_tipo_documento]" id="accionista_tipo_documento_<?=$contador?>" class="form-control add_anexos_accionistas">
                                                                         <option value="" hidden>Seleccione tipo de documento.</option>
                                                                         <?php foreach($tiposDocumentos as $roww):?>
-                                                                            <option value="<?=$roww['id']?>" <?= $row['accionista_tipo_documento'] == $roww['id'] ? 'selected' : '' ?> ><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
+                                                                            <option value="<?=$row['id']?>" <?= $row['accionista_tipo_documento'] == $roww['id'] ? 'selected' : '' ?> ><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
                                                                         <?php endforeach;?>
                                                                     </select>
                                                                 </th>
                                                                 <th>
-                                                                    <input type="text" class="form-control" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_documento]" id="accionista_documento_<?=$contador?>" value="<?=$row['accionista_documento']?>">
+                                                                    <input type="text" class="form-control" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 50%; display: inline-block;"' : ''; ?> name="anexo_ppe_accionistas[<?=$contador;?>][accionista_documento]" id="accionista_documento_<?=$contador?>" value="<?=$row['accionista_documento']?>">
+                                                                    <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                                                        <div class="radio_fields_verificacion" style="width: 40%; bottom: 0;">
+                                                                            <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_documento"><input type="radio" value="SI" name="verificacion_accionista_<?=$contador;?>_documento" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'] == 'SI') ? 'checked' : ''; ?>>SI</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_documento"><input type="radio" value="NO" name="verificacion_accionista_<?=$contador;?>_documento" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_documento'] == 'NO') ? 'checked' : ''; ?>>NO</label>
+                                                                        </div>
+                                                                    <?php endif; ?>
                                                                 </th>
                                                                 <th>
-                                                                    <input type="text" class="form-control" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_nombres_completos]" id="accionista_nombres_completos_<?=$contador?>" value="<?=$row['accionista_nombres_completos']?>" onkeyup="OnlyLetters(this)">
+                                                                    <input type="text" class="form-control" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 50%; display: inline-block;"' : ''; ?> name="anexo_ppe_accionistas[<?=$contador;?>][accionista_nombres_completos]" id="accionista_nombres_completos_<?=$contador?>" value="<?=$row['accionista_nombres_completos']?>" onkeyup="OnlyLetters(this)">
+                                                                    <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                                                        <div class="radio_fields_verificacion" style="width: 40%; bottom: 0;">
+                                                                            <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_nombres"><input type="radio" value="SI" name="verificacion_accionista_<?=$contador;?>_nombres" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'] == 'SI') ? 'checked' : ''; ?>>SI</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_nombres"><input type="radio" value="NO" name="verificacion_accionista_<?=$contador;?>_nombres" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_nombres'] == 'NO') ? 'checked' : ''; ?>>NO</label>
+                                                                        </div>
+                                                                    <?php endif; ?>
                                                                 </th>
                                                                 <th>
-                                                                    <input type="text" class="form-control" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_participacion]" id="accionista_participacion_<?=$contador?>" value="<?=$row['accionista_participacion']?>" onkeyup="OnlyNumbersDecimals(this)">
+                                                                    <input type="text" class="form-control" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 50%; display: inline-block;"' : ''; ?> name="anexo_ppe_accionistas[<?=$contador;?>][accionista_participacion]" id="accionista_participacion_<?=$contador?>" value="<?=$row['accionista_participacion']?>" onkeyup="OnlyNumbersDecimals(this)">
+                                                                    <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                                                        <div class="radio_fields_verificacion" style="width: 40%; bottom: 0;">
+                                                                            <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_participacion"><input type="radio" value="SI" name="verificacion_accionista_<?=$contador;?>_participacion" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'] == 'SI') ? 'checked' : ''; ?>>SI</label>
+                                                                            <label for="verificacion_accionista_<?=$contador;?>_participacion"><input type="radio" value="NO" name="verificacion_accionista_<?=$contador;?>_participacion" <?=((isset($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion']) && !empty($accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'])) && $accionistasVerificados[$contadorVerificados]['verificacion_accionista_participacion'] == 'NO') ? 'checked' : ''; ?>>NO</label>
+                                                                        </div>
+                                                                    <?php endif; ?>
                                                                 </th>
                                                                 <th>
                                                                     <div class="form-group">
@@ -1217,8 +1239,8 @@
                                 <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                     <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
                                         <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                        <label class="label_left_verificacion" for="verificacion_info_financiera_ingresos"><input type="radio" value="SI" name="verificacion_info_financiera_ingresos">SI</label>
-                                        <label class="label_right_verificacion" for="verificacion_info_financiera_ingresos"><input type="radio" value="NO" name="verificacion_info_financiera_ingresos">NO</label>
+                                        <label class="label_left_verificacion" for="verificacion_info_financiera_ingresos"><input type="radio" value="SI" name="verificacion_info_financiera_ingresos" <?=((isset($cliente['verificacion_info_financiera_ingresos']) && !empty($cliente['verificacion_info_financiera_ingresos'])) && ($cliente['verificacion_info_financiera_ingresos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                        <label class="label_right_verificacion" for="verificacion_info_financiera_ingresos"><input type="radio" value="NO" name="verificacion_info_financiera_ingresos" <?=((isset($cliente['verificacion_info_financiera_ingresos']) && !empty($cliente['verificacion_info_financiera_ingresos'])) && ($cliente['verificacion_info_financiera_ingresos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -1231,8 +1253,8 @@
                                 <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                     <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
                                         <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                        <label class="label_left_verificacion" for="verificacion_info_financiera_egresos"><input type="radio" value="SI" name="verificacion_info_financiera_egresos">SI</label>
-                                        <label class="label_right_verificacion" for="verificacion_info_financiera_egresos"><input type="radio" value="NO" name="verificacion_info_financiera_egresos">NO</label>
+                                        <label class="label_left_verificacion" for="verificacion_info_financiera_egresos"><input type="radio" value="SI" name="verificacion_info_financiera_egresos" <?=((isset($cliente['verificacion_info_financiera_egresos']) && !empty($cliente['verificacion_info_financiera_egresos'])) && ($cliente['verificacion_info_financiera_egresos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                        <label class="label_right_verificacion" for="verificacion_info_financiera_egresos"><input type="radio" value="NO" name="verificacion_info_financiera_egresos" <?=((isset($cliente['verificacion_info_financiera_egresos']) && !empty($cliente['verificacion_info_financiera_egresos'])) && ($cliente['verificacion_info_financiera_egresos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -1245,8 +1267,8 @@
                                 <input type="text" style="width: 85%; bottom: 42px;" class="currency form-control input_fields_verificacion" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                 <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="SI" name="verificacion_info_financiera_activos">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="NO" name="verificacion_info_financiera_activos">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="SI" name="verificacion_info_financiera_activos" <?=((isset($cliente['verificacion_info_financiera_activos']) && !empty($cliente['verificacion_info_financiera_activos'])) && ($cliente['verificacion_info_financiera_activos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="NO" name="verificacion_info_financiera_activos" <?=((isset($cliente['verificacion_info_financiera_activos']) && !empty($cliente['verificacion_info_financiera_activos'])) && ($cliente['verificacion_info_financiera_activos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -1257,8 +1279,8 @@
                                 <input type="text" style="width: 85%; bottom: 42px;" class="currency form-control input_fields_verificacion" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                 <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="SI" name="verificacion_info_financiera_pasivos">SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="NO" name="verificacion_info_financiera_pasivos">NO</label>
+                                    <label class="label_left_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="SI" name="verificacion_info_financiera_pasivos" <?=((isset($cliente['verificacion_info_financiera_pasivos']) && !empty($cliente['verificacion_info_financiera_pasivos'])) && ($cliente['verificacion_info_financiera_pasivos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="NO" name="verificacion_info_financiera_pasivos" <?=((isset($cliente['verificacion_info_financiera_pasivos']) && !empty($cliente['verificacion_info_financiera_pasivos'])) && ($cliente['verificacion_info_financiera_pasivos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                                 </div>
                             </div>
                             <hr>
@@ -1292,7 +1314,7 @@
 
             <?php if(in_array($InfoCliente["estado_formulario_id"],[6,5]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && empty($cliente['declaracion_origen_fondos']))):?>
                 <!-- DECLARACION ORIGEN DE FONDOS -->
-                <div class="panel section-form" >
+                <div class="panel section-form">
                   <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#declaracion_origen_fondos" aria-expanded="true" aria-controls="collapseThree">
@@ -1307,8 +1329,8 @@
                             <input class="form-control input_fields_verificacion" type="text" name="declaracion_origen_fondos" id="declaracion_origen_fondos" value="<?=$cliente['declaracion_origen_fondos']?>"  >
                             <div class="radio_fields_verificacion">
                                 <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                <label class="label_left_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="SI" name="verificacion_declaracion_fondos">SI</label>
-                                <label class="label_right_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="NO" name="verificacion_declaracion_fondos">NO</label>
+                                <label class="label_left_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="SI" name="verificacion_declaracion_fondos" <?=((isset($cliente['verificacion_declaracion_fondos']) && !empty($cliente['verificacion_declaracion_fondos'])) && ($cliente['verificacion_declaracion_fondos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                <label class="label_right_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="NO" name="verificacion_declaracion_fondos" <?=((isset($cliente['verificacion_declaracion_fondos']) && !empty($cliente['verificacion_declaracion_fondos'])) && ($cliente['verificacion_declaracion_fondos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
                             </div>
                         </div>
                     </div>
