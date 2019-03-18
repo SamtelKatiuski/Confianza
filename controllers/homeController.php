@@ -103,7 +103,9 @@ class homeController extends Controller {
                         
                         $chk_sarlaft_client = $this->_clientes->getInfoFileByClientId($id,'FCC');
 
-                        if($chk_sarlaft_client && isset($chk_sarlaft_client["FOLDER_ARCHIVO"]) && file_exists(FOLDERS_PATH . $chk_sarlaft_client["FOLDER_ARCHIVO"])){
+                        $chk_sarlaft_client = str_replace(['xampp', 'htdocs'], ['wamp', 'www'], $chk_sarlaft_client);
+
+                        if($chk_sarlaft_client && isset($chk_sarlaft_client["FOLDER_ARCHIVO"]) && file_exists(/* FOLDERS_PATH . */ $chk_sarlaft_client["FOLDER_ARCHIVO"])){
 
                             if($tipo_cliente['TIPO_PERSONA'] == 'NAT'){
 
@@ -117,6 +119,20 @@ class homeController extends Controller {
                             }
 
                             if(!isset($cliente['error'])){
+
+                                if ($tipo_cliente['TIPO_PERSONA'] == 'NAT') {
+                                    foreach ($verificado = $this->_clientes->getVerificadoSarlaftNatural($cliente['id']) as $keyVerificado => $valueVerificado) {
+                                        if (!in_array($keyVerificado, ['id', 'cliente_sarlaft_natural_id'])) {
+                                            $cliente[$keyVerificado] = $valueVerificado;
+                                        }
+                                    }
+                                } else if ($tipo_cliente['TIPO_PERSONA'] == 'JUR') {
+                                    foreach ($verificado = $this->_clientes->getVerificadoSarlaftJuridico($cliente['id']) as $keyVerificado => $valueVerificado) {
+                                        if (!in_array($keyVerificado, ['id', 'cliente_sarlaft_juridico_id'])) {
+                                            $cliente[$keyVerificado] = $valueVerificado;
+                                        }
+                                    }
+                                }
 
                                 if($cliente){
 
@@ -226,6 +242,9 @@ class homeController extends Controller {
                                         // solo si llegan anexo_accionistas si es Juridico
                                         if($cliente["anexo_accionistas"] == 1){
                                             $accionistas = $this->_clientes->getAccionistasClienteById($id);
+                                            foreach ($accionistas as $valueAccionista) {
+                                                $accionistasVerificados[] = $this->_clientes->getVerificadoAccionistas($valueAccionista['id']);
+                                            }
                                         }
 
                                         // solo si se anexan sub_accionistas
@@ -861,6 +880,49 @@ class homeController extends Controller {
 
                                         //Verifica que no halla generado error en el momento de guardar el cliente dentro del sistema
                                         if(!isset($resultadoSaveCaptura['error'])){
+                                            /**
+                                             * Gurda los valores correspondientes a los campos de verificacion
+                                             */
+                                            if ($data['tipo_cliente'] == 'JUR') {
+                                                $existVerificado = $this->_clientes->getVerificadoSarlaftJuridico($dataQuery['id']);
+                                                $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_juridico_verificado');
+                                                if (!isset($columnsVerificado["error"])) {
+                                                    $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
+                                                    $dataQueryVerificado['cliente_sarlaft_juridico_id'] = $dataQuery['id'];
+                                                    if (!empty($dataQueryVerificado)) {
+                                                        /**
+                                                         * Si ya existe un registro en cliente_sarlaft_juridico_verificado
+                                                         */
+                                                        if (!isset($existVerificado["error"]) && (!is_null($existVerificado) && !empty($existVerificado))) {
+                                                            $dataQueryVerificado['id'] = $existVerificado['id'];
+                                                            $updateQueryVerificado = $this->_crud->Update('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);    
+                                                        } else if (!isset($existVerificado["error"]) && !$existVerificado) { //Si no existe registro
+                                                            $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);
+                                                        } else {
+                                                            throw new Exception('HUBO UN ERROR AL OBTENER LOS DATOS DE VERIFICACION POR: ' . $existVerificado['error']);
+                                                        }
+                                                    }
+                                                }                                            
+                                            } else {
+                                                $existVerificado = $this->_clientes->getVerificadoSarlaftNatural($dataQuery['id']);
+                                                $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_natural_verificado');
+                                                if (!isset($columnsVerificado["error"])) {
+                                                    $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
+                                                    $dataQueryVerificado['cliente_sarlaft_natural_id'] = $dataQuery['id'];
+                                                    if (!empty($dataQueryVerificado)) {
+                                                        /**
+                                                         * Si ya existe un registro en cliente_sarlaft_natural_verificado
+                                                         */
+                                                        if (!isset($existVerificado["error"]) && (!is_null($existVerificado) && !empty($existVerificado))) {
+                                                            $updateQueryVerificado = $this->_crud->Update('cliente_sarlaft_natural_verificado', $dataQueryVerificado);    
+                                                        } else if (!isset($existVerificado["error"]) && is_null($existVerificado)) { //Si no existe registro
+                                                            $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_natural_verificado', $dataQueryVerificado);
+                                                        } else {
+                                                            throw new Exception('HUBO UN ERROR AL OBTENER LOS DATOS DE VERIFICACION POR: ' . $existVerificado['error']);
+                                                        }
+                                                    }
+                                                }
+                                            }
                                             
                                             //Verifica si el estado en el que llego el documento es: PROCESO CAPTURA, PENDIENTE(FIRMA,HUELLA,ENTREVISTA),MIGRACION,FINALIZADO
                                             if(in_array($data['estado_form_id'],[1,11,13,3])){
@@ -984,7 +1046,11 @@ class homeController extends Controller {
                                                         //Obtiene los nombres de las columnas
                                                         $columnsSQLAccionistas = $this->_global->getColumnsTable('accionistas');
 
+                                                        $accionistaActual = 0;
+
                                                         foreach ($data["anexo_ppe_accionistas"] as $valueAnexosAccionistasCliente) {
+
+                                                            $accionistaActual++;
 
                                                             //Combina los valores con los nombres de las columnas
                                                             $TempAnexoAccionistas = Helpers::formatData($columnsSQLAccionistas,$valueAnexosAccionistasCliente);
@@ -1001,15 +1067,84 @@ class homeController extends Controller {
 
                                                                     if(!isset($updateAccionista['error'])){
                                                                         $anexo_accionistas++;
+                                                                        $columnsAccionistasVerificados = $this->_global->getColumnsTable('accionistas_verificados');
+                                                                        if (!isset($columnsAccionistasVerificados['error'])) {
+                                                                            $accionistasVerificados = [];
+                                                                            /**
+                                                                             * Obtiene los valores de verificación del accionista correspondiente
+                                                                             */
+                                                                            foreach ($data as $keyData => $valueData) {
+                                                                                if (substr_count($keyData, 'verificacion_accionista_'.$accionistaActual)) {
+                                                                                    $accionistasVerificados[$keyData] = $valueData;
+                                                                                }
+                                                                            }
+                                                                            /**
+                                                                             * Obtiene los datos de verificado y los guarda en la tabla
+                                                                             */
+                                                                            if (isset($accionistasVerificados) && !empty($accionistasVerificados)) {
+                                                                                /**
+                                                                                 * Reemplazo las claves para que concuerden con las columnas de la tabla
+                                                                                 */
+                                                                                foreach ($accionistasVerificados as $keyAccionista => $valueAccionista) {
+                                                                                    if (substr_count($keyAccionista, 'documento')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_documento', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'nombres')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_nombres', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'participacion')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_participacion', $keyAccionista)] = $valueAccionista;
+                                                                                    }
+                                                                                    unset($accionistasVerificados[$keyAccionista]);
+                                                                                }
+                                                                                /**
+                                                                                 * Si existe el id para actualizar en la tabla
+                                                                                 */
+                                                                                if (isset($data['verificacion_accionista_'.$accionistaActual.'_id']) && !empty($data['verificacion_accionista_'.$accionistaActual.'_id'])) {
+                                                                                    $accionistasVerificados['id'] = $data['verificacion_accionista_'.$accionistaActual.'_id'];
+                                                                                    $updateAccionistaVerificado = $this->_crud->Update('accionistas_verificados', $accionistasVerificados);
+                                                                                }
+                                                                            }
+                                                                        }
                                                                     }else{
                                                                         throw new Exception('No se pudo actualizar la informacion del accionista: ' . $TempAnexoAccionistas['accionista_documento'] . ' por: ' . $updateAccionista['error']);
                                                                     }
                                                                 }else{
 
-                                                                    $saveAccionista = $this->_clientes->saveAnexos('accionistas',$TempAnexoAccionistas);
+                                                                    $saveAccionista = $this->_clientes->saveAnexos('accionistas',$TempAnexoAccionistas, true);
 
                                                                     if(!isset($saveAccionista['error'])){
                                                                         $anexo_accionistas++;
+                                                                        $columnsAccionistasVerificados = $this->_global->getColumnsTable('accionistas_verificados');
+                                                                        if (!isset($columnsAccionistasVerificados['error'])) {
+                                                                            $accionistasVerificados = [];
+                                                                            /**
+                                                                             * Obtiene los valores de verificación del accionista correspondiente
+                                                                             */
+                                                                            foreach ($data as $keyData => $valueData) {
+                                                                                if (substr_count($keyData, 'verificacion_accionista_'.$accionistaActual)) {
+                                                                                    $accionistasVerificados[$keyData] = $valueData;
+                                                                                }
+                                                                            }
+                                                                            /**
+                                                                             * Obtiene los datos de verificado y los guarda en la tabla
+                                                                             */
+                                                                            if (isset($accionistasVerificados) && !empty($accionistasVerificados)) {
+                                                                                /**
+                                                                                 * Reemplazo las claves para que concuerden con las columnas de la tabla
+                                                                                 */
+                                                                                foreach ($accionistasVerificados as $keyAccionista => $valueAccionista) {
+                                                                                    if (substr_count($keyAccionista, 'documento')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_documento', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'nombres')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_nombres', $keyAccionista)] = $valueAccionista;
+                                                                                    } else if (substr_count($keyAccionista, 'participacion')) {
+                                                                                        $accionistasVerificados[str_replace($keyAccionista, 'verificacion_accionista_participacion', $keyAccionista)] = $valueAccionista;
+                                                                                    }
+                                                                                    unset($accionistasVerificados[$keyAccionista]);
+                                                                                }
+                                                                                $accionistasVerificados['accionista_id'] = $saveAccionista['LAST_ID'];
+                                                                                $saveAccionistaVerificado = $this->_crud->Save('accionistas_verificados', $accionistasVerificados);
+                                                                            }
+                                                                        }
                                                                     }else{
                                                                         throw new Exception('No se pudo registrar la informacion del accionista: ' . $TempAnexoAccionistas['accionista_documento'] . ' por: ' . $saveAccionista['error']);
                                                                     }
