@@ -1172,6 +1172,22 @@ class clientesModel extends Model
         else
             return $result->fetch(PDO::FETCH_ASSOC);
     }
+    //Obtiene la informacion de vinculos relacion dependiendo del tipo de cliente
+    public function getVinculoRelacion($Tipo){
+
+        if($Tipo == "Natural"){
+            $result = $this->_db->prepare("SELECT valor_dos AS vinculo_relacion FROM multi_param WHERE nombre_parametro = 'vinculo_relacion'");
+        } 
+        else if ($Tipo == "Juridico"){
+            $result = $this->_db->prepare("SELECT valor_dos AS vinculo_relacion FROM multi_param WHERE nombre_parametro = 'vinculo_relacion_juridico'");
+        }
+        $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     public function getUltimaExpedicionDoc($idCliente) {
         $sql = "SELECT NOMBRE_ARCHIVO, FECHA_EMISION FROM relacion_archivo_radicacion WHERE CLIENTE_ID = :id_cliente";

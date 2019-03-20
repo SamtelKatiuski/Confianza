@@ -195,7 +195,8 @@ class homeController extends Controller {
                                         $tiposDocumentos         = $this->_global->getAllTypeClients();
                                         $tipologias              = $this->_clientes->getTipologies();
                                         $lineas_negocio          = $this->_clientes->getLineaNegocio();
-
+                                            $vinculo_relacion = $this->_clientes->getVinculoRelacion('Natural');
+                                            $vinculo_relacion_juridico = $this->_clientes->getVinculoRelacion('Juridico');
                                             $sucursal = $this->_global->getSucursales();
                                         if(!in_array($InfoCliente["estado_formulario_id"],[1,2])){
 

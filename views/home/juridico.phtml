@@ -925,12 +925,111 @@
                         </div>
                         <div class="form-group" >
                             <label class="required-field">Representante direccion (residencia):</label>
-                            <input type="text" class="form-control" name="rep_legal_direccion_residencia" id="rep_legal_direccion_residencia" value="<?=$cliente['rep_legal_direccion_residencia']?>" >
+                            <div class="direccion" id='div_direccion_representante_legal'>
+                                <div class="containerDireccion">
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione via...</option>
+                                            <?php foreach($vias as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Literal...</option>
+                                            <?php foreach($literales as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Orientacion...</option>
+                                            <?php foreach($orientacion as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Literal...</option>
+                                            <?php foreach($literales as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Orientacion...</option> 
+                                            <?php foreach($orientacion as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione sucursal...</option>
+                                            <?php foreach($sucursal as $row):?>
+                                                <option value="<?=$row['Sucursal']?>"><?=$row['Sucursal']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione predio...</option>
+                                            <?php foreach($detallePredio as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione predio...</option>
+                                            <?php foreach($detallePredio as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-3">
+                                        <select class="form-control">
+                                            <option value="">Seleccione predio...</option>
+                                            <?php foreach($detallePredio as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-8 col-md-6 col-lg-12">
+                                        <input type="text" name="detalle_direccion" class="form-control" placeholder="Detalles">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divHabilitaDireccion">
+                                <input type="checkbox" value="Habilitar campo" onclick="habilitaControlesDireccion(this)"><label for="value" class="checkDireccion">No Estándar</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" readonly="readonly" name="rep_legal_direccion_residencia" id="rep_legal_direccion_residencia" value="<?=$cliente['rep_legal_direccion_residencia']?>" >
+                            </div>
                         </div>
                         <div class="form-group" >
                             <label for="rep_legal_pais_residencia" class="required-field">Representante pais:</label>
                             <select name="rep_legal_pais_residencia" id="rep_legal_pais_residencia" class="form-control">
-                                <option value="" hidden>Seleccione ciudad...</option>   
+                                <option value="" hidden>Seleccione pais...</option>   
                                 <?php foreach($paises as $row):?>
                                     <option value="<?=$row['id']?>"  <?= $cliente['rep_legal_pais_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_pais']?></option>
                                 <?php endforeach;?>                         
@@ -939,7 +1038,7 @@
                         <div class="form-group" >
                             <label for="rep_legal_departamento_residencia" class="required-field" onchange="loadCities(this,$('select#rep_legal_ciudad_residencia'))">Representante departamento:</label>
                             <select name="rep_legal_departamento_residencia" id="rep_legal_departamento_residencia" class="form-control">
-                                <option value="" hidden>Seleccione ciudad...</option>   
+                                <option value="" hidden>Seleccione departamento...</option>   
                                 <?php foreach($departamentos as $row):?>
                                     <option value="<?=$row['id']?>"  <?= $cliente['rep_legal_departamento_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_departamento']?></option>
                                 <?php endforeach;?>                         
@@ -956,43 +1055,48 @@
                         </div>
                         <div class="form-group" >
                             <label for="rep_legal_telefono_residencia" class="required-field">Representante telefono:</label>
-                            <input type="text" name="rep_legal_telefono_residencia" id="rep_legal_telefono_residencia" class="form-control" value="<?=$cliente["rep_legal_telefono_residencia"]?>" onkeyup="OnlyNumbers(this)" placeholder="Telefono Representante Legal">
+                            <input type="tel" name="rep_legal_telefono_residencia" id="rep_legal_telefono_residencia" class="form-control tel" value="<?=$cliente["rep_legal_telefono_residencia"]?>" onkeyup="OnlyNumbers(this)" placeholder="Telefono Representante Legal">
+                            <small class="help-error-block"></small> 
                         </div>
                         <div class="form-group" >
                             <label for="rep_legal_celular_residencia" class="required-field">Representante celular:</label>
-                            <input type="text" name="rep_legal_celular_residencia" id="rep_legal_celular_residencia" class="form-control" value="<?=$cliente["rep_legal_celular_residencia"]?>" onkeyup="OnlyNumbers(this)" placeholder="Telefono Representante Legal">
+                            <input type="tel" name="rep_legal_celular_residencia" id="rep_legal_celular_residencia" class="form-control cel" value="<?=$cliente["rep_legal_celular_residencia"]?>" onkeyup="OnlyNumbers(this)" placeholder="Telefono Representante Legal">
+                            <small class="help-error-block"></small>
                         </div>
                     <?php endif; ?>
-
-                    <?php if((in_array($InfoCliente["estado_formulario_id"],[6]) && is_null($cliente['rep_legal_persona_publica']) ) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['rep_legal_persona_publica'] == 1 && empty($anexo_ppes) ) || !in_array($InfoCliente["estado_formulario_id"],[5,6])): ?>
+                    
+                    <?php if((in_array($InfoCliente["estado_formulario_id"],[6]) && is_null($cliente['rep_legal_persona_publica']) ) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['rep_legal_persona_publica'] == "SI" && empty($anexo_ppes) ) || !in_array($InfoCliente["estado_formulario_id"],[5,6])): ?>
                         <div class="col-md-12 content-radio-buttons" >
-                            <label for="rep_legal_persona_publica" class="control-label title">¿Alguno de los administradores(Representates legales, miembros de la Junta Directiva) es una Persona Públicamnete  Expuesta?.</label>
+                            <label for="rep_legal_persona_publica" class="control-label title required-field">¿Alguno de los administradores(Representates legales, miembros de la Junta Directiva) es una Persona Públicamente  Expuesta?.</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_persona_publica" value="1" <?= ($cliente['rep_legal_persona_publica'] == 1) ? 'checked' : ''?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?> >Si</label>
-                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_persona_publica" value="0" <?= ($cliente['rep_legal_persona_publica'] == 0) ? 'checked' : ''?> >No</label>
-                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_persona_publica" value="" <?= (is_null($cliente['rep_legal_persona_publica'])) ? 'checked' : ''?> >N/A</label>
+                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico campo_obligatorio" name="rep_legal_persona_publica" value="SI" <?= ($cliente['rep_legal_persona_publica'] == "SI") ? 'checked' : ''?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?> >Si</label>
+                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_persona_publica" value="NO" <?= ($cliente['rep_legal_persona_publica'] == "NO") ? 'checked' : ''?> >No</label>
+                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_persona_publica" value="VACIO" <?= ($cliente['rep_legal_persona_publica'] == "VACIO") ? 'checked' : ''?> >N/A</label>
+                                <small class="help-error-block"></small>
                             </div>
                         </div>
                     <?php endif; ?>
 
                     <?php if((in_array($InfoCliente["estado_formulario_id"],[6]) && is_null($cliente['rep_legal_recursos_publicos'])) || !in_array($InfoCliente["estado_formulario_id"],[5,6])): ?>
                         <div class="col-md-12 content-radio-buttons" >
-                            <label for="rep_legal_recursos_publicos" class="control-label title">¿Por su cargo o actividad, alguno de los administradores (Representantes legales, miembros de la Junta Directiva) administra recursos públicos?</label>
+                            <label for="rep_legal_recursos_publicos" class="control-label title required-field">¿Por su cargo o actividad, alguno de los administradores (Representantes legales, miembros de la Junta Directiva) administra recursos públicos?</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_recursos_publicos" value="1"  <?= ($cliente['rep_legal_recursos_publicos'] == 1) ? 'checked' : ''?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?> >Si</label>
-                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_recursos_publicos" value="0"   <?= ($cliente['rep_legal_recursos_publicos'] == 0) ? 'checked' : ''?> >No</label>
-                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_recursos_publicos" value=""   <?= (is_null($cliente['rep_legal_recursos_publicos'])) ? 'checked' : ''?> >N/A</label>
+                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico campo_obligatorio" name="rep_legal_recursos_publicos" data-required="true" value="SI"  <?= ($cliente['rep_legal_recursos_publicos'] == "SI") ? 'checked' : ''?> >Si</label>
+                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_recursos_publicos" value="NO"   <?= ($cliente['rep_legal_recursos_publicos'] == "NO") ? 'checked' : ''?> >No</label>
+                                <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="rep_legal_recursos_publicos" value="VACIO"   <?= ($cliente['rep_legal_recursos_publicos'] == "VACIO") ? 'checked' : ''?> >N/A</label>
+                                <small class="help-error-block"></small>
                             </div>
                         </div>
                     <?php endif; ?>
 
                     <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])): ?>
                         <div class="col-md-12 content-radio-buttons" >
-                            <label for="rep_legal_obligaciones_tributarias" class="control-label title">¿Es usted sujeto de obligaciones tributarias en otro pais o grupo de paises?</label>
+                            <label for="rep_legal_obligaciones_tributarias" class="control-label title required-field">¿Es usted sujeto de obligaciones tributarias en otro pais o grupo de paises?</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="rep_legal_obligaciones_tributarias" data-required="true" value="1" onclick="checkboxEnabledField(true,this,'div#rep_legal_obligaciones_tributarias_indique','hide')" <?= ($cliente['rep_legal_obligaciones_tributarias'] == 1) ? 'checked' : ''?>>Si</label>
-                                <label class="radio-inline"><input type="radio" name="rep_legal_obligaciones_tributarias" value="0" onclick="checkboxEnabledField(false,this,'div#rep_legal_obligaciones_tributarias_indique','hide')" <?= ($cliente['rep_legal_obligaciones_tributarias'] == 0) ? 'checked' : ''?>>No</label>
-                                <label class="radio-inline"><input type="radio" name="rep_legal_obligaciones_tributarias" value="" onclick="checkboxEnabledField(false,this,'div#rep_legal_obligaciones_tributarias_indique','hide')" <?= (is_null($cliente['rep_legal_obligaciones_tributarias'])) ? 'checked' : ''?>>N/A</label>
+                                <label class="radio-inline"><input type="radio" class="campo_obligatorio" name="rep_legal_obligaciones_tributarias" data-required="true" value="SI" onclick="checkboxEnabledField(true,this,'div#rep_legal_obligaciones_tributarias_indique','hide')" <?= ($cliente['rep_legal_obligaciones_tributarias'] == "SI") ? 'checked' : ''?>>Si</label>
+                                <label class="radio-inline"><input type="radio" name="rep_legal_obligaciones_tributarias" value="NO" onclick="checkboxEnabledField(false,this,'div#rep_legal_obligaciones_tributarias_indique','hide')" <?= ($cliente['rep_legal_obligaciones_tributarias'] == "NO") ? 'checked' : ''?>>No</label>
+                                <label class="radio-inline"><input type="radio" name="rep_legal_obligaciones_tributarias" value="VACIO" onclick="checkboxEnabledField(false,this,'div#rep_legal_obligaciones_tributarias_indique','hide')" <?= ($cliente['rep_legal_obligaciones_tributarias'] == "VACIO") ? 'checked' : ''?>>N/A</label>
+                                <small class="help-error-block"></small>
                             </div>
                             <div class="form-group" id="rep_legal_obligaciones_tributarias_indique" style="display: none;">
                                 <hr>
@@ -1005,7 +1109,7 @@
               </div>
             </div>
 
-            <?php if(in_array($InfoCliente['estado_formulario_id'],[6,5]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && ($cliente['anexo_accionistas'] == 1 && empty($accionistas) || $cliente['anexo_sub_accionistas'] == 1 && empty($sub_accionistas)))): ?>
+            <?php if(!in_array($InfoCliente['estado_formulario_id'],[6,5]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && ($cliente['anexo_accionistas'] == 1 && empty($accionistas) || $cliente['anexo_sub_accionistas'] == 1 && empty($sub_accionistas)))): ?>
                 <!-- ACCIONISTAS -->
                 <div class="panel section-form" >
                   <div class="panel-heading" role="tab" id="headingThree">
@@ -1018,12 +1122,13 @@
                   <div id="accionistas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
                         <div class="col-md-12 content-radio-buttons">
-                            <label class="control-label title">Presenta información de Accionistas ?</label>
+                            <label for="anexo_accionistas" class="control-label title required-field">Presenta información de Accionistas ?</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" value="1" <?=($cliente["anexo_accionistas"] == 1) ? 'checked' : ''?> onclick="checkboxEnabledField(true,this,'label#add_accionistas','hide')">Si</label>
-                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" value="0" <?=($cliente["anexo_accionistas"] == 0) ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">No</label>
-                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" value="" <?=(is_null($cliente["anexo_accionistas"])) ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">N/A</label>
-                                <label class="radio-inline" id="add_accionistas" <?=($cliente["anexo_accionistas"] != 1 ) ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=anexo_accionistas][value=1]'),'div#anexo_accionistas','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
+                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="SI" class="campo_obligatorio" data-required="true" <?=($cliente["anexo_accionistas"] == "SI") ? 'checked' : ''?> onclick="checkboxEnabledField(true,this,'label#add_accionistas','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="NO" <?=($cliente["anexo_accionistas"] == "NO") ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">No</label>
+                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="VACIO" <?=($cliente["anexo_accionistas"] == "VACIO") ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">N/A</label>
+                                <label class="radio-inline" id="add_accionistas" <?=($cliente["anexo_accionistas"] != "SI") ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=anexo_accionistas][value=SI]'),'div#anexo_accionistas','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
+				<small class="help-error-block"></small>
                                 <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                     <div class="radio_fields_verificacion" style="float: right; position: relative; bottom: 30px;">
                                         <label class="label_fields_verificacion required-field">¿Verificado?</label>
