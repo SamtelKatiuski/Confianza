@@ -315,8 +315,7 @@ class homeController extends Controller {
                                     }else if($InfoCliente["TIPO_PERSONA"] == "JUR"){
                                         $nameView = "juridico";
                                     }
-                                    //var_dump($$InfoCliente);
-                                    //exit;
+
                                     // Verifica si llega la variable $nameView para enviar la vista o si no lo envia  a la 404 
                                     if(isset($nameView) && !empty($nameView)){
                                         $pathView = ROOT . "views/home/" . $nameView . ".phtml";
@@ -336,7 +335,6 @@ class homeController extends Controller {
                                 }else{
                                     throw new Exception('El cliente no devuelve ninguna información');
                                 }
-                            
                             }else{
                                 throw new Exception('No se puede visualizar el archivo por : ' . $cliente['error']);
                             }

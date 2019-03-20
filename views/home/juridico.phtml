@@ -1902,10 +1902,10 @@
                             <div class="col-md-12 content-radio-buttons">
                                 <label for="reclamaciones" class="required-field title">¿Ha presentado reclamaciones o ha recibido indemnizacion en seguros en los dos ultimos años?:</label>
                                 <div class="form-group">                   
-                                    <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones" <?= ($cliente['reclamaciones'] == 1) ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamos','hide')">Si</label>
-                                    <label class="radio-inline"><input type="radio" name="reclamaciones" value="0" class="radios reclamaciones" <?= ($cliente['reclamaciones'] == 0) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">No</label>
+                                    <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones" <?= ($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamos','hide')">Si</label>
+                                    <label class="radio-inline"><input type="radio" name="reclamaciones" value="0" class="radios reclamaciones" <?= ($cliente['reclamaciones'] === '0') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">No</label>
                                     <label class="radio-inline"><input type="radio" name="reclamaciones" value="" class="radios reclamaciones" <?= (is_null($cliente['reclamaciones'])) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">N/A</label>
-                                    <label class="radio-inline" id="add_reclamos" style="display: <?=($cliente["reclamaciones"] != 1) ? 'none' : ''?>"><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=reclamaciones][value=1]'),'div#reclamaciones','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
+                                    <label class="radio-inline" id="add_reclamos" style="display: <?=($cliente["reclamaciones"] != '1') ? 'none' : ''?>"><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=reclamaciones][value=1]'),'div#reclamaciones','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
                                 </div>
                             </div>
                             
@@ -1932,7 +1932,12 @@
                                                     <tbody>
                                                         <tr>
                                                             <th>
-                                                                <input type="number" min="0" class="form-control" name="reclamacion_anio" id="reclamacion_anio" value="<?=$cliente['reclamacion_anio']?>">
+                                                                <select class="form-control" name="reclamacion_anio" id="reclamacion_anio">
+																	<option value="">Seleccione año...</option>
+																	<?php foreach($anio as $row):?>
+																		<option type="radio" value="<?=$row['Anio']?>"><?=$row['Anio']?></option>
+																	<?php endforeach;?>
+																</select>
                                                             </th>
                                                             <th>
                                                                 <input type="text" class="form-control" name="reclamacion_ramo" id="reclamacion_ramo" value="<?=$cliente['reclamacion_ramo']?>">
@@ -1953,7 +1958,12 @@
                                                         </tr>
                                                         <tr>
                                                             <th>
-                                                                <input type="number" min="0" class="form-control" name="reclamacion_anio_2" id="reclamacion_anio_2" value="<?=$cliente['reclamacion_anio_2']?>">
+                                                                <select class="form-control" name="reclamacion_anio_2" id="reclamacion_anio_2">
+																	<option value="">Seleccione año...</option>
+																	<?php foreach($anio as $row):?>
+																		<option type="radio" value="<?=$row['Anio']?>"><?=$row['Anio']?></option>
+																	<?php endforeach;?>
+																</select>
                                                             </th>
                                                             <th>
                                                                 <input type="text" class="form-control" name="reclamacion_ramo_2" id="reclamacion_ramo_2" value="<?=$cliente['reclamacion_ramo_2']?>">
@@ -2053,40 +2063,57 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label class="required-field title">Otro:</label>
                             <div class="form-group" id="ul-otros">
-                                <label class="radio-inline"><input type="radio" name="otro" class="radios otro" value="1" disabled <?=$cliente["otro"] == 1 ? "checked" : ""?>>Si</label>
-                                <label class="radio-inline"><input type="radio" name="otro" class="radios otro" value="0" disabled <?=$cliente["otro"] == 0 ? "checked" : ""?>>No</label>
+                                <label class="radio-inline"><input type="radio" name="otro" class="radios otro" value="1" disabled <?=$cliente["otro"] == '1' ? "checked" : ""?>>Si</label>
+                                <label class="radio-inline"><input type="radio" name="otro" class="radios otro" value="0" disabled <?=$cliente["otro"] === '0' ? "checked" : ""?>>No</label>
                                 <label class="radio-inline"><input type="radio" name="otro" class="radios otro" value="" disabled <?=(is_null($cliente["otro"])) ? "checked" : ""?>>N/A</label>
                             </div>
                         </div>
                         <div class="col-md-12 content-radio-buttons">
                             <label class="required-field title">¿Formulario con firma?:</label>
                             <div class="form-group" id="ul-firma">
-                                <label class="radio-inline"><input type="radio" name="firma" class="radios firma" value="1" <?=$cliente["firma"] == 1 ? "checked" : ""?>>Si</label>
-                                <label class="radio-inline"><input type="radio" name="firma" class="radios firma" value="0" <?=$cliente["firma"] == 0 ? "checked" : ""?>>No</label>
-                                <label class="radio-inline"><input type="radio" name="firma" class="radios firma" value="" <?=(is_null($cliente["firma"])) ? "checked" : ""?>>N/A</label>
+                                <label class="radio-inline"><input type="radio" name="firma" class="radios firma" value="1" <?=$cliente["firma"] == '1' ? "checked" : ""?>>Si</label>
+                                <label class="radio-inline"><input type="radio" name="firma" class="radios firma" value="0" <?=$cliente["firma"] === '0' ? "checked" : ""?>>No</label>
                             </div>
                         </div>
                         <div class="col-md-12 content-radio-buttons">
                             <label class="required-field title">¿Formulario con huella?:</label>
                             <div class="form-group" id="ul-huella">
-                                <label class="radio-inline"><input type="radio" name="huella" class="radios huella" value="1" <?=$cliente["huella"] == 1 ? "checked" : ""?>>Si</label>
-                                <label class="radio-inline"><input type="radio" name="huella" class="radios huella" value="0" <?=$cliente["huella"] == 0 ? "checked" : ""?>>No</label>
-                                <label class="radio-inline"><input type="radio" name="huella" class="radios huella" value="" <?=(is_null($cliente["huella"])) ? "checked" : ""?>>N/A</label>
+                                <label class="radio-inline"><input type="radio" name="huella" class="radios huella" value="1" <?=$cliente["huella"] == '1' ? "checked" : ""?>>Si</label>
+                                <label class="radio-inline"><input type="radio" name="huella" class="radios huella" value="0" <?=$cliente["huella"] === '0' ? "checked" : ""?>>No</label>
                             </div>
                         </div>
                         <div class="col-md-12 content-radio-buttons">
                             <label class="required-field title">¿Formulario con entrevista?:</label>
                             <div class="form-group" id="ul-entrevista">
-                                <label class="radio-inline"><input type="radio" name="entrevista" class="radios firma" value="1" <?=$cliente["entrevista"] == 1 ? "checked" : ""?> onclick='checkboxEnabledField(true,this,"div#informacion_entrevista","hide")'>Si</label>
-                                <label class="radio-inline"><input type="radio" name="entrevista" class="radios firma" value="0" <?=$cliente["entrevista"] == 0 ? "checked" : ""?> onclick='checkboxEnabledField(false,this,"div#informacion_entrevista","hide")'>No</label>
+                                <label class="radio-inline"><input type="radio" name="entrevista" class="radios firma" value="1" <?=$cliente["entrevista"] == '1' ? "checked" : ""?> onclick='checkboxEnabledField(true,this,"div#informacion_entrevista","hide")'>Si</label>
+                                <label class="radio-inline"><input type="radio" name="entrevista" class="radios firma" value="0" <?=$cliente["entrevista"] === '0' ? "checked" : ""?> onclick='checkboxEnabledField(false,this,"div#informacion_entrevista","hide")'>No</label>
                             </div>
                         </div>
                         <div class="col-md-12 content-radio-buttons">
                             <label class="required-field title">¿Formulario con verificación?:</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="verificacion" class="radios firma" value="1" <?=$cliente["verificacion"] == 1 ? "checked" : ""?> >Si</label>
-                                <label class="radio-inline"><input type="radio" name="verificacion" class="radios firma" value="0" <?=$cliente["verificacion"] == 0 || is_null($cliente["verificacion"])? "checked" : ""?>>No</label>
+                                <label class="radio-inline"><input type="radio" name="verificacion" class="radios firma" value="1" <?=$cliente["verificacion"] == '1' ? "checked" : ""?> >Si</label>
+                                <label class="radio-inline"><input type="radio" name="verificacion" class="radios firma" value="0" <?=$cliente["verificacion"] === '0' ? "checked" : ""?>>No</label>
                             </div>
+                            </div>
+                        <div class="col-md-12 content-radio-buttons">
+                            <label for="autoriza_tratamiento" class="required-field title">Autorizacion tratamiento de informacion fines comerciales:</label>
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma campo_obligatorio" value="SI" <?=$cliente["autoriza_tratamiento"] == "SI" ? "checked" : ""?> data-required="true" >Si</label>
+                                <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma" value="NO" <?=$cliente["autoriza_tratamiento"] == "NO" ? "checked" : ""?>>No</label>
+                                <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma" value="VACIO" <?=$cliente["autoriza_tratamiento"] == "VACIO" ? "checked" : ""?>>N/A</label>
+                                <small class="help-error-block"></small>
+                            </div>
+                        </div>
+                        <div class="col-md-12 content-radio-buttons">
+                            <label for="autoriza_info_fasecolda" class="required-field title">Autorización tratamiento de información fasecolda:</label>
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma campo_obligatorio" value="SI" <?=$cliente["autoriza_info_fasecolda"] == "SI" ? "checked" : ""?> data-required="true" >Si</label>
+                                <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma" value="NO" <?=$cliente["autoriza_info_fasecolda"] == "NO" ? "checked" : ""?>>No</label>
+                                <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma" value="VACIO" <?=$cliente["autoriza_info_fasecolda"] == "VACIO" ? "checked" : ""?>>N/A</label>
+                                <small class="help-error-block"></small>
+                            </div>
+                        </div>
                         </div>
                         <div class="col-md-12" id="informacion_entrevista" style="display: <?=$cliente["entrevista"] != 1 ? 'none' : 'block'?>"> 
                             <div class="form-group">
