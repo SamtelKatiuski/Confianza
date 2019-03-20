@@ -8,6 +8,43 @@
 	input[type="text"]{
 		text-transform: uppercase;
 	}
+
+	input[id="txtLugar_expedicion_documento"]{
+		display: none;
+		margin: 10px 0 10px 0;
+	}
+	input[id="txtLugarNacimiento"], input[id="txtOcupacion"] {
+		margin: 10px 0 10px 0;
+		display: none;
+	}
+
+ 	.direccion {
+		display: flex;
+		align-items: center;
+	}
+
+	.containerDireccion {
+		box-sizing: border-box;
+		margin: 10px 0;
+	}
+
+	.containerDireccion .controlDireccion {
+		box-sizing: border-box;
+		display: inline-block;
+		padding: 10px;
+	}
+
+	.divHabilitaDireccion {
+		margin: 10px 0;
+	}
+
+	.checkDireccion {
+		margin-left: 5px;
+	} 
+
+	.muestraDireccion {
+		display: none;
+	}
 </style>
 
 <!-- accordion con los datos del formulario de natural version 2.0 --> 
@@ -127,22 +164,29 @@
 			    <div class="panel-body">
 					<div class="form-group">
 						<label class="required-field" for="fecha_diligenciamiento">Fecha de diligenciamiento:</label>
-                        <input type="date" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" value=<?=$InfoCliente['fecha_diligenciamiento']?> data-required="true" readonly="true" max=<?=(date("Y-m-d"))?>>
+                        <input type="date" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control campo_obligatorio" value=<?=$InfoCliente['fecha_diligenciamiento']?> data-required="true" readonly="true" max=<?=(date("Y-m-d"))?> data-required="true">
+						<small class="help-error-block"></small>
 					</div>
 					
 					<?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
 				      	<div class="form-group" >
 				     		<label class="required-field" for="ciudad_diligenciamiento">Ciudad de diligenciamiento:</label>
-		                    <select name="ciudad_diligenciamiento" id="ciudad_diligenciamiento" class="form-control" data-required="true">
+		                    <select name="ciudad_diligenciamiento" id="ciudad_diligenciamiento" class="form-control campo_obligatorio" data-required="true">
 		                        <option value="">Seleccione ciudad...</option>
 		                        <?php foreach($ciudades as $row):?>
 		                            <option value="<?=$row['id']?>" <?=$cliente["ciudad_diligenciamiento"] == $row["id"] ? "selected" : ""?>><?=$row['nombre_ciudad']?></option>
 		                        <?php endforeach;?>
 		                    </select>
+							<small class="help-error-block"></small>
 				     	</div>
 					    <div class="form-group" >
 					    	<label for="sucursal">Sucursal:</label>
-		                    <input type="text" class="form-control" name="sucursal" id="sucursal" value="<?=$cliente['sucursal']?>">
+							<select name="sucursal" id="sucursal" class="form-control">
+								<option value="">Seleccione sucursal...</option>
+								<?php foreach($sucursal as $row):?>
+									<option value="<?=$row['Sucursal']?>" <?= !empty($cliente['sucursal']) && strcasecmp($cliente["sucursal"], $row['Sucursal']) == 0 ? 'selected' : ''?>><?=$row['Sucursal']?></option>
+								<?php endforeach;?>
+							</select>
 					    </div>
 					    <div class="form-group" >
 					    	<label for="tipo_solicitud" class="required-field">Tipo de solicitud:</label>

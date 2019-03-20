@@ -98,7 +98,7 @@ class homeController extends Controller {
                 if($tipo_cliente){
 
                     $InfoCliente = $this->_clientes->getInfoClientID($tipo_cliente['TIPO_PERSONA'],$id);
-                    //var_dump($id);
+
                     if(!isset($InfoCliente['error'])){
                         
                         $chk_sarlaft_client = $this->_clientes->getInfoFileByClientId($id,'FCC');

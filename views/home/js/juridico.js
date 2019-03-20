@@ -220,12 +220,13 @@ $(document).ready(function(){
 
     $('button#btn-guardar-formulario').on('click', function(event) {
         // Inicializa la variables de la captura del formulario
-        debugger;
+
         var form = $('form[name="form-captura-persona-juridica"]');
         var formName = form.name
         if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,2,4,13,11,3,15,16,9,14]) != -1){
             GuardarFormularioCaptura(form);
         }else if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[6,5]) != -1){
+
             if($('select[name="llamada_cliente_sarlaft"]').val() != 'MODIFICACION'){
                     GuardarFormularioCompletitud_Verificacion(form);
             }else{
@@ -338,6 +339,19 @@ $(document).ready(function(){
             $("#btn-guardar-formulario").prop("disabled",true);
         }
     });
+
+    function setValueOtro() {
+        $.each($('input[type="text"].setValueOtro'), function(index, el) {
+            if ($(el).data('valorselect')) {
+                if ($(el).prev().find('option:selected').val() != "") {
+                    $(el).css('display', 'none');
+                } else {
+                    $(el).prev().find('option:selected').val(el.value);
+                }
+            }
+        })
+    }
+    setValueOtro();
 });
 
 function validarAnexo(anexo){
