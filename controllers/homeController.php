@@ -177,6 +177,11 @@ class homeController extends Controller {
                                     =====================================*/
                                     
                                         $paises                  = $this->_global->getCountries();
+                                            $ocupaciones = $this->_global->getOccupations();
+                                            $vias = $this->_global->getMultiParam('via');
+                                            $literales = $this->_global->getMultiParam('literal');
+                                            $orientacion = $this->_global->getMultiParam('orientacion');
+                                            $detallePredio = $this->_global->getMultiParam('detalle_predio');
                                         $departamentos           = $this->_global->getDepartaments();
                                         $ciudades                = $this->_global->getCities();
                                         $vinculaciones           = $this->_clientes->getConnections();
@@ -191,6 +196,7 @@ class homeController extends Controller {
                                         $tipologias              = $this->_clientes->getTipologies();
                                         $lineas_negocio          = $this->_clientes->getLineaNegocio();
 
+                                            $sucursal = $this->_global->getSucursales();
                                         if(!in_array($InfoCliente["estado_formulario_id"],[1,2])){
 
                                             $getGestionCompletitud = $this->_clientes->getAllGestionesCompletitudVerificacion($InfoCliente['cliente_id'],$InfoCliente["fecha_diligenciamiento"]);

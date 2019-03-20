@@ -13,6 +13,20 @@ class globalModel extends Model
         return $resul->fetchAll();
     }
 
+    //Obtiene la informacion de todas las ocupaciones en orden alfabético
+    public function getOccupations() {
+        $resul = $this->_db->prepare("SELECT * FROM ocupacion ORDER BY descripcion ASC");
+        $resul->execute();
+        return $resul->fetchAll();
+    }
+
+    //Obtiene la informacion de los tipos de vias
+    public function getMultiParam($param) {
+        $resul = $this->_db->prepare("SELECT * FROM multi_param WHERE nombre_parametro = :parametro");
+        $resul->bindValue(':parametro', $param, PDO::PARAM_STR);
+        $resul->execute();
+        return $resul->fetchAll();
+    }
     //Obtiene la informacion de departamentos por pais, defualt: Colombia
     public function getDepartaments($pais = 170) {
         $result = $this->_db->prepare("SELECT * FROM departamentos WHERE pais = :pais");

@@ -607,6 +607,88 @@ function GuardarFormulario(form){
 
     SendData(url,dataObject,'POST',config_ajax);
 }
+$('select[id="tipoSociedad"]').on('change', function(){
+    var text = $(this)[0].value;
+    if (text == "8") {
+        $('div[id="tipo_sociedad_otro"]').css({
+            "display": "block"
+        });
+    } else {
+        $('div[id="tipo_sociedad_otro"]').css({
+            "display": "none"
+        });
+    }
+});
+
+/**
+ * Adjunta los eventos correpondientes a todos los campos de llenado de dirección
+ * @param {array} controlDiv - corresponde al contenedor principal de los controles de llenado de dirección y al
+ * campo final en el cual se va a mostrar toda la dirección
+ */
+(function eventosDireccion(controlDiv) {
+    for (let i = 0; i < controlDiv.length; i+=2) {
+        var controles = controlDiv[i].find('.containerDireccion .controlDireccion');
+        $.each(controles, function(index, elemento){
+            if (elemento.firstElementChild.tagName == 'SELECT') {
+                $(elemento.firstElementChild).on('change', function() {
+                    cambiaValorInputDireccion(controlDiv[i+1]);
+                })
+            } else if (elemento.firstElementChild.tagName == 'INPUT') {
+                if (elemento.firstElementChild.name == 'detalle_direccion') {
+                    $(elemento.firstElementChild).on('keyup', function() {
+                        cambiaValorInputDireccion(controlDiv[i+1]);
+                    })
+                } else {
+                    $(elemento.firstElementChild).on('keyup', function(event) {
+                        if ((event.which >= 48 && event.which <= 57) || (event.which >= 96 && event.which <= 105) || event.which == 8) {
+                            cambiaValorInputDireccion(controlDiv[i+1]);
+                        }
+                    })                    
+                }
+            }
+        });
+    }
+})([
+    $('#div_direccion_oficina_juridica'), $('#ofi_principal_direccion'),
+    $('#div_direccion_sucursal'), $('#sucursal_direccion'),
+    $('#div_direccion_representante_legal'), $('#rep_legal_direccion_residencia')
+]);
+
+/**
+ * @param {object} input - corresponde al control que se llenará con los datos de todos los controles de dirección
+ */
+var cambiaValorInputDireccion = function(input) {
+    var values = [];
+    var controlesForm = null;
+    if (input.attr('id') == 'ofi_principal_direccion') {
+        controlesForm = $('#div_direccion_oficina_juridica').find('.containerDireccion .controlDireccion');
+    } else if(input.attr('id') == 'sucursal_direccion') {
+        controlesForm = $('#div_direccion_sucursal').find('.containerDireccion .controlDireccion');
+    } else if(input.attr('id') == 'rep_legal_direccion_residencia') {
+        controlesForm = $('#div_direccion_representante_legal').find('.containerDireccion .controlDireccion');
+    }
+    $.each(controlesForm, function(index, elemento){
+        values.push(elemento.firstElementChild.value);
+    });
+    values.splice(1, 1, values[1]+values[2]);
+    values.splice(2, 1);
+    values.splice(3, 0, '#');
+    values.splice(4, 1, values[4]+values[5]);
+    values.splice(5, 1);
+    values.splice(6, 0, '-');
+    input.val(values.join(' '));
+}
+
+var habilitaControlesDireccion = function(object) {
+    var control = $(object).parent().next().children(':first-child');
+    if (control.attr('readonly') === undefined) {
+        control.attr('readonly', 'readonly');
+    } else {
+        control.removeAttr('readonly');
+    }
+    $(object).parent().prev().find('.containerDireccion').toggleClass('muestraDireccion');
+};
+
 //Funcion para eliminar accionista
 function DeleteAccionista(el, id, documento){
 	if(id != undefined){
