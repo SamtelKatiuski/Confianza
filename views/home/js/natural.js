@@ -275,29 +275,52 @@ $(document).ready(function(){
             $("#btn-guardar-formulario").prop("disabled",true);
         }
     });
+
+    function setValueOtro() {
+        $.each($('input[type="text"].setValueOtro'), function(index, el) {
+            if ($(el).data('valorselect')) {
+                if ($(el).prev().find('option:selected').val() != "") {
+                    $(el).css('display', 'none');
+                } else {
+                    $(el).prev().find('option:selected').val(el.value);
+                }
+            }
+        })
+    }
+    setValueOtro();
 });
 
 function validarAnexo(anexo){
-
     var errores = new Array();
-    if(anexo == 'peps'){
+    if(anexo == 'accionistas'){
 
-        $('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').each(function(index, el) {
+        $('div#anexo_accionistas div.modal-body table > tbody > tr').each(function(index, el) {
 
-            var con = 0;
-            $(el).find("input").each(function(){
-                if($(this).val().length)
-                    con++;
-            });
+            if( $(el).find(':input#accionista_tipo_documento_'+ (index+1)).val() != undefined && 
+                $(el).find(':input#accionista_tipo_documento_'+ (index+1)).val().length || $(el).find(':input').not(':empty').length > 2){
 
-            if(con || $(el).find(":input#anexo_ppes_tipo_identificacion_" + (index+1)).val() != "" ){
-                
-
-                if(!$(el).find(':input#anexo_ppes_tipo_identificacion_' + (index+1)).val().length ||
-                    !$(el).find(':input#anexo_ppes_nombre_' + (index+1)).val().length ||
-                    !$(el).find(':input#anexo_ppes_no_documento_' + (index+1)).val().length){
-
+                if($(el).find(':input#accionista_documento_' + (index+1)).val().length == 0 || 
+                    $(el).find(':input#accionista_nombres_completos_' + (index+1)).val().length == 0){
                     errores.push((index+1));
+                }
+            }
+        });
+
+        return errores;
+    }else if(anexo == 'peps'){
+        $('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').each(function(index, el) {
+            if($(el).find(':input#anexo_ppes_vinculo_relacion_' + (index+1)).val() != undefined && 
+                $(el).find(':input#anexo_ppes_vinculo_relacion_' + (index+1)).val().length){
+                var vacios = 0;
+                $.each($(el).find(':input').not($(el).find(':input#anexo_ppes_vinculo_relacion_' + (index+1))), function(index, el) {
+                    if (el.value != undefined && el.value.length == 0) {
+                        vacios++;
+                    }
+                })
+                if (!(vacios < 7)) {
+                    for (let i = 0; i < vacios; i++) {
+                        errores.push(i+2);
+                    }
                 }
             }
         });
@@ -469,7 +492,6 @@ function GuardarFormulario(form){
                 });
             },
             error : function(xhrs){
-                
                 console.log(xhrs);
                 AlertMessage(STATES_ERROR, 'ERROR!!!', 'LA FUNCION NO DE DEVOLVIO LA RESPUESTA ESPERADA',{hideAfter:false});
             },
