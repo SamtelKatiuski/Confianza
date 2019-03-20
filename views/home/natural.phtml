@@ -291,149 +291,265 @@
 				</div>
 			<?php endif; ?>
 			
-				<!-- DATOS PERSONALES -->
-				<div class="panel section-form">
-				  <div class="panel-heading" role="tab" id="headingThree">
-				    <h4 class="panel-title">
-				    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#datos_personales" aria-expanded="true" aria-controls="datos_personales">
-				      <strong>DATOS PERSONALES</strong>
-				    </a>
-				  </h4>
-				  </div>
-				  <div id="datos_personales" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-				    <div class="panel-body">
+			<!-- DATOS PERSONALES -->
+			<div class="panel section-form">
+			  <div class="panel-heading" role="tab" id="headingThree">
+			    <h4 class="panel-title">
+			    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#datos_personales" aria-expanded="true" aria-controls="datos_personales">
+			      <strong>DATOS PERSONALES</strong>
+			    </a>
+			  </h4>
+			  </div>
+			  <div id="datos_personales" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+			    <div class="panel-body">
 
 				    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['primer_apellido']))): ?>
-							<div class="form-group">
-								<label class="required-field" for="primer_apellido">Primer apellido:</label>
-								<input type="text" class="form-control" name="primer_apellido" id="primer_apellido" value="<?=$cliente['primer_apellido']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
-							</div>
-						<?php endif; ?>
+						<div class="form-group">
+							<label class="required-field" for="primer_apellido">Primer apellido:</label>
+							<input type="text" class="form-control campo_obligatorio" name="primer_apellido" id="primer_apellido" value="<?=$cliente['primer_apellido']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' <?php if (!in_array($InfoCliente['estado_formulario_id'],[5,6])): ?> data-required="true" <?php endif;?> >
+							<small class="help-error-block"></small>
+						</div>
+					<?php endif; ?>
 
-				    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6])): ?>
-							<div class="form-group">
-								<label for="segundo_apellido">Segundo apellido:</label>
-								<input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido" value="<?=$cliente['segundo_apellido']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' >
-							</div>
-						<?php endif; ?>
+			    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6])): ?>
+						<div class="form-group">
+							<label for="segundo_apellido">Segundo apellido:</label>
+							<input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido" value="<?=$cliente['segundo_apellido']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' >
+						</div>
+					<?php endif; ?>
 
 				    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['primer_nombre']))): ?>
-							<div class="form-group">
-								<label class="required-field" for="primer_nombre">Primer nombre:</label>
-								<input class="form-control" type="text" name="primer_nombre" id="primer_nombre" value="<?=$cliente['primer_nombre']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
-							</div>
-						<?php endif; ?>
-
-				    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6])): ?>
-							<div class="form-group">
-								<label for="segundo_nombre">Segundo nombre:</label>
-								<input class="form-control" type="text" name="segundo_nombre" id="segundo_nombre" value="<?=$cliente['segundo_nombre']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)'>
-							</div>
-						<?php endif; ?>
-
-						<div class="col-md-12 content-radio-buttons">
-							<label class="required-field title"> Tipo de documento:</label>
-							<div class="form-group">
-						       	<?php foreach($natural as $row):?>
-			                        <div class="col-md-6">
-			                            </label class="radio-inline"><input type="radio" name="tipo_documento" value="<?=$row['id']?>" <?= ($InfoCliente['tipo_documento'] == $row['id']) ? 'checked' : '' ?>><?= trim($row['descripcion']) . " (" . $row['codigo'] . ")"?></label>
-			                        </div>
-			                    <?php endforeach;?>
-							</div>
-						</div>
-
 						<div class="form-group">
-		                    <label class="required-field">Número de identificación:</label>
-		                    <input type="number" class="form-control" name="documento" id="documento" <?php echo ($InfoCliente['documento'] != '') ? 'value="'.$InfoCliente['documento'].'" disabled="true"' :''; ?> value="" min="0">
-		                </div>
+							<label class="required-field" for="primer_nombre">Primer nombre:</label>
+							<input class="form-control campo_obligatorio" type="text" name="primer_nombre" id="primer_nombre" value="<?=$cliente['primer_nombre']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' <?php if (!in_array($InfoCliente['estado_formulario_id'],[5,6])): ?> data-required="true" <?php endif;?>>
+							<small class="help-error-block"></small>
+						</div>
+						<?php endif; ?>
 
-		                <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
-			                <div class="col-md-12 content-radio-buttons" >
-			                	<label for="sexo">Sexo:</label>
-			                	<div class="form-group">
-			                		<label class="radio-inline"><input type="radio" name="sexo" value="F" class="radios sexo" <?= ($cliente['sexo'] == "F") ? 'checked' : '' ?>>F</label>
-			                        <label class="radio-inline"><input type="radio" name="sexo" value="M" class="radios sexo" <?= ($cliente['sexo'] == "M") ? 'checked' : '' ?>>M</label>
-			                        <label class="radio-inline"><input type="radio" name="sexo" class="radios sexo" value="" <?= (is_null($cliente['sexo'])) ? 'checked' : '' ?>>N/A</label>
-			                	</div>
-			                </div>
-			                <div class="col-md-12 content-radio-buttons" >
-			                	<label class="required-field title" for="estado_civil">Estado civil:</label>
-			                    <div class="form-group">
-		                            <?php foreach($estado_civil as $row):?>
-		                                <label class="radio-inline col-md-2">
-		                                    <input type="radio" name="estado_civil" value="<?=$row['id']?>" class="radios estado_civil" <?= ($cliente['estado_civil'] == $row['id']) ? 'checked' : '' ?>><?= trim($row['desc_estado_civil'])?>
-		                                </label>
-		                            <?php endforeach;?>
-		                            <label class="radio-inline"><input type="radio" name="estado_civil" class="radios estado_civil" value="" <?= (is_null($cliente['estado_civil'])) ? 'checked' : '' ?>>N/A</label>
-			                    </div>
-			                </div>
-		                <?php endif; ?>
-						
-						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['fecha_expedicion_documento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-							<div class="form-group">
-		                        <label class="required-field" for="fecha_expedicion_documento">Fecha de expedición documento:</label>
-		                        <input type="date" name="fecha_expedicion_documento" id="fecha_expedicion_documento" class="form-control" value="<?=$cliente['fecha_expedicion_documento']?>" max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
+			    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6])): ?>
+						<div class="form-group">
+							<label for="segundo_nombre">Segundo nombre:</label>
+							<input class="form-control" type="text" name="segundo_nombre" id="segundo_nombre" value="<?=$cliente['segundo_nombre']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' >
+						</div>
+					<?php endif; ?>
+			    	
+					
+						<div class="form-group">
+							<label for="tipo_documento" class="required-field title">Tipo de documento:</label>
+							<select class="form-control campo_obligatorio" name="tipo_documento" id="tipo_documento" <?= ($InfoCliente['tipo_documento'] != '') ? 'disabled="true"' : ''; ?>>
+								<option value="">Seleccione un tipo de documento...</option>
+								<?php foreach($natural as $row):?>
+									<option type="radio" value="<?=$row['id']?>" <?=($InfoCliente['tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>
+								<?php endforeach;?>
+							</select>
+							<small class="help-error-block"></small>
+						</div>				
+
+					<div class="form-group">
+	                    <label class="required-field" for="documento">Número de identificación:</label>
+	                    <input type="text" class="form-control campo_obligatorio" name="documento" id="documento" <?php echo ($InfoCliente['documento'] != '') ? 'value="'.$InfoCliente['documento'].'" disabled="true"' :'value=""'; ?> data-required="true">
+	                </div>
+
+	                <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
+		                <div class="col-md-12 content-radio-buttons" >
+		                	<label class="required-field" for="sexo">Sexo:</label>
+		                	<div class="form-group">
+		                		<label class="radio-inline"><input type="radio" name="sexo" value="F" class="radios sexo campo_obligatorio" <?= ($cliente['sexo'] == "F") ? 'checked' : '' ?> data-required="true">F</label>
+		                        <label class="radio-inline"><input type="radio" name="sexo" value="M" class="radios sexo" <?= ($cliente['sexo'] == "M") ? 'checked' : '' ?>>M</label>
+		                        <label class="radio-inline"><input type="radio" name="sexo" class="radios sexo" value="" <?= (is_null($cliente['sexo'])) ? 'checked' : '' ?>>N/A</label>
+								<small class="help-error-block"></small>
+		                	</div>
+		                </div>
+		                <div class="col-md-12 content-radio-buttons" >
+		                	<label class="required-field title" for="estado_civil">Estado civil:</label>
+		                    <div class="form-group">
+	                            <?php foreach($estado_civil as $row):?>
+	                                <label class="radio-inline col-md-2">
+	                                    <input type="radio" name="estado_civil" value="<?=$row['id']?>" class="radios estado_civil" <?= ($cliente['estado_civil'] == $row['id']) ? 'checked' : '' ?>><?= trim($row['desc_estado_civil'])?>
+	                                </label>
+	                            <?php endforeach;?>
+	                            <label class="radio-inline"><input type="radio" name="estado_civil" class="radios estado_civil" value="" <?= (is_null($cliente['estado_civil'])) ? 'checked' : '' ?>>N/A</label>
 		                    </div>
-		                <?php endif; ?>
+		                </div>
+	                <?php endif; ?>
+					
+					<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['fecha_expedicion_documento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
+						<div class="form-group">
+	                        <label class="required-field" for="fecha_expedicion_documento">Fecha de expedición documento:</label>
+	                        <input type="date" name="fecha_expedicion_documento" id="fecha_expedicion_documento" class="form-control valida_anio" value="<?=$cliente['fecha_expedicion_documento']?>" max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onblur="habilitaFechaNacimiento(this, 'fecha_nacimiento')">
+	                    	<small class="help-error-block"></small>
+						</div>
+	                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['lugar_expedicion_documento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-		                    <div class="form-group">
-			                    <label class="required-field" for="lugar_expedicion_documento">Lugar de expedición:</label>
-			                    <input type="text" class="form-control" name="lugar_expedicion_documento" id="lugar_expedicion_documento" value="<?=$cliente['lugar_expedicion_documento']?>"  <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-			                </div>
-			            <?php endif; ?>
+	                    <div class="form-group">
+		                    <label class="required-field" for="lugar_expedicion_documento">Lugar de expedición:</label>
+		                    
+							<select name="lugar_expedicion_documento" id="lugar_expedicion_documento" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onchange="validateOtro(this)">
+	                            <option value="">Seleccione ciudad...</option>
+	                            <?php foreach($ciudades as $row):?>
+	                                <option value="<?=$row['nombre_ciudad']?>" <?= $cliente["lugar_expedicion_documento"] == $row['nombre_ciudad'] ? 'selected' : '' ?> ><?=$row['nombre_ciudad']?></option>
+	                            <?php endforeach;?>
+									<option value="Otro">Otro</option> 
+	                        </select>
+							<input type="text" class="form-control setValueOtro" name="txtLugar_expedicion_documento" id="txtLugar_expedicion_documento" placeholder="¿Cuál?" <?=(isset($cliente["lugar_expedicion_documento"]) && !(is_null($cliente["lugar_expedicion_documento"]))) ? 'value="'.$cliente["lugar_expedicion_documento"].'" data-valorselect="true" style="display: block"' : '' ?>>
+		                </div>
+		            <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['fecha_nacimiento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-		                    <div class="form-group">
-		                        <label class="required-field" for="fecha_nacimiento">Fecha de nacimiento:</label>
-		                        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="<?=$cliente['fecha_nacimiento']?>" max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>  >
-		                    </div>
-		                <?php endif; ?>
+	                    <div class="form-group">
+	                        <label class="required-field" for="fecha_nacimiento">Fecha de nacimiento:</label>
+	                        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"  class="form-control" value="<?=$cliente['fecha_nacimiento']?>"  max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onblur="validaFechaNacimiento(this, 'fecha_expedicion_documento')">
+							<small class="help-error-block"></small>
+	                    </div>
+	                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['lugar_nacimiento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-							<div class="form-group">
-		                        <label class="required-field" for="lugar_nacimiento">Lugar de nacimiento:</label>
-		                        <input type="text" name="lugar_nacimiento" id="lugar_nacimiento" class="form-control" value="<?=$cliente['lugar_nacimiento']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                    </div>
-		                <?php endif; ?>
+						<div class="form-group">
+							<label class="required-field" for="lugar_nacimiento">Lugar de nacimiento:</label>	
+							<select name="lugar_nacimiento" id="lugar_nacimiento" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onchange="validateOtro(this)">
+								<option value="">Seleccione ciudad...</option>
+								<?php foreach($ciudades as $row):?>
+									<option value="<?=$row['nombre_ciudad']?>" <?= $cliente["lugar_nacimiento"] == $row['nombre_ciudad'] ? 'selected' : ''?> ><?=$row['nombre_ciudad']?></option>
+								<?php endforeach;?>
+								<option value="Otro">Otro</option>
+							</select>
+							<input type="text" class="form-control setValueOtro" name="txtLugarNacimiento" id="txtLugarNacimiento" placeholder="¿Cuál?" <?=(isset($cliente["lugar_nacimiento"]) && !(is_null($cliente["lugar_nacimiento"]))) ? 'value="'.$cliente["lugar_nacimiento"].'" data-valorselect="true" style="display: block"' : '' ?>>
+						</div>
+					<?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['nacionalidad_1']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-							<div class="form-group">
-		                        <label class="required-field" for="nacionalidad_1">Nacionalidad 1:</label>
-		                        <select name="nacionalidad_1" id="nacionalidad_1" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                            <option value="">Seleccione país...</option>
-		                            <?php foreach($paises as $row):?>
-		                                <option value="<?=$row['id']?>" <?= $cliente["nacionalidad_1"] == $row['id'] ? 'selected' : ''?> ><?=$row['nombre_pais']?></option>
-		                            <?php endforeach;?>
-		                        </select>
-		                    </div>
-		                <?php endif; ?>
+						<div class="form-group">
+	                        <label class="required-field" for="nacionalidad_1">Nacionalidad 1:</label>
+	                        <select name="nacionalidad_1" id="nacionalidad_1" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+	                            <option value="">Seleccione país...</option>
+	                            <?php foreach($paises as $row):?>
+	                                <option value="<?=$row['id']?>" <?= $cliente["nacionalidad_1"] == $row['id'] ? 'selected' : ''?> ><?=$row['nombre_pais']?></option>
+	                            <?php endforeach;?>
+	                        </select>
+	                    </div>
+	                <?php endif; ?>
 
-	                    <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
-		                    <div class="form-group">
-		                        <label for="nacionalidad_2">Nacionalidad 2:</label>
-		                        <select name="nacionalidad_2" id="nacionalidad_2" class="form-control" data-required="true">
-		                            <option value="">Seleccione país...</option>
-		                            <?php foreach($paises as $row):?>
-		                                <option value="<?=$row['id']?>" <?= $cliente["nacionalidad_2"] == $row['id'] ? 'selected' : ''?> ><?=$row['nombre_pais']?></option>
-		                            <?php endforeach;?>
-		                        </select>
-		                    </div>
+                    <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
+	                    <div class="form-group">
+	                        <label for="nacionalidad_2">Nacionalidad 2:</label>
+	                        <select name="nacionalidad_2" id="nacionalidad_2" class="form-control" data-required="true">
+	                            <option value="">Seleccione país...</option>
+	                            <?php foreach($paises as $row):?>
+	                                <option value="<?=$row['id']?>" <?= $cliente["nacionalidad_2"] == $row['id'] ? 'selected' : ''?> ><?=$row['nombre_pais']?></option>
+	                            <?php endforeach;?>
+	                        </select>
+	                    </div>
 		                <?php endif; ?>
-						<? $cliente['ocupacion']?>
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['ocupacion']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
 		                    <div class="form-group">
 		                        <label class="required-field" for="ocupacion">Ocupación:</label>
-		                        <input type="text" name="ocupacion" id="ocupacion" class="form-control" value="<?=$cliente['ocupacion']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                    </div>
+							<select name="ocupacion" id="ocupacion" class="form-control" data-required="true" onchange="validateOtro(this)">
+								<option value="">Seleccione ocupación...</option>
+								<?php foreach($ocupaciones as $row):?>
+									<option value="<?=$row['descripcion']?>" <?= $cliente["ocupacion"] == $row['descripcion'] ? 'selected' : ''?> ><?=$row['descripcion']?></option>
+								<?php endforeach;?>
+								<option value="Otro">Otro</option>
+							</select>
+							<input type="text" class="form-control setValueOtro" name="txtOcupacion" id="txtOcupacion" placeholder="¿Cuál?" <?=(isset($cliente["ocupacion"]) && !(is_null($cliente["ocupacion"]))) ? 'value="'.$cliente["ocupacion"].'" data-valorselect="true" style="display: block"' : '' ?>>
+						</div>
 		                <?php endif; ?>
 						
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['direccion_residencia']))  || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-		                    <div class="form-group">
-		                        <label class="required-field" for="direccion_residencia">Dirección residencia:</label>
-		                        <input type="text" name="direccion_residencia" id="direccion_residencia" class="form-control" value="<?=$cliente['direccion_residencia']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                    </div>
-		                <?php endif; ?>
+	                    <label class="required-field" for="direccion_residencia">Dirección residencia:</label>
+						<div class="direccion" id='div_direccion_residencia_natural'>
+							<div class="containerDireccion">
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Seleccione via...</option>
+										<?php foreach($vias as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+									<input type="text" class="form-control" placeholder="0">
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Literal...</option>
+										<?php foreach($literales as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Orientacion...</option>
+										<?php foreach($orientacion as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+									<input type="text" class="form-control" placeholder="0">
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Literal...</option>
+										<?php foreach($literales as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Orientacion...</option> 
+										<?php foreach($orientacion as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+									<input type="text" class="form-control" placeholder="0">
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Seleccione predio...</option>
+										<?php foreach($detallePredio as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+									<input type="text" class="form-control" placeholder="0">
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+									<select class="form-control">
+										<option value="">Seleccione predio...</option>
+										<?php foreach($detallePredio as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+									<input type="text" class="form-control" placeholder="0">
+								</div>
+								<div class="controlDireccion col col-sm-2 col-md-3 col-lg-5">
+									<select class="form-control">
+										<option value="">Seleccione predio...</option>
+										<?php foreach($detallePredio as $row):?>
+											<option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="controlDireccion col col-sm-10 col-md-9 col-lg-12">
+									<input type="text" name="detalle_direccion" class="form-control" placeholder="Detalles">
+								</div>
+							</div>
+						</div>
+						<div class="divHabilitaDireccion">
+							<input type="checkbox" value="Habilitar campo" onclick="habilitaControlesDireccion(this)"><label for="value" class="checkDireccion">No Estándar</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="direccion_residencia" readonly="readonly" id="direccion_residencia" class="form-control" value="<?=$cliente['direccion_residencia']?>"  <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
+						</div>
+					<?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['departamento_residencia']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
 							<div class="form-group">

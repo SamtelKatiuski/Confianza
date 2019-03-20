@@ -10,25 +10,24 @@ $(document).ready(function(){
 
     // Muestra el boton de anexos ppe para la captura de datos en el formulario de captura
     $('body').on('click', '.anexo_ppes', function(event) {
+        if($(this).val() != "SI" && $(':input[type="radio"][name="'+$(this).attr('name')+'"][value="SI"]').attr('add_anexos_ppe') != undefined){
 
-        if($(this).val() != 1 && $(':input[type="radio"][name="' + $(this).attr('name') + '"][value="1"]').attr('add_anexos_ppe') != undefined){
-
-            $('input[type="radio"][name="' + $(this).attr('name') + '"][value="1"]').removeAttr('add_anexos_ppe');
+            $('input[type="radio"][name="'+$(this).attr('name')+'"][value="SI"]').removeAttr('add_anexos_ppe');
 
             if(AnexosPEP){
                 AnexosPEP--;
             }
-        }else if($('input[type="radio"][name="' + $(this).attr('name') + '"][value="1"]').attr('add_anexos_ppe') == undefined && $(this).val() == 1){
+        }else if($('input[type="radio"][name="'+$(this).attr('name')+'"][value="SI"]').attr('add_anexos_ppe') == undefined && $(this).val() == "SI"){
 
             $(this).attr('add_anexos_ppe',true);
             AnexosPEP++;
         }
 
         if(AnexosPEP){
-            $("div#btn_anexo_preguntas_ppes").removeClass('hidden').fadeIn(300);
+            $("div#btn_anexo_preguntas_ppes").fadeIn(300);
             $(':input[type="hidden"][name="anexo_preguntas_ppes"]').val(1);
         }else{
-            $("div#btn_anexo_preguntas_ppes").addClass('hidden').fadeOut(300);
+            $("div#btn_anexo_preguntas_ppes").fadeOut(300);
             $(':input[type="hidden"][name="anexo_preguntas_ppes"]').val(0);
         }
     });
@@ -37,15 +36,35 @@ $(document).ready(function(){
 
         $('body').on('click', 'div#anexo_preguntas_ppes div.modal-content div.modal-footer button.btn-danger', function(event) {
             var errores = validarAnexo('peps');
-            if(errores.length){
-                if(confirm('Desea continuar sin completar los campos ?')){
-                    $.each(errores,function(index,el){
-                        $('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').eq((el-1)).find(':input').val('').removeAttr('value');
-                        $('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').eq((el-1)).find(':input').prop('checked', false);
+            if(!errores.length){
+                if(confirm('¿Desea continuar sin completar los campos? Todos los campos se vaciarán')){
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('select'),function(index,el){
+                        $(el).val('');
+                    });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="text"]'),function(index,el){
+                        $(el).val('').removeAttr('value');
+                    });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="date"]'),function(index,el){
+                        $(el).val('').removeAttr('value');
+                    });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="radio"]'),function(index,el){
+                        $(el).val('').prop('checked', false);
                     });
                     $('div#anexo_preguntas_ppes').modal('hide');
                 }
             }else{
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('select'),function(index,el){
+                    $(el).val('');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="text"]'),function(index,el){
+                    $(el).val('').removeAttr('value');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="date"]'),function(index,el){
+                    $(el).val('').removeAttr('value');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="radio"]'),function(index,el){
+                    $(el).val('').prop('checked', false);
+                });
                 $('div#anexo_preguntas_ppes').modal('hide');
             }
         });
