@@ -1717,12 +1717,13 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="operaciones_moneda_extranjera" class="required-field title">¿Realiza transacciones en moneda extranjera?:</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" data-required="true" value="1" class="radios operaciones_moneda_extranjera" <?= ($cliente['operaciones_moneda_extranjera'] == 1) ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'div#operaciones_moneda_extranjera','hide')">Si</label>
-                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" value="0" class="radios operaciones_moneda_extranjera" <?= ($cliente['operaciones_moneda_extranjera'] == 0) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'div#operaciones_moneda_extranjera','hide')">No</label>
-                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" value="" class="radios operaciones_moneda_extranjera" <?= (is_null($cliente['operaciones_moneda_extranjera'])) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'div#operaciones_moneda_extranjera','hide')">N/A</label>
+                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" data-required="true" value="SI" class="radios operaciones_moneda_extranjera campo_obligatorio" <?= ($cliente['operaciones_moneda_extranjera'] == "SI") ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'div#operaciones_moneda_extranjera','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" value="NO" class="radios operaciones_moneda_extranjera" <?= ($cliente['operaciones_moneda_extranjera'] == "NO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'div#operaciones_moneda_extranjera','hide')">No</label>
+                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" value="VACIO" class="radios operaciones_moneda_extranjera" <?= ($cliente['operaciones_moneda_extranjera'] == "VACIO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'div#operaciones_moneda_extranjera','hide')">N/A</label>
+                                <small class="help-error-block"></small>
                             </div>
                         </div> 
-                       <div class="col-md-12 content-radio-buttons" id="operaciones_moneda_extranjera" <?php if($cliente['operaciones_moneda_extranjera'] == 0):?> style="display: none;" <?php endif;?> >
+                       <div class="col-md-12 content-radio-buttons" id="operaciones_moneda_extranjera" <?php if($cliente['operaciones_moneda_extranjera'] != "SI"):?> style="display: none;" <?php endif;?> >
                             <label class="title">Si, indique</label>
                             <div class="form-group">
                                 <?php foreach($opMonExtra as $row):?>
@@ -1740,18 +1741,20 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="cuentas_moneda_exterior" class="required-field title">¿Poseee cuentas en moneda extranjera?:</label>
                             <div class="form-group">                           
-                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" data-required="true" value="1" class="radios cuentas_moneda_exterior" <?= ($cliente['cuentas_moneda_exterior'] == 1) ? 'checked' : '' ?>>Si</label>
-                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" value="0" class="radios cuentas_moneda_exterior" <?= ($cliente['cuentas_moneda_exterior'] == 0) ? 'checked' : '' ?>>No</label>
-                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" value="" class="radios cuentas_moneda_exterior" <?= (is_null($cliente['cuentas_moneda_exterior'])) ? 'checked' : '' ?>>N/A</label>
+                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" data-required="true" value="SI" class="radios cuentas_moneda_exterior campo_obligatorio" <?= ($cliente['cuentas_moneda_exterior'] == "SI") ? 'checked' : '' ?>>Si</label>
+                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" value="NO" class="radios cuentas_moneda_exterior" <?= ($cliente['cuentas_moneda_exterior'] == "NO") ? 'checked' : '' ?>>No</label>
+                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" value="VACIO" class="radios cuentas_moneda_exterior" <?= ($cliente['cuentas_moneda_exterior'] == "VACIO") ? 'checked' : '' ?>>N/A</label>
+                                <small class="help-error-block"></small>
                             </div>
                         </div>
                         <div class="col-md-12 content-radio-buttons">
                             <label for="productos_exterior" class="required-field title">¿Posee productos financieros en el exterior?:</label>
                             <div  class="form-group">                           
-                                <label class="radio-inline"><input type="radio" name="productos_exterior" data-required="true" value="1" class="radios productos_exterior" <?= ($cliente['productos_exterior'] == 1) ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_productos','hide')">Si</label>
-                                <label class="radio-inline"><input type="radio" name="productos_exterior" value="0" class="radios productos_exterior" <?= ($cliente['productos_exterior'] == 0) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_productos','hide')">No</label>
-                                <label class="radio-inline"><input type="radio" name="productos_exterior" value="" class="radios productos_exterior" <?= (is_null($cliente['productos_exterior'])) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_productos','hide')">N/A</label>
-                                <label class="radio-inline" id="add_productos" <?=($cliente["productos_exterior"] != 1) ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=productos_exterior][value=1]'),'div#productos_exterior','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
+                                <label class="radio-inline"><input type="radio" name="productos_exterior" data-required="true" value="SI" class="radios productos_exterior campo_obligatorio" <?= ($cliente['productos_exterior'] == "SI") ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_productos','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="productos_exterior" value="NO" class="radios productos_exterior" <?= ($cliente['productos_exterior'] == "NO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_productos','hide')">No</label>
+                                <label class="radio-inline"><input type="radio" name="productos_exterior" value="VACIO" class="radios productos_exterior" <?= ($cliente['productos_exterior'] == "VACIO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_productos','hide')">N/A</label>
+                                <label class="radio-inline" id="add_productos" <?=($cliente["productos_exterior"] != "SI") ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=productos_exterior][value=SI]'),'div#productos_exterior','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
+                                <small class="help-error-block"></small>
                             </div>
                         </div>
                         
@@ -1779,7 +1782,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $contProductFin = 0; ?>
-                                                    <?php if(isset($productos_financieros)):?>
+                                                    <?php if(isset($productos_financieros)): ?>
                                                         <?php foreach($productos_financieros as $keyProductosFinancieros => $valueProductosFinancieros): $contProductFin++; ?>
                                                             <tr>
                                                                 <th class="hidden">
@@ -1798,13 +1801,30 @@
                                                                     <input type="text" class="currency form-control" name="productos_financieros[<?=$contProductFin?>][monto]" id="monto" value="<?=$valueProductosFinancieros['monto']?>" onkeyup="OnlyNumbers(this)">
                                                                 </th>
                                                                 <th>
-                                                                    <input type="text" class="form-control" name="productos_financieros[<?=$contProductFin?>][ciudad]" id="ciudad" value="<?=$valueProductosFinancieros['ciudad']?>">
+                                                                    <select class="form-control" name="productos_financieros[<?=$contProductFin?>][ciudad]" id="ciudad<?=$contProductFin?>" onchange="validateOtro(this)">
+																		<option value="">Seleccione una ciudad...</option>
+																		<?php foreach($ciudades as $row):?>
+																			<option type="radio" value="<?=$row['nombre_ciudad']?>" <?=$valueProductosFinancieros['ciudad'] == $row['nombre_ciudad'] ? 'selected' : ''?>><?=$row['nombre_ciudad']?></option>
+																		<?php endforeach;?>
+																		<option value="Otro">Otro</option>
+																	</select>
+                                                                    <input type="text" class="form-control setValueOtro" name="txt_productos_financieros[<?=$contProductFin?>][ciudad]" id="ciudad<?=$contProductFin?>" <?=(isset($valueProductosFinancieros['ciudad']) && !(is_null($valueProductosFinancieros['ciudad']))) ? 'value="'.$valueProductosFinancieros['ciudad'].'" data-valorselect="true" style="display: block"' : 'style="display: none"' ?>>
                                                                 </th>
                                                                 <th>
-                                                                    <input type="text" class="form-control" name="productos_financieros[<?=$contProductFin?>][pais]" id="pais" value="<?=$valueProductosFinancieros['pais']?>">
+                                                                    <select class="form-control" name="productos_financieros[<?=$contProductFin?>][pais]" id="pais">
+																		<option value="">Seleccione un pais...</option>
+																		<?php foreach($paises as $row):?>
+																			<option type="radio" value="<?=$row['id']?>" <?= $valueProductosFinancieros['pais'] == $row['id'] ? 'selected' : '' ?>><?=$row['nombre_pais']?></option>
+																		<?php endforeach;?>
+																	</select>
                                                                 </th>
                                                                 <th>
-                                                                    <input type="text" class="form-control" name="productos_financieros[<?=$contProductFin?>][moneda]" id="moneda" value="<?=$valueProductosFinancieros['moneda']?>">
+                                                                    <select class="form-control" name="productos_financieros[<?=$contProductFin?>][moneda]" id="moneda">
+																		<option value="">Seleccione una moneda...</option>
+																		<?php foreach($monedas as $row):?>
+																			<option type="radio" value="<?=$row['Descripcion']?>" <?=$valueProductosFinancieros['moneda'] == $row['id'] ? 'selected' : '' ?>><?=$row['Descripcion']?></option>
+																		<?php endforeach;?>
+																	</select>
                                                                 </th>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -1825,13 +1845,30 @@
                                                                             <input type="text" class="currency form-control" name="productos_financieros[<?=$i?>][monto]" id="monto" onkeyup="OnlyNumbers(this)">
                                                                         </th>
                                                                         <th>
-                                                                            <input type="text" class="form-control" name="productos_financieros[<?=$i?>][ciudad]" id="ciudad">
+                                                                            <select class="form-control" name="productos_financieros[<?=$i?>][ciudad]" id="ciudad<?=$i?>" onchange="validateOtro(this)">
+																				<option value="">Seleccione una ciudad...</option>
+																				<?php foreach($ciudades as $row):?>
+																					<option type="radio" value="<?=$row['nombre_ciudad']?>"><?=$row['nombre_ciudad']?></option>
+																				<?php endforeach;?>
+																				<option value="Otro">Otro</option>
+																			</select>
+                                                                            <input type="text" class="form-control" name="txt_productos_financieros[<?=$i?>][ciudad]" id="ciudad<?=$i?>" style="display:none">
                                                                         </th>
                                                                         <th>
-                                                                            <input type="text" class="form-control" name="productos_financieros[<?=$i?>][pais]" id="pais">
+                                                                            <select class="form-control" name="productos_financieros[<?=$contProductFin?>][pais]" id="pais">
+																				<option value="">Seleccione un pais...</option>
+																				<?php foreach($paises as $row):?>
+																					<option type="radio" value="<?=$row['id']?>"><?=$row['nombre_pais']?></option>
+																				<?php endforeach;?>
+																			</select>
                                                                         </th>
                                                                         <th>
-                                                                            <input type="text" class="form-control" name="productos_financieros[<?=$i?>][moneda]" id="moneda">
+                                                                            <select class="form-control" name="productos_financieros[<?=$i?>][moneda]" id="moneda">
+																				<option value="">Seleccione una moneda...</option>
+																				<?php foreach($monedas as $row):?>
+																					<option type="radio" value="<?=$row['Descripcion']?>"><?=$row['Descripcion']?></option>
+																				<?php endforeach;?>
+																			</select>
                                                                         </th>
                                                                     </tr>
                                                         <?php endfor; ?>
