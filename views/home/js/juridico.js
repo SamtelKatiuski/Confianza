@@ -750,6 +750,32 @@ function DeleteAccionista(el, id, documento){
 		AlertMessage(STATES_ERROR,'ERROR!!!', "No se ha encontrado un cliente para eliminar. ", {hideAfter : false , stack : false});
 	}
 }
+
+$('body').find('input[type="text"].onlytext')
+    .on('keypress', function(event) {
+        if (!(event.which >= 97 && event.which <= 122)) //Si NO son minusculas
+            if (!(event.which >= 65 && event.which <= 90)) //Si NO son mayusculas
+                if (!(event.which == 32)) //Si no es espacio
+                    return false;
+});
+
+function validateOtro(el){
+    var text = $(el).find('option:selected')[0].innerHTML;
+    if (text == "Otro") {
+        $(el).next().css({
+            "display": "block"
+        });
+    } else {
+        $(el).next().css({
+            "display": "none"
+        });
+    }
+
+    $(el).next().on('blur', function(){
+        $(el).find('option:selected').attr('value', $(this)[0].value);
+    })
+};
+
 function validaPaginaWeb(el, event) {
     var mensaje = $(el).next();
     var expresion = /^w{3}\.[a-z0-9]*\.([a-z]{3}|[a-z]{2})/;

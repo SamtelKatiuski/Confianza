@@ -647,7 +647,98 @@
                         </div>
                         <div class="form-group" >
                             <label for="sucursal_direccion" class="control-label">Dirección sucursal:</label>
-                            <input type="text" name="sucursal_direccion" class="form-control" value="<?=$cliente['sucursal_direccion']?>">
+                            <div class="direccion" id='div_direccion_sucursal'>
+                                <div class="containerDireccion">
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione via...</option>
+                                            <?php foreach($vias as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Literal...</option>
+                                            <?php foreach($literales as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Orientacion...</option>
+                                            <?php foreach($orientacion as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Literal...</option>
+                                            <?php foreach($literales as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Orientacion...</option> 
+                                            <?php foreach($orientacion as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione predio...</option>
+                                            <?php foreach($detallePredio as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-2">
+                                        <select class="form-control">
+                                            <option value="">Seleccione predio...</option>
+                                            <?php foreach($detallePredio as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-1">
+                                        <input type="text" class="form-control" placeholder="0">
+                                    </div>
+                                    <div class="controlDireccion col col-sm-2 col-md-3 col-lg-5">
+                                        <select class="form-control">
+                                            <option value="">Seleccione predio...</option>
+                                            <?php foreach($detallePredio as $row):?>
+                                                <option value="<?=$row['valor_uno']?>"><?=$row['valor_uno']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="controlDireccion col col-sm-10 col-md-9 col-lg-12">
+                                        <input type="text" name="detalle_direccion" class="form-control" placeholder="Detalles">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divHabilitaDireccion">
+                                <input type="checkbox"  value="Habilitar campo" onclick="habilitaControlesDireccion(this)"><label for="value" class="checkDireccion">No Estándar</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="sucursal_direccion" id="sucursal_direccion" readonly="readonly" class="form-control" value="<?=$cliente['sucursal_direccion']?>">
+                            </div>
                         </div>
                         <div class="form-group" >
                             <label for="sucursal_ciudad" class="required-field">Ciudad sucursal:</label>
@@ -660,7 +751,8 @@
                         </div>
                         <div class="form-group" >
                             <label for="sucursal_telefono" class="control-label">Telefono sucursal:</label>
-                            <input type="number" name="sucursal_telefono" min="0" minlength="10" class="form-control" value="<?=$cliente['sucursal_telefono']?>">
+                            <input type="tel" name="sucursal_telefono" class="form-control tel" value="<?=$cliente['sucursal_telefono']?>">
+                            <small class="help-error-block"></small>
                         </div>
                         <div class="form-group" >
                             <label for="sucursal_fax" class="control-label">Fax sucursal:</label>
@@ -727,25 +819,15 @@
 
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['rep_legal_tipo_documento']))): ?>
                         <div class="col-md-12 content-radio-buttons">
-                            <label for="rep_legal_tipo_documento" class="required-field title">Tipo de documento:</label>
                             <div class="form-group">
-                                <?php $require_rep_legal_tipo_documento = 0; ?>
-                                <input type="radio" name="rep_legal_tipo_documento" value="" class="radios tipo_documento hidden" checked="checked">
-                                <?php foreach($natural as $row):?>
-                                    <div class="col-md-6">
-                                        <label class="radio-inline">
-                                            <input  
-                                                type="radio" 
-                                                name="rep_legal_tipo_documento" 
-                                                value="<?=$row['id']?>" 
-                                                class="radios tipo_documento" 
-                                                <?= ($cliente['rep_legal_tipo_documento'] == $row['id']) ? 'checked' : '' ?> 
-                                                <?php if($require_rep_legal_tipo_documento == 0){ $require_rep_legal_tipo_documento++; } ?>
-                                                <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?>
-                                            >
-                                            <?= trim($row['descripcion']) . " (" . $row['codigo'] . ")"?> </label>
-                                    </div>
-                                <?php endforeach;?>
+                                <label for="rep_legal_tipo_documento" class="required-field title">Tipo de documento:</label>
+                                <select class="form-control" name="rep_legal_tipo_documento" id="rep_legal_tipo_documento" data-required="true">
+                                    <option value="">Seleccione un tipo de documento...</option>
+                                    <?php foreach($natural as $row):?>
+                                        <option type="radio" value="<?=$row['id']?>" <?=($cliente['rep_legal_tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>
+                                    <?php endforeach;?>
+                                </select>
+                                <small class="help-error-block"></small>
                             </div>
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion" style="float: right; position: relative; bottom: 70px;">
@@ -774,28 +856,44 @@
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['rep_legal_fecha_exp_documento']))): ?>
                         <div class="form-group" >
                             <label for="rep_legal_fecha_exp_documento" class="required-field">Representante fecha de expedición documento:</label>
-                            <input type="date" name="rep_legal_fecha_exp_documento" id="rep_legal_fecha_exp_documento" class="form-control" value="<?=$cliente['rep_legal_fecha_exp_documento']?>" max="<?=(date("Y-m-d"))?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?>>
+                            <input type="date" name="rep_legal_fecha_exp_documento" id="rep_legal_fecha_exp_documento" class="form-control valida_anio" value="<?=$cliente['rep_legal_fecha_exp_documento']?>" max="<?=(date("Y-m-d"))?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?> onblur="habilitaFechaNacimiento(this, 'rep_legal_fecha_nacimiento')">
+                            <small class="help-error-block"></small>
                         </div>
                     <?php endif; ?>
 
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['rep_legal_lugar_expedicion']))): ?>
                         <div class="form-group" >
                             <label for="rep_legal_lugar_expedicion" class="required-field">Representante lugar de expedición Documento:</label>
-                            <input type="text" class="form-control" name="rep_legal_lugar_expedicion" id="rep_legal_lugar_expedicion" value="<?=$cliente['rep_legal_lugar_expedicion']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?>>
+                            <select class="form-control" name="rep_legal_lugar_expedicion" id="rep_legal_lugar_expedicion" onchange="validateOtro(this)" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?>>
+                                <option value="">Seleccione...</option>
+                                <?php foreach($ciudades as $row):?>
+                                    <option type="radio" value="<?=$row['nombre_ciudad']?>" <?=$cliente['rep_legal_lugar_expedicion'] == $row['nombre_ciudad'] ? 'selected' : '' ?>><?=$row['nombre_ciudad']?></option>
+                                <?php endforeach;?>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <input type="text" class="form-control setValueOtro" name="txt_rep_legal_lugar_expedicion" id="txt_rep_legal_lugar_expedicion" <?=(isset($cliente["rep_legal_lugar_expedicion"]) && !(is_null($cliente["rep_legal_lugar_expedicion"]))) ? 'value="'.$cliente["rep_legal_lugar_expedicion"].'" data-valorselect="true" style="display: block"' : '' ?>>
                         </div>
                     <?php endif; ?>
 
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['rep_legal_fecha_nacimiento']))): ?>
                         <div class="form-group" >
                             <label for="rep_legal_fecha_nacimiento" class="required-field">Representante fecha de nacimiento:</label>
-                            <input type="date" class="form-control" name="rep_legal_fecha_nacimiento" id="rep_legal_fecha_nacimiento" <?=!empty($cliente['rep_legal_fecha_nacimiento']) ? "value='{$cliente['rep_legal_fecha_nacimiento']}'" : ""?> max="<?=(date("Y-m-d"))?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?>>
+                            <input type="date" class="form-control" name="rep_legal_fecha_nacimiento" id="rep_legal_fecha_nacimiento" <?=!empty($cliente['rep_legal_fecha_nacimiento']) ? "value='{$cliente['rep_legal_fecha_nacimiento']}'" : ""?> max="<?=(date("Y-m-d"))?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?> onblur="validaFechaNacimiento(this, 'rep_legal_fecha_exp_documento')">
+                            <small class="help-error-block"></small>
                         </div>
                     <?php endif; ?>
 
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['rep_legal_lugar_nacimiento']))): ?>
                         <div class="form-group" >
                             <label for="rep_legal_lugar_nacimiento" class="required-field">Representante lugar de nacimiento:</label>
-                            <input type="text" class="form-control" name="rep_legal_lugar_nacimiento" id="rep_legal_lugar_nacimiento" <?=!empty($cliente['rep_legal_lugar_nacimiento']) ? "value='{$cliente['rep_legal_lugar_nacimiento']}'" : "" ?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?>>
+                            <select class="form-control" name="rep_legal_lugar_nacimiento" id="rep_legal_lugar_nacimiento"<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) ):?> data-required="true" <?php endif;?> onchange="validateOtro(this)">
+                                <option value="">Seleccione...</option>
+                                <?php foreach($ciudades as $row):?>
+                                    <option type="radio" value="<?=$row['nombre_ciudad']?>" <?= $cliente['rep_legal_lugar_nacimiento'] == $row['nombre_ciudad'] ? 'selected' : '' ?> ><?=$row['nombre_ciudad']?></option>
+                                <?php endforeach;?>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <input type="text" class="form-control setValueOtro" name="txt_rep_legal_lugar_nacimiento" id="txt_rep_legal_lugar_nacimiento" <?=(isset($cliente["rep_legal_lugar_nacimiento"]) && !(is_null($cliente["rep_legal_lugar_nacimiento"]))) ? 'value="'.$cliente["rep_legal_lugar_nacimiento"].'" data-valorselect="true" style="display: block"' : '' ?>>
                         </div>
                     <?php endif; ?>
                     

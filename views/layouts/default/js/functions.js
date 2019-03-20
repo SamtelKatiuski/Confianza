@@ -210,15 +210,17 @@ function ValidateDate(a){
     dateRegex = /^\d{4}-((0\d)|(1[012]))-(([012]\d)|3[01])$/;
     var parents = $(a).parents('.form-group').length ? $(a).parents('.form-group') : $(a).parent('.form-group');
     if(!IfEmpty(a)){
+        var expedicion = true;
+        if ($(a).hasClass('valida_anio')) {
+            expedicion = validaAnioFecha(a.value);
+        }
+        if(!(a.value.match(dateRegex) && expedicion)){
 
-        if(!a.value.match(dateRegex)){
-
-            parents.children('small.help-error-block').text("* Fecha invalida").addClass('text-danger');
+            parents.children('small.help-error-block').text("* Fecha invalida o año máximo de expedición excedido").addClass('text-danger');
             if($.inArray(a, VAR_ERROR) == -1){
                 VAR_ERROR.push(a);
             }
         }else{
-
             parents.children('small.help-error-block').empty().removeClass('text-danger');
             VAR_ERROR = $.grep(VAR_ERROR, function(value) {
               return value != a ;
@@ -228,6 +230,14 @@ function ValidateDate(a){
 
         ValidateFieldEmpty(a);
     }
+}
+
+function validaAnioFecha(value) {
+    var fechaMaxima = new Date().getFullYear() - 110; // Obtengo el máximo de fecha de expedición
+    if (parseInt(value.split('-')[0]) < fechaMaxima) {
+        return false;
+    }
+    return true;
 }
 
 function ValidateTime(a){
@@ -788,6 +798,50 @@ function resetField(field){
             case 'TEXTAREA':
                 $(field).text('').val('');
                 break;
+        }
+    }
+}
+
+/**
+  * Valida la fecha de nacimiento para validar la concordancia con la fecha de expedición del documento
+  * @param {object} el Representa el control de feha de nacimiento
+  */
+ function validaFechaNacimiento(el, campoExpedicion) {
+    var parents = $(el).parents('.form-group').length ? $(el).parents('.form-group') : $(el).parent('.form-group');
+    if (!IfEmpty($('#'+campoExpedicion)[0])) {
+        if (el.readOnly) {
+            el.readOnly = false;
+        }
+        if ((new Date().getFullYear() - el.value.split('-')[0]) < 18)  {
+            parents.children('small.help-error-block').text("* Debe ser mayor de edad").addClass('text-danger');
+            el.value = '';
+        } else {
+            if (!(($('#'+campoExpedicion).val().split('-')[0] - 18) >= el.value.split('-')[0])) {
+                parents.children('small.help-error-block').text("* La fecha de nacimiento no concuerda con la fecha de expedición del documento").addClass('text-danger');
+                el.value = '';
+            } else {
+                parents.children('small.help-error-block').empty().removeClass('text-danger');
+            }
+        }
+    } else {
+        parents.children('small.help-error-block').text("* El campo fecha de expedición no puede estar vacío").addClass('text-danger');
+        el.value = '';
+        el.readOnly = true;
+    }
+}
+
+/**
+ * Valida si el valor de fecha de expedición es vacio o no para habilitar o no el campo de fecha de nacimiento
+ * @param {object} el Representa el control de fecah de nacimiento
+ */
+function habilitaFechaNacimiento(el, campoFechaNacimiento) {
+    var parentsExpedicion = $(el).parents('.form-group').length ? $(el).parents('.form-group') : $(el).parent('.form-group');
+    parentsExpedicion.children('small.help-error-block').empty().removeClass('text-danger');
+    var parents = $('#'+campoFechaNacimiento).parents('.form-group').length ? $('#'+campoFechaNacimiento).parents('.form-group') : $('#'+campoFechaNacimiento).parent('.form-group');
+    if (!IfEmpty($(el)[0])) {
+        if ($('#'+campoFechaNacimiento).attr('readonly') != undefined) {
+            $('#'+campoFechaNacimiento).removeAttr('readonly');
+            parents.children('small.help-error-block').empty().removeClass('text-danger');
         }
     }
 }
