@@ -1572,7 +1572,7 @@
                 </div>
             <?php endif; ?>
 
-            <?php if(in_array($InfoCliente['estado_formulario_id'],[5,6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && $cliente['ingresos'] == "" || $cliente['egresos'] == "" || $cliente['activos'] == "" || $cliente['pasivos'] == "" || $cliente['patrimonio'] == "")): ?>
+            <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && $cliente['ingresos'] == "" || $cliente['egresos'] == "" || $cliente['activos'] == "" || $cliente['pasivos'] == "" || $cliente['patrimonio'] == "")): ?>
                 <!-- INFORMACION FINANCIERA -->
                 <div class="panel section-form">
                   <div class="panel-heading" role="tab" id="headingThree">
@@ -1599,7 +1599,7 @@
                             </div>
                         <?php endif; ?>
                         
-                        <?php if(in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['egresos'] == "")): ?>
+                        <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['egresos'] == "")): ?>
                             <div class="form-group col-md-6">
                                 <label for="egresos" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="height: 39px; display: inline-block; width: 15%;"' : ''; ?> class="required-field">Egresos:</label>
                                 <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" name="egresos" id="egresos" value="<?=$cliente['egresos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
@@ -1614,7 +1614,7 @@
                             <hr>
                         <?php endif; ?>
                         
-                        <?php if(in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['activos'] == "")): ?>
+                        <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['activos'] == "")): ?>
                             <div class="form-group col-md-6">
                                 <label for="activos" style="height: 39px; display: inline-block; width: 15%;" class="required-field">Activos:</label>
                                 <input type="text" style="width: 85%; bottom: 42px;" class="currency form-control input_fields_verificacion" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
@@ -1626,7 +1626,7 @@
                             </div>
                         <?php endif; ?>
 
-                        <?php if(in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['pasivos'] == "")): ?>
+                        <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['pasivos'] == "")): ?>
                             <div class="form-group col-md-6">
                                 <label for="pasivos"  style="height: 39px; display: inline-block; width: 15%;" class="required-field">Pasivos:</label>
                                 <input type="text" style="width: 85%; bottom: 42px;" class="currency form-control input_fields_verificacion" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
@@ -1639,25 +1639,36 @@
                             <hr>
                         <?php endif; ?>
 
-                        <?php if(in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['patrimonio'] == "")): ?>
-                            <div class="form-group col-md-6">
-                                <label for="patrimonio" class="required-field">Patrimonio:</label>
+                        <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['patrimonio'] == "")): ?>
+                        <div class="form-group col-md-6">
+                            <label for="patrimonio" class="required-field">Patrimonio:</label>
                                 <input type="text" class="currency form-control" name="patrimonio" id="patrimonio" value="<?=$cliente['patrimonio'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
                             <hr>
                         <?php endif; ?>
 
-                        <?php if((in_array($InfoCliente["estado_formulario_id"],[5,6]))): ?>
-                            <div class="form-group col-md-6">
-                                <label for="otros_ingresos" class="required-field">Otros ingresos:</label>
+                        <?php if((!in_array($InfoCliente["estado_formulario_id"],[5,6]))): ?>
+                        <div class="form-group col-md-6">
+                            <label for="otros_ingresos" class="required-field">Otros ingresos:</label>
                                 <input type="text" class="currency form-control" name="otros_ingresos" id="otros_ingresos" value="<?=$cliente['otros_ingresos'];?>" data-required="true">
                             </div>
                         <?php endif; ?>
 
-                        <?php if((in_array($InfoCliente["estado_formulario_id"],[5,6]))): ?>
+                        <?php if((!in_array($InfoCliente["estado_formulario_id"],[5,6]))): ?>
+                        <div class="form-group col-md-12">
+                            <label for="desc_otros_ingresos" class="required-field">Concepto otros ingresos:</label>
+                            <input class="form-control onlytext" type="text" name="desc_otros_ingresos" id="desc_otros_ingresos" value="<?=$cliente['desc_otros_ingresos']?>" >
+                        </div>
+                        <?php endif; ?>
+                        <?php if((!in_array($InfoCliente["estado_formulario_id"],[5,6]))): ?>
                             <div class="form-group col-md-12">
-                                <label for="desc_otros_ingresos" class="required-field">Concepto otros ingresos:</label>
-                                <input class="form-control" type="text" name="desc_otros_ingresos" id="desc_otros_ingresos" value="<?=$cliente['desc_otros_ingresos']?>" >
+                                <label class="required-field" for="tipo_moneda">Tipo moneda:</label>
+                                <select class="form-control" name="tipo_moneda" id="tipo_moneda">
+                                    <option value="">Seleccione una moneda...</option>
+                                    <?php foreach($monedas as $row):?>
+                                        <option type="radio" value="<?=$row['Descripcion']?>" <?= $cliente['tipo_moneda'] == $row['Descripcion'] ? 'selected' : '' ?>><?=$row['Descripcion']?></option>
+                                    <?php endforeach;?>
+                                </select>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -1665,9 +1676,9 @@
                 </div>
             <?php endif; ?>
 
-            <?php if(in_array($InfoCliente["estado_formulario_id"],[6,5]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && empty($cliente['declaracion_origen_fondos']))):?>
+            <?php if(!in_array($InfoCliente["estado_formulario_id"],[6,5]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && empty($cliente['declaracion_origen_fondos']))):?>
                 <!-- DECLARACION ORIGEN DE FONDOS -->
-                <div class="panel section-form">
+                <div class="panel section-form" >
                   <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#declaracion_origen_fondos" aria-expanded="true" aria-controls="collapseThree">
