@@ -552,16 +552,16 @@
 					<?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['departamento_residencia']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-							<div class="form-group">
-		                        <label class="required-field" for="departamento_residencia">Departamento residencia:</label>
-		                        <select name="departamento_residencia" id="departamento_residencia" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> > 
-		                            <option value="">Seleccione departamento...</option>
-		                            <?php foreach($departamentos as $row):?>
-		                                <option value="<?=$row['id']?>"  <?= $cliente['departamento_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_departamento']?></option>
-		                            <?php endforeach;?>
-		                        </select>
-		                    </div>
-		                <?php endif; ?>
+						<div class="form-group">
+	                        <label class="required-field" for="departamento_residencia">Departamento residencia:</label>
+	                        <select name="departamento_residencia" id="departamento_residencia" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> > 
+	                            <option value="">Seleccione departamento...</option>
+	                            <?php foreach($departamentos as $row):?>
+	                                <option value="<?=$row['id']?>"  <?= $cliente['departamento_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_departamento']?></option>
+	                            <?php endforeach;?>
+	                        </select>
+	                    </div>
+	                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['ciudad_residencia']))  || (in_array($InfoCliente['estado_formulario_id'],[5]) ) ): ?>
 		                    <div class="form-group">
@@ -576,19 +576,20 @@
 		                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || in_array($InfoCliente['estado_formulario_id'],[5]) ): ?>
-							<div class="form-group">
-		                        <label for="telefono">Teléfono:</label>
-		                        <input type="tel" name="telefono" id="telefono" class="form-control" value="<?=$cliente['telefono']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                    </div>
-		                <?php endif; ?>
+						<div class="form-group">
+	                        <label for="telefono">Teléfono:</label>
+	                        <input type="tel" name="telefono" id="telefono" placeholder="Ingrese numero de telefono Min: 7 digitos" class="form-control tel" value="<?=$cliente['telefono']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+	                        <small class="help-error-block"></small>
+	                    </div>
+	                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['celular']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
-		                    <div class="form-group">
-		                        <label class="required-field" for="celular">Celular:</label>
-		                        <input type="tel" name="celular" id="celular" class="form-control" value="<?=$cliente['celular']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                        <small class="help-error-block"></small>
-		                    </div>
-		                <?php endif; ?>
+	                    <div class="form-group">
+	                        <label class="required-field" for="celular">Celular:</label>
+	                        <input type="tel" name="celular" id="celular" class="form-control cel" value="<?=$cliente['celular']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
+	                        <small class="help-error-block"></small>
+	                    </div>
+	                <?php endif; ?>
 						
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['correo_electronico']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
 		                    <div class="form-group">

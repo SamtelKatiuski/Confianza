@@ -176,6 +176,34 @@ $(document).ready(function(){
         }
     });
 
+    $('body').find('input[type="tel"].tel')
+        .on('keypress', function(event) {
+            if (this.value.length <= 6) {
+                OnlyNumbers(this);
+            } else if (this.value.length > 6) {
+                if (event.which != 8) {
+                    return false;
+                }
+            }
+        })
+        .on('keyup',function(){
+            ValidatePhone(this);
+        });
+
+        $('body').find('input[type="tel"].cel')
+            .on('keypress',function() {
+                if (this.value.length <= 9) {
+                    OnlyNumbers(this);
+                } else if (this.value.length > 9) {
+                    if (event.which != 8) {
+                        return false;
+                    }
+                }
+            })
+            .on('keyup',function(){
+                ValidateCel(this);
+            });
+
     $('body').find(".select2").select2({
         allowClear:true,
         placeholder: 'Seleccione una opción'
