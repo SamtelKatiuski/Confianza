@@ -19,7 +19,8 @@ define("DEFAULT_LAYOUT", "default");//Vista por defecto
 // -----------------------------------------------------------------
 
 //Informacion de la aplicacion
-define("APP_NAME", "Seguros Confianza");//Nombre de la aplicacion
+define("APP_NAME", "Seguros Confianza"); //Nombre de la aplicacion
+define("APP_CLIENT_NAME", "confianza"); //Directorios especificos segun cliente
 
 // -----------------------------------------------------------------
 //Llave de encripción conexiones

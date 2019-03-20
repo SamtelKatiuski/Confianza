@@ -158,7 +158,7 @@ $(document).ready(function(){
 
     // Primero Valida el envio de un formulario lanzandole la alerta de campos vacios
     $('button#btn-guardar-formulario').on('click',function(event) {
-
+        debugger;
         // Inicializa la variables de la captura del formulario
         var form = $('form[name="form-captura-persona-natural"]');
         var formName = form.name
