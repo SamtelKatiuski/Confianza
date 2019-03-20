@@ -454,3 +454,94 @@ function GuardarFormulario(form){
         SendData(url,dataObject,method,config_ajax);
     }
 }
+
+/**
+ * Adjunta los eventos correpondientes a todos los campos de llenado de dirección
+ * @param {array} controlDiv - corresponde al contenedor principal de los controles de llenado de dirección y al
+ * campo final en el cual se va a mostrar toda la dirección
+ */
+(function eventosDireccion(controlDiv) {
+    for (let i = 0; i < controlDiv.length; i+=2) {
+        var controles = controlDiv[i].find('.containerDireccion .controlDireccion');
+        $.each(controles, function(index, elemento){
+            if (elemento.firstElementChild.tagName == 'SELECT') {
+                $(elemento.firstElementChild).on('change', function() {
+                    cambiaValorInputDireccion(controlDiv[i+1]);
+                })
+            } else if (elemento.firstElementChild.tagName == 'INPUT') {
+                if (elemento.firstElementChild.name == 'detalle_direccion') {
+                    $(elemento.firstElementChild).on('keyup', function() {
+                        cambiaValorInputDireccion(controlDiv[i+1]);
+                    })
+                } else {
+                    $(elemento.firstElementChild).on('keyup', function(event) {
+                        if ((event.which >= 48 && event.which <= 57) || (event.which >= 96 && event.which <= 105) || event.which == 8) {
+                            cambiaValorInputDireccion(controlDiv[i+1]);
+                        }
+                    })                    
+                }
+            }
+        });
+    }
+})([
+    $('#div_direccion_residencia_natural'), $('#direccion_residencia'),
+    $('#div_direccion_empresa'), $('#direccion_empresa')
+]);
+
+/**
+ * @param {object} input - corresponde al control que se llenará con los datos de todos los controles de dirección
+ */
+var cambiaValorInputDireccion = function(input) {
+    var values = [];
+    var controlesForm = null;
+    if (input.attr('id') == 'direccion_residencia') {
+        controlesForm = $('#div_direccion_residencia_natural').find('.containerDireccion .controlDireccion');
+    } else if (input.attr('id') == 'direccion_empresa') {
+        controlesForm = $('#div_direccion_empresa').find('.containerDireccion .controlDireccion');
+    }
+    $.each(controlesForm, function(index, elemento){
+        values.push(elemento.firstElementChild.value);
+    });
+    values.splice(1, 1, values[1]+values[2]);
+    values.splice(2, 1);
+    values.splice(3, 0, '#');
+    values.splice(4, 1, values[4]+values[5]);
+    values.splice(5, 1);
+    values.splice(6, 0, '-');
+    input.val(values.join(' '));
+}
+
+var habilitaControlesDireccion = function(object) {
+    var control = $(object).parent().next().children(':first-child');
+    if (control.attr('readonly') === undefined) {
+        control.attr('readonly', 'readonly');
+    } else {
+        control.removeAttr('readonly');
+    }
+    $(object).parent().prev().find('.containerDireccion').toggleClass('muestraDireccion');
+};
+
+$('body').find('input[type="text"].onlytext')
+    .on('keypress', function(event) {
+        if (!(event.which >= 97 && event.which <= 122)) //Si NO son minusculas
+            if (!(event.which >= 65 && event.which <= 90)) //Si NO son mayusculas
+                if (!(event.which == 32)) //Si no es espacio
+                    return false;
+});
+
+function validateOtro(el){
+        var text = $(el).find('option:selected')[0].innerHTML;
+        if (text == "Otro") {
+            $(el).next().css({
+                "display": "block"
+            });
+        } else {
+            $(el).next().css({
+                "display": "none"
+            });
+        }
+    
+        $(el).next().on('blur', function(){
+            $(el).find('option:selected').attr('value', $(this)[0].value);
+        })
+};
