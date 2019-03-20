@@ -94,9 +94,31 @@ function ValidatePhone(a){
 
     var NameField = $(a).attr('name');
     var parents = $(a).parents('.form-group').length ? $(a).parents('.form-group') : $(a).parent('.form-group');
-    if(IfEmpty(a) && a.value.length < 7){
+    if(!IfEmpty(a) && a.value.length < 7){
 
         parents.children('small.help-error-block').text("* No puede contener menos de 7 digitos").addClass('text-danger');
+        if($.inArray(a, VAR_ERROR) == -1){
+            VAR_ERROR.push(a);
+        }
+    }else{
+
+        if(parents.children('small.help-error-block').text().length){
+
+            parents.children("small.help-error-block").empty().removeClass('text-danger');
+            VAR_ERROR = $.grep(VAR_ERROR, function(value) {
+              return value != a ;
+            });
+        }
+    }
+}
+
+function ValidateCel(a){
+
+    var NameField = $(a).attr('name');
+    var parents = $(a).parents('.form-group').length ? $(a).parents('.form-group') : $(a).parent('.form-group');
+    if(!IfEmpty(a) && a.value.length < 10){
+
+        parents.children('small.help-error-block').text("* No puede contener menos de 10 digitos").addClass('text-danger');
         if($.inArray(a, VAR_ERROR) == -1){
             VAR_ERROR.push(a);
         }

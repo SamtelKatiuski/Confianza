@@ -213,6 +213,34 @@ $(document).ready(function(){
         }
     });
 
+    $('body').find('input[type="tel"].tel')
+        .on('keypress', function(event) {
+            if (this.value.length <= 6) {
+                OnlyNumbers(this);
+            } else if (this.value.length > 6) {
+                if (event.which != 8) {
+                    return false;
+                }
+            }
+        })
+        .on('keyup',function() {
+            ValidatePhone(this);
+        });
+
+        $('body').find('input[type="tel"].cel')
+            .on('keypress',function() {
+                if (this.value.length <= 9) {
+                    OnlyNumbers(this);
+                } else if (this.value.length > 9) {
+                    if (event.which != 8) {
+                        return false;
+                    }
+                }
+            })
+            .on('keyup',function(){
+                ValidateCel(this);
+            });
+
     $('body').find(".select2").select2({
         allowClear:true,
         placeholder: 'Seleccione una opción'
@@ -721,4 +749,20 @@ function DeleteAccionista(el, id, documento){
 	}else{
 		AlertMessage(STATES_ERROR,'ERROR!!!', "No se ha encontrado un cliente para eliminar. ", {hideAfter : false , stack : false});
 	}
+}
+function validaPaginaWeb(el, event) {
+    var mensaje = $(el).next();
+    var expresion = /^w{3}\.[a-z0-9]*\.([a-z]{3}|[a-z]{2})/;
+    if (!el.value.match(expresion)) {
+        mensaje.text("* Debe coincidir con el formato, Ej: www.your-page-name.com").addClass('text-danger');
+    } else {
+        mensaje.empty().removeClass('text-danger');
+    }
+}
+
+function validaCampoVacio(el) {
+    var mensaje = $(el).next();
+    if (!el.value.length) {
+        mensaje.empty().removeClass('text-danger');
+    }
 }
