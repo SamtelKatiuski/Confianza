@@ -80,7 +80,10 @@ $(document).ready(function(){
 	    				$('div#anexo_accionistas div.modal-body table > tbody > tr').eq((el-1)).find(':input').val('').removeAttr('value');
 	    				$('div#anexo_accionistas div.modal-body table > tbody > tr').eq((el-1)).find(':input').prop('checked', false);
 	    			});
-	    			$('div#anexo_accionistas').modal('hide');
+                    $('div#anexo_accionistas').modal('hide');
+                    $('input.accionista_cotiza_bolsa[value="SI"]').removeClass('campo_obligatorio').attr('data-required','false');
+                    $('input.accionista_persona_publica[value="SI"]').removeClass('campo_obligatorio').attr('data-required','false');
+                    $('input.accionista_obligaciones_otro_pais[value="SI"]').removeClass('campo_obligatorio').attr('data-required','false');
 	    		}
 	    	}else{
 	    		$('div#anexo_accionistas').modal('hide');
@@ -91,17 +94,37 @@ $(document).ready(function(){
 
         $('body').on('click', 'div#anexo_preguntas_ppes div.modal-content div.modal-footer button.btn-danger', function(event) {
 	    	var errores = validarAnexo('peps');
-	    	if(errores.length){
-	    		if(confirm('Desea continuar sin completar los campos ?')){
-	    			$.each(errores,function(index,el){
-	    				$('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').eq((el-1)).find(':input').val('').removeAttr('value');
-	    				$('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').eq((el-1)).find(':input').prop('checked', false);
-	    			});
-	    			$('div#anexo_preguntas_ppes').modal('hide');
-	    		}
-	    	}else{
-	    		$('div#anexo_preguntas_ppes').modal('hide');
-	    	}
+            if(!errores.length){
+                if(confirm('¿Desea continuar sin completar los campos? Todos los campos se vaciarán')){
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('select'),function(index,el){
+                        $(el).val('');
+                    });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="text"]'),function(index,el){
+                        $(el).val('').removeAttr('value');
+                    });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="date"]'),function(index,el){
+                        $(el).val('').removeAttr('value');
+                    });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="radio"]'),function(index,el){
+                        $(el).val('').prop('checked', false);
+                    });
+                    $('div#anexo_preguntas_ppes').modal('hide');
+                }
+            }else{
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('select'),function(index,el){
+                    $(el).val('');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="text"]'),function(index,el){
+                    $(el).val('').removeAttr('value');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="date"]'),function(index,el){
+                    $(el).val('').removeAttr('value');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="radio"]'),function(index,el){
+                    $(el).val('').prop('checked', false);
+                });
+                $('div#anexo_preguntas_ppes').modal('hide');
+            }
 	    });
 
         $('body').on('click','button#btn-validar-anexo-peps',function(event){
@@ -318,23 +341,16 @@ $(document).ready(function(){
 });
 
 function validarAnexo(anexo){
-
     var errores = new Array();
     if(anexo == 'accionistas'){
 
         $('div#anexo_accionistas div.modal-body table > tbody > tr').each(function(index, el) {
 
-            var con = 0;
-            $(el).find("input").not("[type=radio]").each(function(){
-                if($(this).val().length)
-                    con++;
-            });
-            if(con || $(el).find(':input#accionista_tipo_documento_'+ (index+1)).val().length){
+            if( $(el).find(':input#accionista_tipo_documento_'+ (index+1)).val() != undefined && 
+                $(el).find(':input#accionista_tipo_documento_'+ (index+1)).val().length || $(el).find(':input').not(':empty').length > 2){
 
-                if(!$(el).find(':input#accionista_tipo_documento_'+ (index+1)).val() ||
-                    !$(el).find(':input#accionista_documento_' + (index+1)).val().length ||
-                    !$(el).find(':input#accionista_nombres_completos_' + (index+1)).val().length ) {
-                    
+                if($(el).find(':input#accionista_documento_' + (index+1)).val().length == 0 || 
+                    $(el).find(':input#accionista_nombres_completos_' + (index+1)).val().length == 0){
                     errores.push((index+1));
                 }
             }
@@ -342,22 +358,19 @@ function validarAnexo(anexo){
 
         return errores;
     }else if(anexo == 'peps'){
-
         $('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').each(function(index, el) {
-
-            var con = 0;
-            $(el).find("input").each(function(){
-                if($(this).val().length)
-                    con++;
-            });
-
-            if(con || $(el).find(":input#anexo_ppes_tipo_identificacion_" + (index+1)).val() != "" ){
-
-                if(!$(el).find(':input#anexo_ppes_tipo_identificacion_' + (index+1)).val().length ||
-                    !$(el).find(':input#anexo_ppes_nombre_' + (index+1)).val().length ||
-                    !$(el).find(':input#anexo_ppes_no_documento_' + (index+1)).val().length){
-
-                    errores.push((index+1));
+            if($(el).find(':input#anexo_ppes_vinculo_relacion_' + (index+1)).val() != undefined && 
+                $(el).find(':input#anexo_ppes_vinculo_relacion_' + (index+1)).val().length){
+                var vacios = 0;
+                $.each($(el).find(':input').not($(el).find(':input#anexo_ppes_vinculo_relacion_' + (index+1))), function(index, el) {
+                    if (el.value != undefined && el.value.length == 0) {
+                        vacios++;
+                    }
+                })
+                if (!(vacios < 7)) {
+                    for (let i = 0; i < vacios; i++) {
+                        errores.push(i+2);
+                    }
                 }
             }
         });
