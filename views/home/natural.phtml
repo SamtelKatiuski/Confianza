@@ -303,7 +303,7 @@
 			  <div id="datos_personales" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 			    <div class="panel-body">
 
-				    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['primer_apellido']))): ?>
+				    <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['primer_apellido']))): ?>
 						<div class="form-group">
 							<label class="required-field" for="primer_apellido">Primer apellido:</label>
 							<input type="text" class="form-control campo_obligatorio" name="primer_apellido" id="primer_apellido" value="<?=$cliente['primer_apellido']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' <?php if (!in_array($InfoCliente['estado_formulario_id'],[5,6])): ?> data-required="true" <?php endif;?> >
@@ -318,13 +318,13 @@
 						</div>
 					<?php endif; ?>
 
-				    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['primer_nombre']))): ?>
+				    <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['primer_nombre']))): ?>
 						<div class="form-group">
 							<label class="required-field" for="primer_nombre">Primer nombre:</label>
 							<input class="form-control campo_obligatorio" type="text" name="primer_nombre" id="primer_nombre" value="<?=$cliente['primer_nombre']?>"  onkeypress='OnlyLetters(this)' onkeyup='OnlyLetters(this)' <?php if (!in_array($InfoCliente['estado_formulario_id'],[5,6])): ?> data-required="true" <?php endif;?>>
 							<small class="help-error-block"></small>
 						</div>
-						<?php endif; ?>
+					<?php endif; ?>
 
 			    	<?php if(!in_array($InfoCliente['estado_formulario_id'],[6])): ?>
 						<div class="form-group">
@@ -334,16 +334,16 @@
 					<?php endif; ?>
 			    	
 					
-						<div class="form-group">
-							<label for="tipo_documento" class="required-field title">Tipo de documento:</label>
-							<select class="form-control campo_obligatorio" name="tipo_documento" id="tipo_documento" <?= ($InfoCliente['tipo_documento'] != '') ? 'disabled="true"' : ''; ?>>
-								<option value="">Seleccione un tipo de documento...</option>
-								<?php foreach($natural as $row):?>
-									<option type="radio" value="<?=$row['id']?>" <?=($InfoCliente['tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>
-								<?php endforeach;?>
-							</select>
-							<small class="help-error-block"></small>
-						</div>				
+					<div class="form-group">
+						<label for="tipo_documento" class="required-field title">Tipo de documento:</label>
+						<select class="form-control campo_obligatorio" name="tipo_documento" id="tipo_documento" <?= ($InfoCliente['tipo_documento'] != '') ? 'disabled="true"' : ''; ?>>
+							<option value="">Seleccione un tipo de documento...</option>
+							<?php foreach($natural as $row):?>
+								<option type="radio" value="<?=$row['id']?>" <?=($InfoCliente['tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>
+							<?php endforeach;?>
+						</select>
+						<small class="help-error-block"></small>
+					</div>
 
 					<div class="form-group">
 	                    <label class="required-field" for="documento">Número de identificación:</label>
@@ -1304,7 +1304,7 @@
 																	<select class="form-control" name="productos_financieros[<?=$contProductFin?>][moneda]" id="moneda">
 																		<option value="">Seleccione una moneda...</option>
 																		<?php foreach($monedas as $row):?>
-																			<option type="radio" value="<?=$row['Descripcion']?>" <?= ($row['Descripcion'] == $valueProductosFinancieros['moneda']) ? 'selected' : '' ?>><?=$row['Descripcion']?></option>
+																			<option type="radio" value="<?=$row['Descripcion']?>" <?= ($row['Descripcion'] == $valueProductosFinancieros['moneda']) ? 'selected' : '' ?>><?=$row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
 																		<?php endforeach;?>
 																	</select>
 		                                                        </th>
@@ -1348,7 +1348,7 @@
 																			<select class="form-control" name="productos_financieros[<?=$i?>][moneda]" id="moneda">
 																				<option value="">Seleccione una moneda...</option>
 																				<?php foreach($monedas as $row):?>
-																					<option type="radio" value="<?=$row['Descripcion']?>"><?=$row['Descripcion']?></option>
+																					<option type="radio" value="<?=$row['Descripcion']?>" ><?=$row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
 																				<?php endforeach;?>
 																			</select>
 	                                                                    </th>

@@ -1616,25 +1616,29 @@
                         
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['activos'] == "")): ?>
                             <div class="form-group col-md-6">
-                                <label for="activos" style="height: 39px; display: inline-block; width: 15%;" class="required-field">Activos:</label>
-                                <input type="text" style="width: 85%; bottom: 42px;" class="currency form-control input_fields_verificacion" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
-                                <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
-                                    <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="SI" name="verificacion_info_financiera_activos" <?=((isset($cliente['verificacion_info_financiera_activos']) && !empty($cliente['verificacion_info_financiera_activos'])) && ($cliente['verificacion_info_financiera_activos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="NO" name="verificacion_info_financiera_activos" <?=((isset($cliente['verificacion_info_financiera_activos']) && !empty($cliente['verificacion_info_financiera_activos'])) && ($cliente['verificacion_info_financiera_activos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
-                                </div>
+                                <label for="activos" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="height: 39px; display: inline-block; width: 15%;"' : ''; ?> class="required-field">Activos:</label>
+                                <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control input_fields_verificacion" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                                <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                    <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
+                                        <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                        <label class="label_left_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="SI" name="verificacion_info_financiera_activos" <?=((isset($cliente['verificacion_info_financiera_activos']) && !empty($cliente['verificacion_info_financiera_activos'])) && ($cliente['verificacion_info_financiera_activos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                        <label class="label_right_verificacion" for="verificacion_info_financiera_activos"><input type="radio" value="NO" name="verificacion_info_financiera_activos" <?=((isset($cliente['verificacion_info_financiera_activos']) && !empty($cliente['verificacion_info_financiera_activos'])) && ($cliente['verificacion_info_financiera_activos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
 
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['pasivos'] == "")): ?>
                             <div class="form-group col-md-6">
-                                <label for="pasivos"  style="height: 39px; display: inline-block; width: 15%;" class="required-field">Pasivos:</label>
-                                <input type="text" style="width: 85%; bottom: 42px;" class="currency form-control input_fields_verificacion" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
-                                <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
-                                    <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="SI" name="verificacion_info_financiera_pasivos" <?=((isset($cliente['verificacion_info_financiera_pasivos']) && !empty($cliente['verificacion_info_financiera_pasivos'])) && ($cliente['verificacion_info_financiera_pasivos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="NO" name="verificacion_info_financiera_pasivos" <?=((isset($cliente['verificacion_info_financiera_pasivos']) && !empty($cliente['verificacion_info_financiera_pasivos'])) && ($cliente['verificacion_info_financiera_pasivos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
-                                </div>
+                                <label for="pasivos"  <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="height: 39px; display: inline-block; width: 15%;"' : ''; ?> class="required-field">Pasivos:</label>
+                                <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control input_fields_verificacion" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                                <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                    <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
+                                        <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                        <label class="label_left_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="SI" name="verificacion_info_financiera_pasivos" <?=((isset($cliente['verificacion_info_financiera_pasivos']) && !empty($cliente['verificacion_info_financiera_pasivos'])) && ($cliente['verificacion_info_financiera_pasivos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                        <label class="label_right_verificacion" for="verificacion_info_financiera_pasivos"><input type="radio" value="NO" name="verificacion_info_financiera_pasivos" <?=((isset($cliente['verificacion_info_financiera_pasivos']) && !empty($cliente['verificacion_info_financiera_pasivos'])) && ($cliente['verificacion_info_financiera_pasivos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <hr>
                         <?php endif; ?>
@@ -1690,12 +1694,14 @@
                     <div class="panel-body">
                         <div class="form-group col-md-12">
                             <label for="declaracion_origen_fondos" class="required-field">Declaración origen de fondos:</label>
-                            <input class="form-control input_fields_verificacion" type="text" name="declaracion_origen_fondos" id="declaracion_origen_fondos" value="<?=$cliente['declaracion_origen_fondos']?>"  >
-                            <div class="radio_fields_verificacion">
-                                <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                <label class="label_left_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="SI" name="verificacion_declaracion_fondos" <?=((isset($cliente['verificacion_declaracion_fondos']) && !empty($cliente['verificacion_declaracion_fondos'])) && ($cliente['verificacion_declaracion_fondos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
-                                <label class="label_right_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="NO" name="verificacion_declaracion_fondos" <?=((isset($cliente['verificacion_declaracion_fondos']) && !empty($cliente['verificacion_declaracion_fondos'])) && ($cliente['verificacion_declaracion_fondos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
-                            </div>
+                            <input class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" type="text" name="declaracion_origen_fondos" id="declaracion_origen_fondos" value="<?=$cliente['declaracion_origen_fondos']?>"  >
+                            <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                <div class="radio_fields_verificacion">
+                                    <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                    <label class="label_left_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="SI" name="verificacion_declaracion_fondos" <?=((isset($cliente['verificacion_declaracion_fondos']) && !empty($cliente['verificacion_declaracion_fondos'])) && ($cliente['verificacion_declaracion_fondos'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                    <label class="label_right_verificacion" for="verificacion_declaracion_fondos"><input type="radio" value="NO" name="verificacion_declaracion_fondos" <?=((isset($cliente['verificacion_declaracion_fondos']) && !empty($cliente['verificacion_declaracion_fondos'])) && ($cliente['verificacion_declaracion_fondos'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                   </div>
