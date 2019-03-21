@@ -886,47 +886,49 @@ class homeController extends Controller {
                                         //Verifica que no halla generado error en el momento de guardar el cliente dentro del sistema
                                         if(!isset($resultadoSaveCaptura['error'])){
                                             /**
-                                             * Gurda los valores correspondientes a los campos de verificacion
+                                             * Guarda los valores correspondientes a los campos de verificacion
                                              */
-                                            if ($data['tipo_cliente'] == 'JUR') {
-                                                $existVerificado = $this->_clientes->getVerificadoSarlaftJuridico($dataQuery['id']);
-                                                $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_juridico_verificado');
-                                                if (!isset($columnsVerificado["error"])) {
-                                                    $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
-                                                    $dataQueryVerificado['cliente_sarlaft_juridico_id'] = $dataQuery['id'];
-                                                    if (!empty($dataQueryVerificado)) {
-                                                        /**
-                                                         * Si ya existe un registro en cliente_sarlaft_juridico_verificado
-                                                         */
-                                                        if (!isset($existVerificado["error"]) && (!is_null($existVerificado) && !empty($existVerificado))) {
-                                                            $dataQueryVerificado['id'] = $existVerificado['id'];
-                                                            $updateQueryVerificado = $this->_crud->Update('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);    
-                                                        } else if (!isset($existVerificado["error"]) && !$existVerificado) { //Si no existe registro
-                                                            $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);
-                                                        } else {
-                                                            throw new Exception('HUBO UN ERROR AL OBTENER LOS DATOS DE VERIFICACION POR: ' . $existVerificado['error']);
+                                            if ($data["estado_form_id"] === "5") { //Si el estado del formulario es VERIFICACION
+                                                if ($data['tipo_cliente'] == 'JUR') {
+                                                    $existVerificado = $this->_clientes->getVerificadoSarlaftJuridico($dataQuery['id']);
+                                                    $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_juridico_verificado');
+                                                    if (!isset($columnsVerificado["error"])) {
+                                                        $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
+                                                        $dataQueryVerificado['cliente_sarlaft_juridico_id'] = $dataQuery['id'];
+                                                        if (!empty($dataQueryVerificado)) {
+                                                            /**
+                                                             * Si ya existe un registro en cliente_sarlaft_juridico_verificado
+                                                             */
+                                                            if (!isset($existVerificado["error"]) && (!is_null($existVerificado) && !empty($existVerificado))) {
+                                                                $dataQueryVerificado['id'] = $existVerificado['id'];
+                                                                $updateQueryVerificado = $this->_crud->Update('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);    
+                                                            } else if (!isset($existVerificado["error"]) && !$existVerificado) { //Si no existe registro
+                                                                $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_juridico_verificado', $dataQueryVerificado);
+                                                            } else {
+                                                                throw new Exception('HUBO UN ERROR AL OBTENER LOS DATOS DE VERIFICACION POR: ' . $existVerificado['error']);
+                                                            }
+                                                        }
+                                                    }                                            
+                                                } else {
+                                                    $existVerificado = $this->_clientes->getVerificadoSarlaftNatural($dataQuery['id']);
+                                                    $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_natural_verificado');
+                                                    if (!isset($columnsVerificado["error"])) {
+                                                        $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
+                                                        $dataQueryVerificado['cliente_sarlaft_natural_id'] = $dataQuery['id'];
+                                                        if (!empty($dataQueryVerificado)) {
+                                                            /**
+                                                             * Si ya existe un registro en cliente_sarlaft_natural_verificado
+                                                             */
+                                                            if (!isset($existVerificado["error"]) && (!is_null($existVerificado) && !empty($existVerificado))) {
+                                                                $updateQueryVerificado = $this->_crud->Update('cliente_sarlaft_natural_verificado', $dataQueryVerificado);    
+                                                            } else if (!isset($existVerificado["error"]) && is_null($existVerificado)) { //Si no existe registro
+                                                                $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_natural_verificado', $dataQueryVerificado);
+                                                            } else {
+                                                                throw new Exception('HUBO UN ERROR AL OBTENER LOS DATOS DE VERIFICACION POR: ' . $existVerificado['error']);
+                                                            }
                                                         }
                                                     }
-                                                }                                            
-                                            } else {
-                                                $existVerificado = $this->_clientes->getVerificadoSarlaftNatural($dataQuery['id']);
-                                                $columnsVerificado = $this->_global->getColumnsTable('cliente_sarlaft_natural_verificado');
-                                                if (!isset($columnsVerificado["error"])) {
-                                                    $dataQueryVerificado = Helpers::formatData($columnsVerificado,$data);
-                                                    $dataQueryVerificado['cliente_sarlaft_natural_id'] = $dataQuery['id'];
-                                                    if (!empty($dataQueryVerificado)) {
-                                                        /**
-                                                         * Si ya existe un registro en cliente_sarlaft_natural_verificado
-                                                         */
-                                                        if (!isset($existVerificado["error"]) && (!is_null($existVerificado) && !empty($existVerificado))) {
-                                                            $updateQueryVerificado = $this->_crud->Update('cliente_sarlaft_natural_verificado', $dataQueryVerificado);    
-                                                        } else if (!isset($existVerificado["error"]) && is_null($existVerificado)) { //Si no existe registro
-                                                            $saveQueryVerificado = $this->_crud->Save('cliente_sarlaft_natural_verificado', $dataQueryVerificado);
-                                                        } else {
-                                                            throw new Exception('HUBO UN ERROR AL OBTENER LOS DATOS DE VERIFICACION POR: ' . $existVerificado['error']);
-                                                        }
-                                                    }
-                                                }
+                                                }                                                
                                             }
                                             
                                             //Verifica si el estado en el que llego el documento es: PROCESO CAPTURA, PENDIENTE(FIRMA,HUELLA,ENTREVISTA),MIGRACION,FINALIZADO

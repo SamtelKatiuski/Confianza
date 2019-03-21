@@ -181,12 +181,7 @@
 				     	</div>
 					    <div class="form-group" >
 					    	<label for="sucursal">Sucursal:</label>
-							<select name="sucursal" id="sucursal" class="form-control">
-								<option value="">Seleccione sucursal...</option>
-								<?php foreach($sucursal as $row):?>
-									<option value="<?=$row['Sucursal']?>" <?= !empty($cliente['sucursal']) && strcasecmp($cliente["sucursal"], $row['Sucursal']) == 0 ? 'selected' : ''?>><?=$row['Sucursal']?></option>
-								<?php endforeach;?>
-							</select>
+							<input type="text" name="sucursal" class="form-control"  <?= (isset($cliente['sucursal']) && !empty($cliente['sucursal'])) ? "value='{$cliente["sucursal"]}'" : ''?>>
 					    </div>
 					    <div class="form-group" >
 					    	<label for="tipo_solicitud" class="required-field">Tipo de solicitud:</label>
@@ -566,13 +561,14 @@
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['ciudad_residencia']))  || (in_array($InfoCliente['estado_formulario_id'],[5]) ) ): ?>
 		                    <div class="form-group">
 		                        <label  class="required-field" for="ciudad_residencia">Ciudad residencia:</label>
-		                        <select name="ciudad_residencia" id="ciudad_residencia" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-		                            <option value="">Seleccione una ciudad...</option>   
+	                        <select name="ciudad_residencia" id="ciudad_residencia" class="form-control campo_obligatorio" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
+	                            <option value="">Seleccione una ciudad...</option>   
 		                            <?php foreach($ciudades as $row):?>
 		                                <option value="<?=$row['id']?>"  <?= $cliente['ciudad_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_ciudad']?></option>
 		                            <?php endforeach;?>                         
 		                        </select>
-		                    </div>
+							<small class="help-error-block"></small>
+	                    </div>
 		                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || in_array($InfoCliente['estado_formulario_id'],[5]) ): ?>
@@ -639,7 +635,7 @@
 			            <?php if(!in_array($InfoCliente["estado_formulario_id"],[6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['trabaja_actualmente'] == 1 && (empty($cliente['trabaja_actualmente']) || empty($cliente['direccion_empresa']) || empty($cliente['departamento_empresa']) || empty($cliente['ciudad_empresa'])))): ?>
 							<div class="col-md-12 from-group">
 		                	<label for="datos_trabajo" class="required-field">Presenta información de la empresa ? </label>
-			                	<label class="radio-inline campo_obligatorio"><input type="radio" name='trabaja_actualmente' value="1" <?=($cliente['trabaja_actualmente'] == "1") ? 'checked' : ''; ?> data-required="true">Si</label>
+			                	<label class="radio-inline"><input type="radio" name='trabaja_actualmente' value="1" <?=($cliente['trabaja_actualmente'] == "1") ? 'checked' : ''; ?> data-required="true">Si</label>
 			                	<label class="radio-inline"><input type="radio" name='trabaja_actualmente' value="0" <?=($cliente['trabaja_actualmente'] === "0") ? 'checked' : ''; ?> onclick="checkboxEnabledField(false,this,'div#datos_empresa_natural','hide')">No</label>
 							<small class="help-error-block"></small>
 		                </div>
@@ -853,30 +849,30 @@
                     <div class="panel-body">
                         
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && $cliente['ingresos'] == "")): ?>
-                            <div class="form-group col-md-6">
-                                <label for="ingresos" class="required-field">Ingresos:</label>
+				      	<div class="form-group col-md-6">
+	                        <label class="required-field" for="ingresos">Ingresos:</label>
                                 <input type="text" class="currency form-control" name="ingresos" id="ingresos" value="<?=$cliente['ingresos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
                         <?php endif; ?>
                         
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && $cliente['egresos'] == "")): ?>
-                            <div class="form-group col-md-6">
-                                <label for="egresos" class="required-field">Egresos:</label>
+	                    <div class="form-group col-md-6">
+	                        <label class="required-field" for="egresos">Egresos:</label>
                                 <input type="text" class="currency form-control" name="egresos" id="egresos" value="<?=$cliente['egresos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
                             <hr>
                         <?php endif; ?>
                         
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && $cliente['activos'] == "")): ?>
-                            <div class="form-group col-md-6">
-                                <label for="activos" class="required-field">Activos:</label>
+						<div class="form-group col-md-6">
+	                        <label class="required-field" for="activos">Activos:</label>
                                 <input type="text" class="currency form-control" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
                         <?php endif; ?>
 
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6,5]) && $cliente['pasivos'] == "")): ?>
-                            <div class="form-group col-md-6">
-                                <label for="pasivos" class="required-field">Pasivos:</label>
+	                    <div class="form-group col-md-6">
+	                        <label class="required-field" for="pasivos">Pasivos:</label>
                                 <input type="text" class="currency form-control" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
                             <hr>

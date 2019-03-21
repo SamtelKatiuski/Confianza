@@ -335,30 +335,63 @@ function GuardarFormularioCaptura(form){
     if (!ValidateForm(form)){
 
         if(VAR_ERROR.length > 0){
-
             var html = '';
-
+            CAMPOS_OBLIGATORIOS=[];
+            //Si la pestalla "DATOS DE LA EMPRESA DONDE TRABAJA" no está habilitada remueve los campos obligatorios
+            if(!($("input[name='trabaja_actualmente'][value='1']")[0].checked)){
+                var index = []; 
+                for(var key in VAR_ERROR){
+                    if(VAR_ERROR[key]==$("select#sector")[0] || VAR_ERROR[key].name==$("input.tipo_actividad")[0].name){
+                        index.push(key);
+                    }
+                }
+                for(var key = index.length-1; key>=0; key--){
+                    VAR_ERROR.splice(index[key], 1);
+                }
+            }
             $('div#modal-natural').on('show.bs.modal',function(){
 
                 $(this).off('show.bs.modal');
                 $(this).find('.modal-content').find('.modal-title').text('ALGUNOS CAMPOS ESTAN VACIOS ESTA DE ACUERDO ?')
                 $(this).find('.modal-content').find('.modal-body').html('<div class="container-fluid"><ul style="list-style-type: circle;">');
-
+                $('div#modal-natural').find('.modal-content').find('.modal-footer').find('button.btn-guardar').html('Guardar <span class="glyphicon glyphicon-save"></span>').attr('id','guardar-formulario-captura').removeAttr('disabled');
                 $.each(VAR_ERROR, function(indexItem, valItem) {
                     if(valItem.type == 'checkbox'){
                         html += '<li style="line-height: 1.5;">'+$('label[for="' + $(valItem).attr('id') + '"]').text().replace(':','');
                     }else if($('label[for="' + $(valItem).attr('name') + '"]').length){
                         html += '<li style="line-height: 1.5;">'+$('label[for="' + $(valItem).attr('name') + '"]').text().replace(':','');
                     }
+                    if($(valItem).hasClass("campo_obligatorio")){
+                        html += '*';
+                        CAMPOS_OBLIGATORIOS.push(valItem);
+                    }
                 });
 
-                $(this).find('.modal-content').find('.modal-body ul').html(html);
-                $(this).find('.modal-content').find('.modal-footer').find('button.btn-guardar').html('Guardar <span class="glyphicon glyphicon-save"></span>').attr('id','guardar-formulario-captura');
+                $('div#modal-natural').find('.modal-content').find('.modal-body ul').html(html);
+                
             }).modal('show');
         }
-    }else {
-        
-        GuardarFormulario(form);
+        if(CAMPOS_OBLIGATORIOS.length > 0){
+            $('div#modal-natural').one('show.bs.modal',function(){
+                html='';
+                $(this).find('.modal-content').find('.modal-title').text('LOS SIGUIENTES CAMPOS SON OBLIGATORIOS')
+                $(this).find('.modal-content').find('.modal-body').html('<div class="container-fluid"><ul style="list-style-type: circle;">');
+                $('div#modal-natural').find('.modal-content').find('.modal-footer').find('button.btn-guardar').html('Guardar <span class="glyphicon glyphicon-save"></span>').attr('disabled','true');
+                $.each(CAMPOS_OBLIGATORIOS, function(indexItem, valItem) {
+                    if(valItem.type == 'checkbox'){
+                        html += '<li style="line-height: 1.5;">'+$('label[for="' + $(valItem).attr('id') + '"]').text().replace(':','');
+                    }else if($('label[for="' + $(valItem).attr('name') + '"]').length){
+                        html += '<li style="line-height: 1.5;">'+$('label[for="' + $(valItem).attr('name') + '"]').text().replace(':','');
+                    }
+                });
+    
+                $('div#modal-natural').find('.modal-content').find('.modal-body ul').html(html);
+                
+            }).modal('show');
+        }
+    }
+    else{
+       GuardarFormulario(form); 
     }
 }
 
