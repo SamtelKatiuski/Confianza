@@ -148,8 +148,8 @@ $(document).ready(function(){
         }
     });
 
-    if($('input[type="radio"][value=1]:checked.anexo_ppes').length > 0){
-        $('input[type="radio"][value=1]:checked.anexo_ppes').each(function(index, el) {
+    if($('input[type="radio"][value=SI]:checked.anexo_ppes').length > 0){
+        $('input[type="radio"][value=SI]:checked.anexo_ppes').each(function(index, el) {
             $(el).attr('add_anexos_ppe',true);
             AnexosPEP++;
         });
