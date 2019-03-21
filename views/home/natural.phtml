@@ -180,8 +180,8 @@
 							<small class="help-error-block"></small>
 				     	</div>
 					    <div class="form-group" >
-					    	<label for="sucursal">Sucursal:</label>
-							<select name="sucursal" id="sucursal" class="form-control">
+					    	<label class="required-field" for="sucursal">Sucursal:</label>
+							<select name="sucursal" id="sucursal" class="form-control campo_obligatorio" data-required="true">
 								<option value="">Seleccione sucursal...</option>
 								<?php foreach($sucursal as $row):?>
 									<option value="<?=$row['Sucursal']?>" <?= !empty($cliente['sucursal']) && strcasecmp($cliente["sucursal"], $row['Sucursal']) == 0 ? 'selected' : ''?>><?=$row['Sucursal']?></option>
@@ -336,7 +336,7 @@
 					
 					<div class="form-group">
 						<label for="tipo_documento" class="required-field title">Tipo de documento:</label>
-						<select class="form-control campo_obligatorio" name="tipo_documento" id="tipo_documento" <?= ($InfoCliente['tipo_documento'] != '') ? 'disabled="true"' : ''; ?>>
+						<select class="form-control campo_obligatorio" name="tipo_documento" id="tipo_documento" <?= ($InfoCliente['tipo_documento'] != '') ? 'disabled="true"' : ''; ?> data-required="true">
 							<option value="">Seleccione un tipo de documento...</option>
 							<?php foreach($natural as $row):?>
 								<option type="radio" value="<?=$row['id']?>" <?=($InfoCliente['tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>
@@ -347,7 +347,7 @@
 
 					<div class="form-group">
 	                    <label class="required-field" for="documento">Número de identificación:</label>
-	                    <input type="text" class="form-control campo_obligatorio" name="documento" id="documento" <?php echo ($InfoCliente['documento'] != '') ? 'value="'.$InfoCliente['documento'].'" disabled="true"' :'value=""'; ?> data-required="true">
+	                    <input type="text" class="form-control campo_obligatorio" name="documento" id="documento" <?php echo ($InfoCliente['documento'] != '') ? "value='{$InfoCliente["documento"]}' disabled='true'" :'value=""'; ?> data-required="true">
 	                </div>
 
 	                <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
@@ -615,7 +615,7 @@
 	                        <input type="text" name="actividad_eco_principal_otra" id="actividad_eco_principal_otra" class="form-control" value="<?=$cliente['actividad_eco_principal_otra']?>" >
 	                    </div>
 		                <div class="form-group">
-	                        <label for="ciiu_cod">CIIU(Cod):</label>
+	                        <label for="ciiu_cod" class="required-field">CIIU(Cod):</label>
 	                        <input type="text" name="ciiu_cod" id="ciiu_cod" class="form-control campo_obligatorio" value="<?=$cliente['ciiu_cod']?>" min='0'  data-required="true">
 							<small class="help-error-block"></small>
 	                    </div>
@@ -638,13 +638,13 @@
 		                    </div>
 			            <?php endif; ?>
 			            <?php if(!in_array($InfoCliente["estado_formulario_id"],[6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['trabaja_actualmente'] == 1 && (empty($cliente['trabaja_actualmente']) || empty($cliente['direccion_empresa']) || empty($cliente['departamento_empresa']) || empty($cliente['ciudad_empresa'])))): ?>
-							<div class="col-md-12 from-group">
-		                	<label for="datos_trabajo" class="required-field">Presenta información de la empresa ? </label>
-			                	<label class="radio-inline"><input type="radio" name='trabaja_actualmente' value="1" <?=($cliente['trabaja_actualmente'] == "1") ? 'checked' : ''; ?> data-required="true">Si</label>
-			                	<label class="radio-inline"><input type="radio" name='trabaja_actualmente' value="0" <?=($cliente['trabaja_actualmente'] === "0") ? 'checked' : ''; ?> onclick="checkboxEnabledField(false,this,'div#datos_empresa_natural','hide')">No</label>
-							<small class="help-error-block"></small>
-		                </div>
-		            <?php endif; ?>
+							<div class="col-md-12 form-group">
+								<label for="trabaja_actualmente" class="required-field">Presenta información de la empresa ? </label>
+								<label class="radio-inline"><input type="radio" name='trabaja_actualmente' class="campo_obligatorio" value="1" <?=($cliente['trabaja_actualmente'] == "1") ? 'checked' : ''; ?> data-required="true">Si</label>
+								<label class="radio-inline"><input type="radio" name='trabaja_actualmente' value="0" <?=($cliente['trabaja_actualmente'] === "0") ? 'checked' : ''; ?> onclick="checkboxEnabledField(false,this,'div#datos_empresa_natural','hide')">No</label>
+								<small class="help-error-block"></small>
+							</div>
+		            	<?php endif; ?>
 			    </div>
 			  </div>
 			</div>
@@ -1383,9 +1383,9 @@
 					      	<div class="col-md-12 content-radio-buttons">
 		                        <label class="required-field title" for="reclamaciones">¿Ha presentado reclamaciones o ha recibido indemnizacion en seguros en los dos ultimos años?:</label>
 		                        <div class="form-group">
-		                            <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones" <?=($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamaciones','hide')">Si</label>
+		                            <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones campo_obligatorio" <?=($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamaciones','hide')">Si</label>
 		                            <label class="radio-inline"><input type="radio" name="reclamaciones" value="0" class="radios reclamaciones" <?=($cliente['reclamaciones'] === '0') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamaciones','hide')">No</label>
-		                            <label class="radio-inline"><input type="radio" name="reclamaciones" class="radios reclamaciones" <?=(is_null($cliente['reclamaciones'])) ? 'checked' : '' ?>>N/A</label>
+		                            <label class="radio-inline"><input type="radio" name="reclamaciones" value ="" class="radios reclamaciones" <?=(is_null($cliente['reclamaciones'])) ? 'checked' : '' ?>>N/A</label>
 	                            	<label class="radio-inline" id="add_reclamaciones" <?=($cliente["reclamaciones"] != '1') ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=reclamaciones][value=1]'),'div#reclamaciones','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
 		                        </div>
 		                    </div>
@@ -1608,6 +1608,7 @@
 	                	           <label class="radio-inline"><input type="radio" name="entrevista_resultado" value="APROBADO" <?=($cliente["entrevista_resultado"] == 'APROBADO') ? 'checked' : '' ?>>APROBADO</label>
 	                	           <label class="radio-inline"><input type="radio" name="entrevista_resultado" value="RECHAZADO" <?=($cliente["entrevista_resultado"] == 'RECHAZADO') ? 'checked' : '' ?>>RECHAZADO</label>
 	                	           <label class="radio-inline"><input type="radio" name="entrevista_resultado" value="" <?=(is_null($cliente["entrevista_resultado"])) ? 'checked' : '' ?>>N/A</label>
+								   <small class="help-error-block"></small>
 	                	       </div>
 	                	    </div> 
 	                	</div>

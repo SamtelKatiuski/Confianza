@@ -17,7 +17,6 @@ $(document).ready(function(){
     =====================================================================*/
     	
     	$('body').find('div#anexo_accionistas div.modal-body').find('table  tbody  select.add_anexos_accionistas').on('change', function(event) {
-            
     		if(this.value == '3'){
                 if($(this).attr('anexo_accionistas') == undefined){
                     $(this).attr('anexo_accionistas',true);
@@ -29,34 +28,45 @@ $(document).ready(function(){
                     Anexos.accionistas--;
                 }
     		}
-
     		if(Anexos.accionistas){
     			$('div#anexo_accionistas div.modal-body button#agregar_anexo_accionistas').show();
                 $('input[type="hidden"][name="anexo_sub_accionistas"]').val(1);
     		}else{
     			$('div#anexo_accionistas div.modal-body button#agregar_anexo_accionistas').hide();
                 $('input[type="hidden"][name="anexo_sub_accionistas"]').val(0);
-    		}
+            }
+            if(this.value){
+                $(this).parents('tr').find('input.accionista_cotiza_bolsa[value="SI"]').addClass('campo_obligatorio').attr('data-required','true');
+                $(this).parents('tr').find('input.accionista_persona_publica[value="SI"]').addClass('campo_obligatorio').attr('data-required','true');
+                $(this).parents('tr').find('input.accionista_obligaciones_otro_pais[value="SI"]').addClass('campo_obligatorio').attr('data-required','true');
+            } else{
+                $(this).parents('tr').find('input.accionista_cotiza_bolsa[value="SI"]').removeClass('campo_obligatorio').attr('data-required','false');
+                $(this).parents('tr').find('input.accionista_persona_publica[value="SI"]').removeClass('campo_obligatorio').attr('data-required','false');
+                $(this).parents('tr').find('input.accionista_obligaciones_otro_pais[value="SI"]').removeClass('campo_obligatorio').attr('data-required','false');
+            }
     	});
 
         // Funcion para agregar anexo ppes de accionistas si se da SI en cualquier pregunta PEP O ACCIONISTA
         $('body').on('click','input[type="radio"].add_anexos_ppes_juridico',function(event){
 
-            if($(this).val() == 1){
-                $(this).attr('agrega_ppes',true);
-                Anexos.ppes++;
-            }else{
-                $('input[type="radio"][name="'+$(this).attr('name')+'"][value="1"]').removeAttr('agrega_ppes');
+            if($(this).parents('tr').find('select').eq(0).val() != undefined && !$(this).parents('tr').find('select').eq(0).val().length){
+            	event.preventDefault();
+            	alert('Por favor seleccionar el tipo de ID');
+            }
+        	if($(this).val() == "SI"){
+                
+                if(!$(this).attr('agrega_ppes')){
+                    $(this).attr('agrega_ppes',true);
+                    Anexos.ppes++;
+                }
+        	}else if($('input[type="radio"][name="'+$(this).attr('name')+'"][value="SI"]').attr('agrega_ppes') != undefined){
+                $('input[type="radio"][name="'+$(this).attr('name')+'"][value="SI"]').removeAttr('agrega_ppes');
                 Anexos.ppes--;
             }
 
             if(Anexos.ppes){
-                $('input[type="radio"][name="anexo_preguntas_ppes"][value="1"]').prop('checked',true);
-                $('input[type="radio"][name="anexo_preguntas_ppes"][value="0"]').prop('checked',false).removeAttr('checked');
                 checkboxEnabledField(true,this,'div#add_anexos_ppes_juridico','hide');
             }else{
-                $('input[type="radio"][name="anexo_preguntas_ppes"][value="0"]').prop('checked',true);
-                $('input[type="radio"][name="anexo_preguntas_ppes"][value="1"]').prop('checked',false).removeAttr('checked');
                 checkboxEnabledField(false,this,'div#add_anexos_ppes_juridico','hide');
             }
         });
@@ -220,7 +230,7 @@ $(document).ready(function(){
 
     $('button#btn-guardar-formulario').on('click', function(event) {
         // Inicializa la variables de la captura del formulario
-
+        debugger;
         var form = $('form[name="form-captura-persona-juridica"]');
         var formName = form.name
         if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,2,4,13,11,3,15,16,9,14]) != -1){
@@ -395,31 +405,69 @@ function validarAnexo(anexo){
 
 // Verifica el formulario de captura antes de guardarlo
 function GuardarFormularioCaptura(form){
+    
 	if (!ValidateForm(form)){
 
 	    if(VAR_ERROR.length > 0){
-
-	        var html = '';
+            var html = '';
+            CAMPOS_OBLIGATORIOS=[];
+            //Si el anexo accionistas no está habilitado remueve los campos obligatorios
+            if(!($("input[name='anexo_accionistas'][value='SI']")[0].checked)){
+                var index = []; 
+                for(var key in VAR_ERROR){
+                    if(VAR_ERROR[key]==$("input.accionista_cotiza_bolsa")[0] || VAR_ERROR[key]==$("input.accionista_persona_publica")[0] || VAR_ERROR[key]==$("accionista_obligaciones_otro_pais")[0]){
+                        index.push(key);
+                    }
+                }
+                for(var key = index.length-1; key>=0; key--){
+                    VAR_ERROR.splice(index[key], 1);
+                }
+                
+            }
 
 	        $('div#modal-juridico').on('show.bs.modal',function(){
 
                 $(this).off('show.bs.modal');
 	            $(this).find('.modal-content').find('.modal-title').text('ALGUNOS CAMPOS ESTAN VACIOS ESTA DE ACUERDO ?')
-	            $(this).find('.modal-content').find('.modal-body').html('<div class="container-fluid"><ul style="list-style-type: circle;">');
-
+                $(this).find('.modal-content').find('.modal-body').html('<div class="container-fluid"><ul style="list-style-type: circle;">');
+                $('div#modal-juridico').find('.modal-content').find('.modal-footer').find('button.btn-guardar').html('Guardar <span class="glyphicon glyphicon-save"></span>').attr('id','guardar-formulario-captura').removeAttr('disabled');
+                
 	            $.each(VAR_ERROR, function(indexItem, valItem) {
 	                if($('label[for="' + valItem.name + '"]').length){
 	                    html += '<li style="line-height: 1.5;">'+$('label[for="' + valItem.name + '"]').text().replace(':','');
-	                }
+                    }
+                    if($(valItem).hasClass("campo_obligatorio")){
+                        html += '*';
+                        CAMPOS_OBLIGATORIOS.push(valItem);
+                    }
 	            });
 
 	            $('div#modal-juridico').find('.modal-content').find('.modal-body ul').html(html);
-	            $('div#modal-juridico').find('.modal-content').find('.modal-footer').find('button.btn-guardar').html('Guardar <span class="glyphicon glyphicon-save"></span>').attr('id','guardar-formulario-captura');
-	        }).modal({keyboard: false, backdrop: 'static', show:true});
+	            
+            }).modal({keyboard: false, backdrop: 'static', show:true});
+            
+            if(CAMPOS_OBLIGATORIOS.length > 0){
+                $('div#modal-juridico').on('show.bs.modal',function(){
+                    html='';
+
+                    $(this).off('show.bs.modal');
+                    $(this).find('.modal-content').find('.modal-title').text('LOS SIGUIENTES CAMPOS SON OBLIGATORIOS')
+                    $(this).find('.modal-content').find('.modal-body').html('<div class="container-fluid"><ul style="list-style-type: circle;">');
+                    $('div#modal-juridico').find('.modal-content').find('.modal-footer').find('button.btn-guardar').html('Guardar <span class="glyphicon glyphicon-save"></span>').attr('disabled','true');;
+    
+                    $.each(CAMPOS_OBLIGATORIOS, function(indexItem, valItem) {
+                        if($('label[for="' + valItem.name + '"]').length){
+                            html += '<li style="line-height: 1.5;">'+$('label[for="' + valItem.name + '"]').text().replace(':','');
+                        }
+                    });
+    
+                    $('div#modal-juridico').find('.modal-content').find('.modal-body ul').html(html);
+                    
+                }).modal({keyboard: false, backdrop: 'static', show:true});
+            }
 	    }
-	}else {
-        
-        GuardarFormulario(form);
+	}else{
+       GuardarFormulario(form); 
     }
 }
 

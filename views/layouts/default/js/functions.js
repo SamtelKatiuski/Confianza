@@ -630,15 +630,18 @@ function formatCurrency(value){
 function checkboxEnabledField(status,e,field,callback){
     if(status === true){
         if(callback == 'hide')
-            if($(e).is(":checked"))
+            if($(e).is(":checked")) {
                 $(field).fadeIn(150);
-            else
-                $(field).fadeOut(300);
+            } else
+            $(field).fadeOut(300);
+            
+        if (callback == 'hide' && field == 'div#informacion_entrevista') {
+            $($('div[id=informacion_entrevista]').find(':input[type=radio][name=entrevista_resultado]')[0]).addClass('campo_obligatorio').attr('data-required', true);
+        }
 
         if(callback == 'disabled')
             if($(e).is(":checked"))
                 $(field).attr('disabled',true);
-
         if(callback == 'modal'){
             if($(e).is(':checked')){
                 $(field).modal({
@@ -655,6 +658,9 @@ function checkboxEnabledField(status,e,field,callback){
     }else{
         if(callback == 'hide')
             $(field).fadeOut(300);
+            if (callback == 'hide' && field == 'div#informacion_entrevista') {
+                $($('div[id=informacion_entrevista]').find(':input[type=radio][name=entrevista_resultado]')[0]).removeClass('campo_obligatorio').removeAttr('data-required', true);
+            }
         if(callback == 'disabled')
             $(field).attr('disabled',false);
         if(callback == 'modal'){
