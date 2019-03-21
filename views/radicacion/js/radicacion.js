@@ -460,6 +460,16 @@ $(document).ready(function () {
 			}
 		}
 	});
+
+	$('body').on('change', 'select#usuario_confianza', function (event) {
+		$('input#correo_radicacion').val($('select#usuario_confianza option:selected').data('correo'));
+		if(!($('select#usuario_confianza option:selected').data('correo') == undefined)){
+			$('input#correo_radicacion').prop("readonly", "true");
+		} else{
+			$('input#correo_radicacion').prop("readonly", "false");
+			$('input#correo_radicacion').removeAttr("readonly");
+		}
+	});
 });
 
 function validarSarlarf() {
@@ -604,12 +614,12 @@ var SearchRadicacion = function (cliente) {
 								$.each(controles.children(), function (index, elemento) {
 									if (elemento.tagName == 'SELECT') {
 										$(elemento).on('change', function () {
-											cambiaValorInputDireccion(controlDiv[i + 1]);
+											cambiaValorInputNumPlanilla(controlDiv[i + 1]);
 										})
 									} else if (elemento.tagName == 'INPUT') {
 										$(elemento).on('keyup', function (event) {
 											if ((event.which >= 48 && event.which <= 57) || (event.which >= 96 && event.which <= 105) || (event.which >= 65 && event.which <= 90) || (event.which >= 97 && event.which <= 122) || event.which == 8) {
-												cambiaValorInputDireccion(controlDiv[i + 1]);
+												cambiaValorInputNumPlanilla(controlDiv[i + 1]);
 											}
 										})
 									}
@@ -622,7 +632,7 @@ var SearchRadicacion = function (cliente) {
 						/**
 						 * @param {object} input - corresponde al control que se llenará con los datos de todos los controles de número de planilla
 						 */
-						var cambiaValorInputDireccion = function (input) {
+						var cambiaValorInputNumPlanilla = function (input) {
 							var values = [];
 							var controlesForm = null;
 							if (input.attr('id') == 'numero_planilla') {
@@ -631,7 +641,7 @@ var SearchRadicacion = function (cliente) {
 							$.each(controlesForm.children(), function (index, elemento) {
 								values.push(elemento.value);
 							});
-							input.val($.trim(values.join(' ')));
+							input.val($.trim(values.join('~')));
 						}
 					}
 				});
@@ -778,12 +788,12 @@ var SearchRadicacion = function (cliente) {
 						$.each(controles.children(), function (index, elemento) {
 							if (elemento.tagName == 'SELECT') {
 								$(elemento).on('change', function () {
-									cambiaValorInputDireccion(controlDiv[i + 1]);
+									cambiaValorInputNumPlanilla(controlDiv[i + 1]);
 								})
 							} else if (elemento.tagName == 'INPUT') {
 								$(elemento).on('keyup', function (event) {
 									if ((event.which >= 48 && event.which <= 57) || (event.which >= 96 && event.which <= 105) || (event.which >= 65 && event.which <= 90) || (event.which >= 97 && event.which <= 122) || event.which == 8) {
-										cambiaValorInputDireccion(controlDiv[i + 1]);
+										cambiaValorInputNumPlanilla(controlDiv[i + 1]);
 									}
 								})
 							}
@@ -796,7 +806,7 @@ var SearchRadicacion = function (cliente) {
 				/**
 				 * @param {object} input - corresponde al control que se llenará con los datos de todos los controles de número de planilla
 				 */
-				var cambiaValorInputDireccion = function (input) {
+				var cambiaValorInputNumPlanilla = function (input) {
 					var values = [];
 					var controlesForm = null;
 					if (input.attr('id') == 'numero_planilla') {
@@ -805,7 +815,7 @@ var SearchRadicacion = function (cliente) {
 					$.each(controlesForm.children(), function (index, elemento) {
 						values.push(elemento.value);
 					});
-					input.val($.trim(values.join(' ')));
+					input.val($.trim(values.join('~')));
 				}
 			} else {
 
@@ -1071,12 +1081,12 @@ function EditRadicacion(el, id) {
 							$.each(controles.children(), function (index, elemento) {
 								if (elemento.tagName == 'SELECT') {
 									$(elemento).on('change', function () {
-										cambiaValorInputDireccion(controlDiv[i + 1]);
+										cambiaValorInputNumPlanilla(controlDiv[i + 1]);
 									})
 								} else if (elemento.tagName == 'INPUT') {
 									$(elemento).on('keyup', function (event) {
 										if ((event.which >= 48 && event.which <= 57) || (event.which >= 96 && event.which <= 105) || (event.which >= 65 && event.which <= 90) || (event.which >= 97 && event.which <= 122) || event.which == 8) {
-											cambiaValorInputDireccion(controlDiv[i + 1]);
+											cambiaValorInputNumPlanilla(controlDiv[i + 1]);
 										}
 									})
 								}
@@ -1089,7 +1099,7 @@ function EditRadicacion(el, id) {
 					/**
 					 * @param {object} input - corresponde al control que se llenará con los datos de todos los controles de número de planilla
 					 */
-					var cambiaValorInputDireccion = function (input) {
+					var cambiaValorInputNumPlanilla = function (input) {
 						var values = [];
 						var controlesForm = null;
 						if (input.attr('id') == 'numero_planilla') {
@@ -1098,7 +1108,7 @@ function EditRadicacion(el, id) {
 						$.each(controlesForm.children(), function (index, elemento) {
 							values.push(elemento.value);
 						});
-						input.val($.trim(values.join(' ')));
+						input.val($.trim(values.join('~')));
 					}
 
 					//Realiza la accion de verificacion del formulario

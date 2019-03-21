@@ -22,6 +22,7 @@ define("DEFAULT_LAYOUT", "default");//Vista por defecto
 define("APP_NAME", "Seguros Confianza"); //Nombre de la aplicacion
 define("APP_CLIENT_NAME", "confianza"); //Directorios especificos segun cliente
 
+
 // -----------------------------------------------------------------
 //Llave de encripción conexiones
 define("DB_KEYHASH", "/0UwUlWKcKnbrC/0Fzyw9MIxA+pOYdxv9wBe1+ckvLkh2X71BWoMpsGrgAXL5wRgLqXWCH0P92XTh9AjfKU6lw==");

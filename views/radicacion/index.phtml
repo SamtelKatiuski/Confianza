@@ -5,6 +5,10 @@
 	.control_num_planilla {
 		width: 32.5%;
 		height: 34px;
+		margin-bottom: 3px;
+	}
+	#sucursal_num_planilla {
+		width: 100% !important;
 	}
 </style>
 <div class="container">
@@ -61,24 +65,37 @@
 
 					<div class="col-md-4 form-group pull-right">
 						<div>
-					  	<label for="numero_planilla" data-label="numero_planilla" class="categoria">Número de Planilla</label>
+						<label for="numero_planilla" data-label="numero_planilla" class="categoria">Número de Planilla</label>
+						<!-- label ocultos para mensaje de error al verificar radicacion -->
+						<label for="sucursal_num_planilla" data-label="sucursal_num_planilla" hidden="true">Sucursal (Número de Plantilla)</label>
+						<label for="input_num_planilla" data-label="input_num_planilla" hidden="true">Código (Número de Plantilla)</label>
+						<label for="usuario_confianza" data-label="usuario_confianza" hidden="true">Usuario (Número de Plantilla)</label>
+						<label for="anio_num_planilla" data-label="anio_num_planilla" hidden="true">Año (Número de Plantilla)</label>
 						</div>
-						<div id="controls_num_planilla">
-							<select id="sucursal_num_planilla" class="control_num_planilla" disabled="true">
-								<option value="">Sucursal...</option>
-								<?php foreach ($sucursal as $itemSucursal):?>
-									<option value="<?=$itemSucursal['Sucursal'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode(' ', $InfoRadicado["NUMERO_PLANILLA"])[0]) == $itemSucursal['Sucursal']) ? 'selected' : ''; ?>><?=$itemSucursal['Sucursal'];?></option>
-								<?php endforeach; ?>
-							</select>
-							<input type="text" class="control_num_planilla" id="input_num_planilla" disabled="true" value="<?= (isset($InfoRadicado['NUMERO_PLANILLA']) && !empty($InfoRadicado['NUMERO_PLANILLA'])) ? explode(' ', $InfoRadicado['NUMERO_PLANILLA'])[1] : ''; ?>">
-							<select id="anio_num_planilla" class="control_num_planilla" disabled="true">
-								<option value="">Año...</option>
-								<?php foreach ($anio as $itemAnio):?>
-									<option value="<?=$itemAnio['Anio'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode(' ', $InfoRadicado["NUMERO_PLANILLA"])[2]) == $itemAnio['Anio']) ? 'selected' : ''; ?>><?=$itemAnio['Anio'];?></option>
-								<?php endforeach; ?>
-							</select>
+						<div style="border: 1px solid; border-color: rgba(170,170,170,0.5); border-radius: 3px; padding: 3px;">
+							<div id="controls_num_planilla">
+								<select id="sucursal_num_planilla" name="sucursal_num_planilla" class="control_num_planilla" disabled="true" data-required="true">
+									<option value="">Sucursal...</option>
+									<?php foreach ($sucursal as $itemSucursal):?>
+										<option value="<?=$itemSucursal['Sucursal'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode('~', $InfoRadicado["NUMERO_PLANILLA"])[0]) == $itemSucursal['Sucursal']) ? 'selected' : ''; ?>><?=$itemSucursal['Sucursal'];?></option>
+									<?php endforeach; ?>
+								</select>
+								<input type="text" class="control_num_planilla" id="input_num_planilla" name="input_num_planilla" disabled="true" placeholder="Código Planilla" value="<?= (isset($InfoRadicado['NUMERO_PLANILLA']) && !empty($InfoRadicado['NUMERO_PLANILLA'])) ? explode('~', $InfoRadicado['NUMERO_PLANILLA'])[1] : ''; ?>" data-required="true">
+								<select id="usuario_confianza" name="usuario_confianza" class="control_num_planilla" disabled="true" data-required="true">
+									<option value="">Usuario...</option>
+									<?php foreach ($usersConfianza as $itemUsersConfianza):?>
+										<option value="<?=$itemUsersConfianza['id'] . "-" . $itemUsersConfianza['usuario'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode('~', $InfoRadicado["NUMERO_PLANILLA"])[2]) == $itemUsersConfianza['id'] . "-" . $itemUsersConfianza['usuario']) ? 'selected' : ''; ?> data-correo="<?=$itemUsersConfianza['correo'];?>"><?=$itemUsersConfianza['id'] . "-" . $itemUsersConfianza['usuario'];?></option>
+									<?php endforeach; ?>
+								</select>
+								<select id="anio_num_planilla" name="anio_num_planilla" class="control_num_planilla" disabled="true" data-required="true">
+									<option value="">Año...</option>
+									<?php foreach ($anio as $itemAnio):?>
+										<option value="<?=$itemAnio['Anio'];?>" <?=((isset($InfoRadicado["NUMERO_PLANILLA"]) && !empty($InfoRadicado["NUMERO_PLANILLA"])) && (explode('~', $InfoRadicado["NUMERO_PLANILLA"])[3]) == $itemAnio['Anio']) ? 'selected' : ''; ?>><?=$itemAnio['Anio'];?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
 						</div>
-					  <input type="hidden" id="numero_planilla" name="numero_planilla" class="form-control" disabled="true" data-required="true" value="<?=(isset($InfoRadicado['NUMERO_PLANILLA']) && !empty($InfoRadicado['NUMERO_PLANILLA'])) ? $InfoRadicado['NUMERO_PLANILLA'] : '';?>">
+						<input type="hidden" id="numero_planilla" name="numero_planilla" class="form-control" disabled="true" data-required="true" value="<?=(isset($InfoRadicado['NUMERO_PLANILLA']) && !empty($InfoRadicado['NUMERO_PLANILLA'])) ? $InfoRadicado['NUMERO_PLANILLA'] : '';?>">
 						<small class="help-error-block"></small>
 					</div>
 				</div>
@@ -125,7 +142,7 @@
 								<h4 data-label="devuelto" class="categoria">Devuelto</h4>
 							</strong>
 						  	<div class="radio">
-								<label><input type="radio" data-required="true" name="devuelto" value="Si" disabled="true"" <?=(isset($InfoRadicado["DEVUELTO"]) && $InfoRadicado["DEVUELTO"] == 'Si') ? "checked" : '';?>>Si</label>
+								<label><input type="radio" data-required="true" name="devuelto" value="Si" disabled="true" <?=(isset($InfoRadicado["DEVUELTO"]) && $InfoRadicado["DEVUELTO"] == 'Si') ? "checked" : '';?>>Si</label>
 							</div>
 							<div class="radio">
 							  	<label><input type="radio" name="devuelto"  value="No" disabled="true" <?=(isset($InfoRadicado["DEVUELTO"]) && $InfoRadicado["DEVUELTO"] == 'No') ? "checked" : '';?>>No</label>

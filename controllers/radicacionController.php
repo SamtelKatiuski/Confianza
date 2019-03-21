@@ -69,6 +69,7 @@ class radicacionController extends Controller
                     }
                     $sucursal                              = $this->_global->getSucursales();
                     $anio                                  = $this->_global->getAnios();
+                    $usersConfianza                        = $this->_model->getAllUsuariosConfiaza();
                     $this->titulo                          = "Radicacion";
                     $InfoRadicado["NUM_DOCUMENTO_CLIENTE"] = $data['documentClient'];
                     $tipo_documento_cliente                = $this->_global->getTipoDocumentoByID($InfoRadicado['TIPO_DOCUMENTO_CLIENTE']);
@@ -687,6 +688,7 @@ class radicacionController extends Controller
                 if($InfoRadicado){
                     $sucursal                              = $this->_global->getSucursales();
                     $anio                                  = $this->_global->getAnios();
+                    $usersConfianza                        = $this->_model->getAllUsuariosConfiaza();
                     $this->titulo                          = "Radicacion";
                     $InfoRadicado["NUM_DOCUMENTO_CLIENTE"] = $InfoRadicado['CLIENTE_DOCUMENTO'];
                     $tipo_documento_cliente                = $this->_global->getTipoDocumentoByID($InfoRadicado['TIPO_DOCUMENTO_CLIENTE']);

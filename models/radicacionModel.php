@@ -306,4 +306,17 @@ class radicacionModel extends Model {
         else
             return $result->fetchAll();
 	}
+
+	// Obtener listado de usuarios confianza
+	public function getAllUsuariosConfiaza(){
+		$sql = "SELECT id, usuario, correo FROM usuarios_confianza";
+		$result = $this->_db->prepare($sql);
+
+		$result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+	}
 }
