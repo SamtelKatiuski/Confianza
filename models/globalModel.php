@@ -29,7 +29,7 @@ class globalModel extends Model
     }
     //Obtiene la informacion de departamentos por pais, defualt: Colombia
     public function getDepartaments($pais = 170) {
-        $result = $this->_db->prepare("SELECT * FROM departamentos WHERE pais = :pais");
+        $result = $this->_db->prepare("SELECT * FROM departamentos WHERE pais = :pais ORDER BY nombre_departamento ASC");
         $result->bindValue(":pais", $pais);
 
         $resultado = $result->execute();
@@ -43,10 +43,10 @@ class globalModel extends Model
     //Obtiene la informacion de ciudades por departamento
     public function getCities($departamento = false) {
         if($departamento) {
-            $result = $this->_db->prepare("SELECT * FROM ciudades WHERE departamento = :departamento");
+            $result = $this->_db->prepare("SELECT * FROM ciudades WHERE departamento = :departamento ORDER BY nombre_ciudad ASC");
             $result->bindValue(":departamento", $departamento);
         } else {
-            $result = $this->_db->prepare("SELECT * FROM ciudades");
+            $result = $this->_db->prepare("SELECT * FROM ciudades ORDER BY nombre_ciudad ASC");
         }
 
         $resultado = $result->execute();
@@ -175,7 +175,7 @@ class globalModel extends Model
     }
 
     public function getAnios(){
-        $result = $this->_db->prepare("SELECT * FROM anio");
+        $result = $this->_db->prepare("SELECT * FROM anio ORDER BY Anio ASC");
         $result->execute();
 
         if(!is_null($result->errorInfo()[2]))
@@ -185,7 +185,7 @@ class globalModel extends Model
     }
 
     public function getMonedas(){
-        $result = $this->_db->prepare("SELECT * FROM tipo_moneda");
+        $result = $this->_db->prepare("SELECT * FROM tipo_moneda ORDER BY Descripcion ASC");
         $result->execute();
 
         if(!is_null($result->errorInfo()[2]))
@@ -195,7 +195,7 @@ class globalModel extends Model
     }
 
     public function getSucursales(){
-        $result = $this->_db->prepare("SELECT * FROM sucursal");
+        $result = $this->_db->prepare("SELECT * FROM sucursal ORDER BY Sucursal ASC");
         $result->execute();
 
         if(!is_null($result->errorInfo()[2]))

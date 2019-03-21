@@ -1617,7 +1617,7 @@
 			<?php endif; ?>
 		</div>
 		<hr>
-		<button type="button" class="btn btn-success btn-guardar" <?=(!in_array($InfoCliente["estado_formulario_id"],[1,5,6,11]) && !$repeat) ? 'disabled' : '' ?> id="btn-guardar-formulario">Guardar <?=strtolower($InfoCliente["ESTADO_FORM"])?> <span class="glyphicon glyphicon-inbox"></span></button>
+		<button type="button" class="btn btn-success btn-guardar" <?=(!in_array($InfoCliente["estado_formulario_id"],[1,5,6,11])) ? 'disabled' : '' ?> id="btn-guardar-formulario">Guardar <?=strtolower($InfoCliente["ESTADO_FORM"])?> <span class="glyphicon glyphicon-inbox"></span></button>
 	</form>
 </div>
 <!-- FIN Formulario nuevo version 2.0 -->

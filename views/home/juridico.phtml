@@ -1180,8 +1180,8 @@
                                                                 <th>
                                                                     <select name="anexo_ppe_accionistas[<?=$contador?>][accionista_tipo_documento]" id="accionista_tipo_documento_<?=$contador?>" class="form-control add_anexos_accionistas">
                                                                         <option value="" hidden>Seleccione tipo de documento.</option>
-                                                                        <?php foreach($tiposDocumentos as $roww):?>
-                                                                            <option value="<?=$row['id']?>" <?= $row['accionista_tipo_documento'] == $roww['id'] ? 'selected' : '' ?> ><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
+                                                                        <?php foreach($tiposDocumentos as $row):?>
+                                                                            <option value="<?=$row['id']?>" <?= $row['accionista_tipo_documento'] == $row['id'] ? 'selected' : '' ?> ><?=$row['descripcion'] . '(' . $row['codigo'] . ')' ?></option>
                                                                         <?php endforeach;?>
                                                                     </select>
                                                                 </th>
