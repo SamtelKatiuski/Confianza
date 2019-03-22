@@ -144,13 +144,13 @@ class reportesModel extends Model
         INNER JOIN zr_radicacion ZR ON ZR.id = RAR.radicacion_id
         INNER JOIN archivo_organizado AO ON ZR.id = AO.radicacion_id
         INNER JOIN users US ON ZR.funcionario_id = US.id
-        WHERE RAR.FECHA_EMISION BETWEEN :inicio AND :fin
+        WHERE DATE_FORMAT(ZR.created, '%Y-%m-%d') BETWEEN :inicio AND :fin
         ORDER BY CLIENTE_ID";
 
         $result = $this->_db->prepare($sql);
         
-        $result->bindValue(":inicio" , $fechasReporte["inicio"] . ' 00:00:00');
-        $result->bindValue(":fin" , $fechasReporte["fin"] . ' 23:59:59');
+        $result->bindValue(":inicio" , $fechasReporte["inicio"]);
+        $result->bindValue(":fin" , $fechasReporte["fin"]);
 
         $resultado = $result->execute();
 
