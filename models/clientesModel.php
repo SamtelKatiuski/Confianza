@@ -1244,4 +1244,17 @@ class clientesModel extends Model
         else
             return $result->fetch(PDO::FETCH_ASSOC);
     }
+
+    //Obtiene los tipos de empresa
+    public function getTipoEmpresa(){
+
+        $result = $this->_db->prepare("SELECT valor_dos AS tipo_empresa FROM multi_param WHERE nombre_parametro = 'tipo_empresa'");
+         
+        $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

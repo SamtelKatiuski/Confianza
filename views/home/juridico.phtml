@@ -362,7 +362,7 @@
                         </div>
                         <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && $cliente['info_basica_digito_verificacion'] == '')): ?>
                             <div class="col-md-6 form-group">
-                                <label for="info_basica_digito_verificacion" class="required-field">Dígito de verificación (DV):</label>
+                                <label for="info_basica_digito_verificacion">Dígito de verificación (DV):</label>
                                 <input type="number" class="form-control" name="info_basica_digito_verificacion" id="info_basica_digito_verificacion" value="<?=$cliente['info_basica_digito_verificacion']?>" min="0" max-length="1" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             </div>
                         <?php endif; ?>
@@ -1635,7 +1635,7 @@
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['activos'] == "")): ?>
                             <div class="form-group col-md-6">
                                 <label for="activos" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="height: 39px; display: inline-block; width: 15%;"' : ''; ?> class="required-field">Activos:</label>
-                                <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control input_fields_verificacion" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                                <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" name="activos" id="activos" value="<?=$cliente['activos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                 <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                     <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
                                         <label class="label_fields_verificacion required-field">¿Verificado?</label>
@@ -1649,7 +1649,7 @@
                         <?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6]) || (in_array($InfoCliente["estado_formulario_id"],[6]) && $cliente['pasivos'] == "")): ?>
                             <div class="form-group col-md-6">
                                 <label for="pasivos"  <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="height: 39px; display: inline-block; width: 15%;"' : ''; ?> class="required-field">Pasivos:</label>
-                                <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control input_fields_verificacion" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                                <input type="text" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 85%; bottom: 42px;"' : ''; ?> class="currency form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" name="pasivos" id="pasivos" value="<?=$cliente['pasivos'];?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                 <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                     <div class="radio_fields_verificacion" style="bottom: 35px; margin-left: 20px; width: 90px;">
                                         <label class="label_fields_verificacion required-field">¿Verificado?</label>

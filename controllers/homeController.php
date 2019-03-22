@@ -200,6 +200,7 @@ class homeController extends Controller {
                                             $anio = $this->_global->getAnios();
                                             $monedas = $this->_global->getMonedas();
                                             $sucursal = $this->_global->getSucursales();
+                                            $tipos_empresa = $this->_clientes->getTipoEmpresa();
                                         if(!in_array($InfoCliente["estado_formulario_id"],[1,2])){
 
                                             $getGestionCompletitud = $this->_clientes->getAllGestionesCompletitudVerificacion($InfoCliente['cliente_id'],$InfoCliente["fecha_diligenciamiento"]);
