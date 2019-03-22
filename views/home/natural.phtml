@@ -170,8 +170,8 @@
 					
 					<?php if(!in_array($InfoCliente["estado_formulario_id"],[5,6])):?>
 				      	<div class="form-group" >
-				     		<label class="required-field" for="ciudad_diligenciamiento">Ciudad de diligenciamiento:</label>
-		                    <select name="ciudad_diligenciamiento" id="ciudad_diligenciamiento" class="form-control campo_obligatorio" data-required="true">
+				     		<label for="ciudad_diligenciamiento">Ciudad de diligenciamiento:</label>
+		                    <select name="ciudad_diligenciamiento" id="ciudad_diligenciamiento" class="form-control" data-required="true">
 		                        <option value="">Seleccione ciudad...</option>
 		                        <?php foreach($ciudades as $row):?>
 		                            <option value="<?=$row['id']?>" <?=$cliente["ciudad_diligenciamiento"] == $row["id"] ? "selected" : ""?>><?=$row['nombre_ciudad']?></option>
@@ -375,7 +375,7 @@
 					
 					<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['fecha_expedicion_documento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
 						<div class="form-group">
-	                        <label class="required-field" for="fecha_expedicion_documento">Fecha de expedición documento:</label>
+	                        <label for="fecha_expedicion_documento">Fecha de expedición documento:</label>
 	                        <input type="date" name="fecha_expedicion_documento" id="fecha_expedicion_documento" class="form-control valida_anio" value="<?=$cliente['fecha_expedicion_documento']?>" max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onblur="habilitaFechaNacimiento(this, 'fecha_nacimiento')">
 	                    	<small class="help-error-block"></small>
 						</div>
@@ -384,7 +384,6 @@
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['lugar_expedicion_documento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
 	                    <div class="form-group">
 		                    <label class="required-field" for="lugar_expedicion_documento">Lugar de expedición:</label>
-		                    
 							<select name="lugar_expedicion_documento" id="lugar_expedicion_documento" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onchange="validateOtro(this)">
 	                            <option value="">Seleccione ciudad...</option>
 	                            <?php foreach($ciudades as $row):?>
@@ -398,7 +397,7 @@
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['fecha_nacimiento']))   || (in_array($InfoCliente['estado_formulario_id'],[5]) )): ?>
 	                    <div class="form-group">
-	                        <label class="required-field" for="fecha_nacimiento">Fecha de nacimiento:</label>
+	                        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
 	                        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"  class="form-control" value="<?=$cliente['fecha_nacimiento']?>"  max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> onblur="validaFechaNacimiento(this, 'fecha_expedicion_documento')">
 							<small class="help-error-block"></small>
 	                    </div>
@@ -565,15 +564,15 @@
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || (in_array($InfoCliente['estado_formulario_id'],[5,6]) && empty($cliente['ciudad_residencia']))  || (in_array($InfoCliente['estado_formulario_id'],[5]) ) ): ?>
 		                    <div class="form-group">
-		                        <label  class="required-field" for="ciudad_residencia">Ciudad residencia:</label>
-	                        <select name="ciudad_residencia" id="ciudad_residencia" class="form-control campo_obligatorio" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
-	                            <option value="">Seleccione una ciudad...</option>   
-		                            <?php foreach($ciudades as $row):?>
-		                                <option value="<?=$row['id']?>"  <?= $cliente['ciudad_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_ciudad']?></option>
-		                            <?php endforeach;?>                         
-		                        </select>
-							<small class="help-error-block"></small>
-	                    </div>
+		                        <label for="ciudad_residencia">Ciudad residencia:</label>
+								<select name="ciudad_residencia" id="ciudad_residencia" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >
+									<option value="">Seleccione una ciudad...</option>   
+										<?php foreach($ciudades as $row):?>
+											<option value="<?=$row['id']?>"  <?= $cliente['ciudad_residencia'] == $row['id'] ?  'selected' : '' ?> ><?=$row['nombre_ciudad']?></option>
+										<?php endforeach;?>                         
+									</select>
+								<small class="help-error-block"></small>
+							</div>
 		                <?php endif; ?>
 
 						<?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])  || in_array($InfoCliente['estado_formulario_id'],[5]) ): ?>
