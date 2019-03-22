@@ -339,7 +339,11 @@ class radicacionController extends Controller
 
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        $fileMoved['fecha'] .= "-31";
+                                        if (substr($fileMoved['fecha'], 5, 2) == '02') {
+                                            $fileMoved['fecha'] .= "-28"; //Si el mes es febrero
+                                        } else {
+                                            $fileMoved['fecha'] .= "-31";
+                                        }
                                     }else if(strlen($fileMoved['fecha'])==4){
                                         $fileMoved['fecha'] .= "-12-31";
                                     }
