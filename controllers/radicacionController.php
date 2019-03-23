@@ -336,17 +336,10 @@ class radicacionController extends Controller
                                 // Almacenamiento de relación entre archivo subido y radicación - JAV01 - 20180409
                                 
                                 foreach ($moveFiles as $fileMoved) {
-
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        /* if (substr($fileMoved['fecha'], 5, 2) == '02') {
-                                            $fileMoved['fecha'] .= "-28"; //Si el mes es febrero
-                                        } else {
-                                            $fileMoved['fecha'] .= "-31";
-                                        } */
                                         $fileMoved['fecha'] .= "-".date('d');
                                     }else if(strlen($fileMoved['fecha'])==4){
-                                        /* $fileMoved['fecha'] .= "-12-31"; */
                                         $fileMoved['fecha'] .= "-".date('m-d');
                                     }
                                     $dataRel = array(
@@ -355,9 +348,7 @@ class radicacionController extends Controller
                                         "NOMBRE_ARCHIVO" => $partesRuta[count($partesRuta)-1],
                                         "FECHA_EMISION" => $fileMoved['fecha']
                                     );
-
                                     $this->_crud->Save("relacion_archivo_radicacion", $dataRel);
-                                    
                                 }
 
                                 if($cliente_repetido > 0){
@@ -965,13 +956,8 @@ class radicacionController extends Controller
                                 foreach ($moveFiles as $fileMoved) {
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        if (substr($fileMoved['fecha'], 5, 2) == '02') {
-                                            $fileMoved['fecha'] .= "-28"; //Si el mes es febrero
-                                        } else {
-                                            $fileMoved['fecha'] .= "-31";
-                                        }
+                                        $fileMoved['fecha'] .= "-".date('d');
                                     }else if(strlen($fileMoved['fecha'])==4){
-                                        /* $fileMoved['fecha'] .= "-12-31"; */
                                         $fileMoved['fecha'] .= "-".date('m-d');
                                     }
                                     $dataRel = array(
@@ -980,9 +966,7 @@ class radicacionController extends Controller
                                         "NOMBRE_ARCHIVO" => $partesRuta[count($partesRuta)-1],
                                         "FECHA_EMISION" => $fileMoved['fecha']
                                     );
-
                                     $this->_crud->Save("relacion_archivo_radicacion", $dataRel);
-                                    
                                 }
 
                                 if($cliente_repetido > 0){
