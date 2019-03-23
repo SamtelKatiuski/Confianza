@@ -965,12 +965,11 @@ class radicacionController extends Controller
                                 foreach ($moveFiles as $fileMoved) {
                                     $partesRuta = explode('\\', $fileMoved['nombre']);
                                     if(strlen($fileMoved['fecha'])==7){
-                                        /* if (substr($fileMoved['fecha'], 5, 2) == '02') {
+                                        if (substr($fileMoved['fecha'], 5, 2) == '02') {
                                             $fileMoved['fecha'] .= "-28"; //Si el mes es febrero
                                         } else {
                                             $fileMoved['fecha'] .= "-31";
-                                        } */
-                                        $fileMoved['fecha'] .= "-".date('d');
+                                        }
                                     }else if(strlen($fileMoved['fecha'])==4){
                                         /* $fileMoved['fecha'] .= "-12-31"; */
                                         $fileMoved['fecha'] .= "-".date('m-d');
