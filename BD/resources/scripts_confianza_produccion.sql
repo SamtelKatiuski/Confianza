@@ -49,3 +49,12 @@ ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_persona_publica` VARCHA
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_recursos_publicos` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_obligaciones_tributarias` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `anexo_accionistas` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `operaciones_moneda_extranjera` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `cuentas_moneda_exterior` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `productos_exterior` VARCHAR(5) DEFAULT NULL;
+
+-- ACCIONISTAS
+
+ALTER TABLE `accionistas` MODIFY `accionista_cotiza_bolsa` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `accionistas` MODIFY `accionista_persona_publica` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `accionistas` MODIFY `accionista_obligaciones_otro_pais` VARCHAR(5) DEFAULT NULL;

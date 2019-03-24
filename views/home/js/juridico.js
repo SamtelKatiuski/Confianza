@@ -366,6 +366,7 @@ $(document).ready(function(){
 
 function validarAnexo(anexo){
     var errores = new Array();
+    debugger;
     if(anexo == 'accionistas'){
 
         $('div#anexo_accionistas div.modal-body table > tbody > tr').each(function(index, el) {

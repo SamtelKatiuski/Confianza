@@ -1115,7 +1115,7 @@
               </div>
             </div>
 
-            <?php if(!in_array($InfoCliente['estado_formulario_id'],[6,5]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && ($cliente['anexo_accionistas'] == 1 && empty($accionistas) || $cliente['anexo_sub_accionistas'] == 1 && empty($sub_accionistas)))): ?>
+            <?php if(!in_array($InfoCliente['estado_formulario_id'],[6,5]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && ($cliente['anexo_ppe_accionistas'] == 1 && empty($accionistas) || $cliente['anexo_sub_accionistas'] == 1 && empty($sub_accionistas)))): ?>
                 <!-- ACCIONISTAS -->
                 <div class="panel section-form" >
                   <div class="panel-heading" role="tab" id="headingThree">
@@ -1128,7 +1128,7 @@
                   <div id="accionistas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
                         <div class="col-md-12 content-radio-buttons">
-                            <label for="anexo_accionistas" class="control-label title required-field">Presenta información de Accionistas ?</label>
+                            <label for="anexo_ppe_accionistas" class="control-label title required-field">Presenta información de Accionistas ?</label>
                             <div class="form-group">
                                 <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="SI" class="campo_obligatorio" data-required="true" <?=($cliente["anexo_accionistas"] == "SI") ? 'checked' : ''?> onclick="checkboxEnabledField(true,this,'label#add_accionistas','hide')">Si</label>
                                 <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="NO" <?=($cliente["anexo_accionistas"] == "NO") ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">No</label>
@@ -1186,8 +1186,8 @@
                                                                 <th>
                                                                     <select name="anexo_ppe_accionistas[<?=$contador?>][accionista_tipo_documento]" id="accionista_tipo_documento_<?=$contador?>" class="form-control add_anexos_accionistas">
                                                                         <option value="" hidden>Seleccione tipo de documento.</option>
-                                                                        <?php foreach($tiposDocumentos as $row):?>
-                                                                            <option value="<?=$row['id']?>" <?= $row['accionista_tipo_documento'] == $row['id'] ? 'selected' : '' ?> ><?=$row['descripcion'] . '(' . $row['codigo'] . ')' ?></option>
+                                                                        <?php foreach($tiposDocumentos as $rowTipoDoc):?>
+                                                                            <option value="<?=$rowTipoDoc['id']?>" <?= $row['accionista_tipo_documento'] == $rowTipoDoc['id'] ? 'selected' : '' ?> ><?=$rowTipoDoc['descripcion'] . '(' . $rowTipoDoc['codigo'] . ')' ?></option>
                                                                         <?php endforeach;?>
                                                                     </select>
                                                                 </th>
@@ -1260,8 +1260,8 @@
                                                             <th>
                                                                 <select name="anexo_ppe_accionistas[<?=$i?>][accionista_tipo_documento]" id="accionista_tipo_documento_<?=$i?>" class="form-control add_anexos_accionistas">
                                                                     <option value="">Seleccione tipo de documento.</option>
-                                                                    <?php foreach($tiposDocumentos as $roww):?>
-                                                                        <option value="<?=$roww['id']?>"><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
+                                                                    <?php foreach($tiposDocumentos as $rowTipoDoc):?>
+                                                                        <option value="<?=$rowTipoDoc['id']?>"><?=$rowTipoDoc['descripcion'] . '(' . $rowTipoDoc['codigo'] . ')' ?></option>
                                                                     <?php endforeach;?>
                                                                 </select>
                                                             </th>
@@ -1471,8 +1471,8 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $contAnexos_ppes = 0; ?>
-                                                    <?php if(isset($cliente["anexos_ppes"])): ?>
-                                                        <?php foreach($cliente["anexos_ppes"] as $keyAnexos_ppes => $valuesAnexos_ppes):$contAnexos_ppes++;?>
+                                                    <?php if(isset($anexo_ppes)): ?>
+                                                        <?php foreach($anexo_ppes as $keyAnexos_ppes => $valuesAnexos_ppes): $contAnexos_ppes++;?>
                                                             <tr>
                                                                 <th class="hidden">
                                                                     <input type="hidden" name="anexos_cliente[<?=$contAnexos_ppes?>][anexo_id]" value="<?=$valuesAnexos_ppes["id"]?>">
