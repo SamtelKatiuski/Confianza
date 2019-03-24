@@ -1041,14 +1041,14 @@
 	                                            </thead>
 	                                            <tbody>
 		                                            <?php $contAnexos_ppes = 0; ?>
-	                                            	<?php if(isset($anexos_ppes)): ?>
-		                                                <?php foreach($anexos_ppes as $keyAnexos_ppes => $valuesAnexos_ppes):$contAnexos_ppes++;?>
+	                                            	<?php if(isset($anexo_ppes)): ?>
+		                                                <?php foreach($anexo_ppes as $keyAnexos_ppes => $valuesAnexos_ppes):$contAnexos_ppes++;?>
 		                                                    <tr>
 		                                                        <th class="hidden">
-		                                                            <input type="hidden" name="anexos_cliente[<?=$contAnexos_ppes?>][anexo_id]" value="<?=$valuesAnexos_ppes["id"]?>">
+		                                                            <input type="hidden" name="anexo_ppes[<?=$contAnexos_ppes?>][anexo_id]" value="<?=$valuesAnexos_ppes["id"]?>">
 		                                                        </th>
 		                                                        <th>
-																	<select class="form-control add_anexos_ppes" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_vinculo_relacion]" id="anexo_ppes_vinculo_relacion_<?=$contAnexos_ppes?>">
+																	<select class="form-control add_anexos_ppes" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_vinculo_relacion]" id="anexo_ppes_vinculo_relacion_<?=$contAnexos_ppes?>">
 		                                                                <option value="">Seleccione...</option>
 		                                                                <?php foreach($vinculo_relacion as $row):?>
 		                                                                    <div class="col-md-6">
@@ -1058,10 +1058,10 @@
 		                                                            </select>
 		                                                        </th>
 		                                                        <th>
-		                                                            <input type="text" class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_nombre]" value="<?=$valuesAnexos_ppes["ppes_nombre"]?>" id="anexo_ppes_nombre_<?=$contAnexos_ppes?>" data-anexo-required="true">
+		                                                            <input type="text" class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_nombre]" value="<?=$valuesAnexos_ppes["ppes_nombre"]?>" id="anexo_ppes_nombre_<?=$contAnexos_ppes?>" data-anexo-required="true">
 		                                                        </th>
 		                                                        <th>
-		                                                            <select class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_tipo_identificacion]" id="anexos_ppes_tipo_identificacion" data-anexo-required="true">
+		                                                            <select class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_tipo_identificacion]" id="anexos_ppes_tipo_identificacion" data-anexo-required="true">
 		                                                                <option value="">Seleccione un tipo de documento...</option>
 		                                                                <?php foreach($natural as $row):?>
 		                                                                    <div class="col-md-6">
@@ -1071,10 +1071,10 @@
 		                                                            </select>
 		                                                        </th>
 		                                                        <th>
-		                                                            <input type="text" class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_no_documento]" value="<?=$valuesAnexos_ppes["ppes_no_documento"]?>" id="anexo_ppes_no_documento_<?=$contAnexos_ppes?>" data-anexo-required="true">
+		                                                            <input type="text" class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_no_documento]" value="<?=$valuesAnexos_ppes["ppes_no_documento"]?>" id="anexo_ppes_no_documento_<?=$contAnexos_ppes?>" data-anexo-required="true">
 		                                                        </th>
 		                                                        <th>
-		                                                            <select class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_nacionalidad]" id="anexos_ppes_nacionalidad_<?=$contAnexos_ppes?>">
+		                                                            <select class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_nacionalidad]" id="anexos_ppes_nacionalidad_<?=$contAnexos_ppes?>">
 		                                                                <option value="">Seleccione una nacionalidad...</option>
 		                                                                <?php foreach($paises as $row):?>
 		                                                                    <option value="<?=$row['id']?>" <?= $valuesAnexos_ppes["ppes_nacionalidad"] == $row['id'] ? 'selected' : ''?> ><?=$row['nombre_pais']?></option>
@@ -1083,13 +1083,13 @@
 		                                                            
 		                                                        </th>
 		                                                        <th>
-		                                                            <input type="text" class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_entidad]" value="<?=$valuesAnexos_ppes["ppes_entidad"]?>" id="anexo_ppes_entidad_<?=$contAnexos_ppes?>">
+		                                                            <input type="text" class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_entidad]" value="<?=$valuesAnexos_ppes["ppes_entidad"]?>" id="anexo_ppes_entidad_<?=$contAnexos_ppes?>">
 		                                                        </th>
 		                                                        <th>
-		                                                            <input type="text" class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_cargo]" value="<?=$valuesAnexos_ppes["ppes_cargo"]?>" id="anexo_ppes_cargo_<?=$contAnexos_ppes?>">
+		                                                            <input type="text" class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_cargo]" value="<?=$valuesAnexos_ppes["ppes_cargo"]?>" id="anexo_ppes_cargo_<?=$contAnexos_ppes?>">
 		                                                        </th>
 		                                                        <th>
-		                                                            <input type="date" class="form-control" name="anexos_cliente[<?=$contAnexos_ppes?>][ppes_desvinculacion]" value="<?=$valuesAnexos_ppes["ppes_desvinculacion"]?>"  id="anexo_ppes_desvinculacion_<?=$contAnexos_ppes?>">
+		                                                            <input type="date" class="form-control" name="anexo_ppes[<?=$contAnexos_ppes?>][ppes_desvinculacion]" value="<?=$valuesAnexos_ppes["ppes_desvinculacion"]?>"  id="anexo_ppes_desvinculacion_<?=$contAnexos_ppes?>">
 		                                                        </th>
 		                                                    </tr>
 		                                                <?php endforeach; ?>
@@ -1098,7 +1098,7 @@
 	                                                    <?php for($i = ($contAnexos_ppes+1); $i <= 7 ; $i++): ?>
 	                                                            <tr>
 	                                                                <th>
-																		<select class="form-control add_anexos_ppes" name="anexos_cliente[<?=$i;?>][ppes_vinculo_relacion]" id="anexo_ppes_vinculo_relacion_<?=$i?>">
+																		<select class="form-control add_anexos_ppes" name="anexo_ppes[<?=$i;?>][ppes_vinculo_relacion]" id="anexo_ppes_vinculo_relacion_<?=$i?>">
 																			<option value="">Seleccione...</option>
 																			<?php foreach($vinculo_relacion as $row):?>
 																				<div class="col-md-6">
@@ -1108,10 +1108,10 @@
 																		</select>
 	                                                                </th>
 	                                                                <th>
-	                                                                    <input type="text" class="form-control" name="anexos_cliente[<?=$i;?>][ppes_nombre]" id="anexo_ppes_nombre_<?=$i?>" data-anexo-required="true">
+	                                                                    <input type="text" class="form-control" name="anexo_ppes[<?=$i;?>][ppes_nombre]" id="anexo_ppes_nombre_<?=$i?>" data-anexo-required="true">
 	                                                                </th>
 	                                                                <th>
-	                                                                    <select class="form-control" name="anexos_cliente[<?=$i;?>][ppes_tipo_identificacion]" id="anexo_ppes_tipo_identificacion_<?=$i?>" data-anexo-required="true">
+	                                                                    <select class="form-control" name="anexo_ppes[<?=$i;?>][ppes_tipo_identificacion]" id="anexo_ppes_tipo_identificacion_<?=$i?>" data-anexo-required="true">
 	                                                                        <option value="">Seleccione un tipo de documento...</option>
 	                                                                        <?php foreach($natural as $row):?>
 	                                                                            <div class="col-md-6">
@@ -1121,10 +1121,10 @@
 	                                                                    </select>
 	                                                                </th>
 	                                                                <th>
-	                                                                    <input type="text" class="form-control" name="anexos_cliente[<?=$i;?>][ppes_no_documento]" id="anexo_ppes_no_documento_<?=$i?>" data-anexo-required="true">
+	                                                                    <input type="text" class="form-control" name="anexo_ppes[<?=$i;?>][ppes_no_documento]" id="anexo_ppes_no_documento_<?=$i?>" data-anexo-required="true">
 	                                                                </th>
 	                                                                <th>
-	                                                                    <select class="form-control" name="anexos_cliente[<?=$i;?>][ppes_nacionalidad]" id="anexo_ppes_nacionalidad_<?=$i?>">
+	                                                                    <select class="form-control" name="anexo_ppes[<?=$i;?>][ppes_nacionalidad]" id="anexo_ppes_nacionalidad_<?=$i?>">
 	                                                                        <option value="">Seleccione una nacionalidad...</option>
 	                                                                        <?php foreach($paises as $row):?>
 	                                                                            <option value="<?=$row['id']?>"><?=$row['nombre_pais']?></option>
@@ -1133,13 +1133,13 @@
 	                                                                    
 	                                                                </th>
 	                                                                <th>
-	                                                                    <input type="text" class="form-control" name="anexos_cliente[<?=$i;?>][ppes_entidad]" id="anexo_ppes_entidad_<?=$i?>">
+	                                                                    <input type="text" class="form-control" name="anexo_ppes[<?=$i;?>][ppes_entidad]" id="anexo_ppes_entidad_<?=$i?>">
 	                                                                </th>
 	                                                                <th>
-	                                                                    <input type="text" class="form-control" name="anexos_cliente[<?=$i;?>][ppes_cargo]" id="anexo_ppes_cargo_<?=$i?>">
+	                                                                    <input type="text" class="form-control" name="anexo_ppes[<?=$i;?>][ppes_cargo]" id="anexo_ppes_cargo_<?=$i?>">
 	                                                                </th>
 	                                                                <th>
-	                                                                    <input type="date" class="form-control" name="anexos_cliente[<?=$i;?>][ppes_desvinculacion]" id="anexo_ppes_desvinculacion_<?=$i?>">
+	                                                                    <input type="date" class="form-control" name="anexo_ppes[<?=$i;?>][ppes_desvinculacion]" id="anexo_ppes_desvinculacion_<?=$i?>">
 	                                                                </th>
 	                                                            </tr>
 	                                                    <?php endfor; ?>

@@ -177,11 +177,11 @@ class homeController extends Controller {
                                     =====================================*/
                                     
                                         $paises                  = $this->_global->getCountries();
-                                            $ocupaciones = $this->_global->getOccupations();
-                                            $vias = $this->_global->getMultiParam('via');
-                                            $literales = $this->_global->getMultiParam('literal');
-                                            $orientacion = $this->_global->getMultiParam('orientacion');
-                                            $detallePredio = $this->_global->getMultiParam('detalle_predio');
+                                        $ocupaciones = $this->_global->getOccupations();
+                                        $vias = $this->_global->getMultiParam('via');
+                                        $literales = $this->_global->getMultiParam('literal');
+                                        $orientacion = $this->_global->getMultiParam('orientacion');
+                                        $detallePredio = $this->_global->getMultiParam('detalle_predio');
                                         $departamentos           = $this->_global->getDepartaments();
                                         $ciudades                = $this->_global->getCities();
                                         $vinculaciones           = $this->_clientes->getConnections();
@@ -195,12 +195,12 @@ class homeController extends Controller {
                                         $tiposDocumentos         = $this->_global->getAllTypeClients();
                                         $tipologias              = $this->_clientes->getTipologies();
                                         $lineas_negocio          = $this->_clientes->getLineaNegocio();
-                                            $vinculo_relacion = $this->_clientes->getVinculoRelacion('Natural');
-                                            $vinculo_relacion_juridico = $this->_clientes->getVinculoRelacion('Juridico');
-                                            $anio = $this->_global->getAnios();
-                                            $monedas = $this->_global->getMonedas();
-                                            $sucursal = $this->_global->getSucursales();
-                                            $tipos_empresa = $this->_clientes->getTipoEmpresa();
+                                        $vinculo_relacion = $this->_clientes->getVinculoRelacion('Natural');
+                                        $vinculo_relacion_juridico = $this->_clientes->getVinculoRelacion('Juridico');
+                                        $anio = $this->_global->getAnios();
+                                        $monedas = $this->_global->getMonedas();
+                                        $sucursal = $this->_global->getSucursales();
+                                        $tipos_empresa = $this->_clientes->getTipoEmpresa();
                                         if(!in_array($InfoCliente["estado_formulario_id"],[1,2])){
 
                                             $getGestionCompletitud = $this->_clientes->getAllGestionesCompletitudVerificacion($InfoCliente['cliente_id'],$InfoCliente["fecha_diligenciamiento"]);
@@ -505,18 +505,18 @@ class homeController extends Controller {
                                                             //Valida que si se dio en anexo_ppes, anexo_accionistas, anexo_subaccionistas estos llegue con datos
                                                             if($data["anexo_preguntas_ppes"] && $data["anexo_preguntas_ppes"] == 1){
 
-                                                                $result_anexo_peps = 0;
+                                                                $result_anexo_ppes = 0;
 
-                                                                foreach ($data['anexo_peps'] as $anexo_peps) {
+                                                                foreach ($data['anexo_ppes'] as $anexo_ppes) {
 
-                                                                    if(array_filter($anexo_peps)){
+                                                                    if(array_filter($anexo_ppes)){
 
-                                                                        $result_anexo_peps++;
+                                                                        $result_anexo_ppes++;
                                                                     }
                                                                 }
 
-                                                                if($result_anexo_peps == 0){
-                                                                    array_push($resultado_completitud_verificacion['campos_vacios'], 'anexo_peps');
+                                                                if($result_anexo_ppes == 0){
+                                                                    array_push($resultado_completitud_verificacion['campos_vacios'], 'anexo_ppes');
                                                                 }
                                                             }else if(isset($data["anexo_accionistas"]) && $data["anexo_accionistas"] == 1){
 
@@ -647,15 +647,15 @@ class homeController extends Controller {
 
                                                                             if(isset($data["anexo_preguntas_ppes"]) && $data["anexo_preguntas_ppes"] == 1){
 
-                                                                                $result_anexo_peps = 0;
-                                                                                foreach ($data['anexo_peps'] as $anexo_peps) {
-                                                                                    if(array_filter($anexo_peps)){
-                                                                                        $result_anexo_peps++;
+                                                                                $result_anexo_ppes = 0;
+                                                                                foreach ($data['anexo_ppes'] as $anexo_ppes) {
+                                                                                    if(array_filter($anexo_ppes)){
+                                                                                        $result_anexo_ppes++;
                                                                                     }
                                                                                 }
 
-                                                                                if($result_anexo_peps == 0){
-                                                                                    array_push($resultado_completitud_verificacion['campos_vacios'], 'anexo_peps');
+                                                                                if($result_anexo_ppes == 0){
+                                                                                    array_push($resultado_completitud_verificacion['campos_vacios'], 'anexo_ppes');
                                                                                 }
                                                                             }
 
@@ -797,23 +797,23 @@ class homeController extends Controller {
 
                                                         if($anexo_preguntas_ppes == 1){
 
-                                                            $result_anexo_peps = 0;
+                                                            $result_anexo_ppes = 0;
 
-                                                            if(isset($data['anexo_peps'])){
+                                                            if(isset($data['anexo_ppes'])){
 
-                                                                foreach ($data['anexo_peps'] as $anexo_peps) {
-                                                                    if(array_filter($anexo_peps)){
-                                                                        $result_anexo_peps++;
+                                                                foreach ($data['anexo_ppes'] as $anexo_ppes) {
+                                                                    if(array_filter($anexo_ppes)){
+                                                                        $result_anexo_ppes++;
                                                                     }
                                                                 }
                                                             }else{
 
                                                                 if($this->_clientes->getAllAnexosPPEClientById($data['cliente'])){
-                                                                    $result_anexo_peps = count($this->_clientes->getAllAnexosPPEClientById($data['cliente']));
+                                                                    $result_anexo_ppes = count($this->_clientes->getAllAnexosPPEClientById($data['cliente']));
                                                                 }
                                                             }
 
-                                                            if($result_anexo_peps == 0){
+                                                            if($result_anexo_ppes == 0){
                                                                 $resultado_formulario = 16; // ID ESTADO FORMULARIO PENDIENTE ANEXOS
                                                             }
                                                         }
@@ -1002,12 +1002,12 @@ class homeController extends Controller {
                                             ===================================*/
 
                                                 //Guarda los datos obtenidos en el formulario de ppes si en este caso estos datos no llegan vacios
-                                                if(isset($data["anexo_preguntas_ppes"]) && $data["anexo_preguntas_ppes"] == 1 && isset($data["anexo_peps"])){
+                                                if(isset($data["anexo_preguntas_ppes"]) && $data["anexo_preguntas_ppes"] == 1 && isset($data["anexo_ppes"])){
 
                                                     //Obtiene los nombres de las columnas
                                                     $columnsSQLAnexoPEPS = $this->_global->getColumnsTable('zr_anexos_ppes');
 
-                                                    foreach ($data["anexo_peps"] as $valueAnexosCliente) {
+                                                    foreach ($data["anexo_ppes"] as $valueAnexosCliente) {
 
                                                         //Combina los valores con los nombres de las columnas
                                                         $TempAnexos = Helpers::formatData($columnsSQLAnexoPEPS,$valueAnexosCliente);
