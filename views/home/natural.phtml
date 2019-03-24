@@ -909,7 +909,7 @@
 								<select class="form-control" name="tipo_moneda" id="tipo_moneda">
 									<option value="">Seleccione una moneda...</option>
 									<?php foreach($monedas as $row):?>
-										<option type="radio" value="<?=$row['Descripcion']?>" <?= $cliente['tipo_moneda'] == $row['Descripcion'] ? 'selected' : '' ?>><?=$row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
+										<option type="radio" value="<?=$row['Descripcion']?>" <?= (strcasecmp($row['Descripcion'], $cliente['tipo_moneda']) == 0) ? 'selected' : '' ?>><?=$row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
 									<?php endforeach;?>
 								</select>
 							</div>
@@ -1384,7 +1384,7 @@
 		                        <div class="form-group">
 		                            <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones campo_obligatorio" <?=($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamaciones','hide')">Si</label>
 		                            <label class="radio-inline"><input type="radio" name="reclamaciones" value="0" class="radios reclamaciones" <?=($cliente['reclamaciones'] === '0') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamaciones','hide')">No</label>
-		                            <label class="radio-inline"><input type="radio" name="reclamaciones" value ="" class="radios reclamaciones" <?=(is_null($cliente['reclamaciones'])) ? 'checked' : '' ?>>N/A</label>
+		                            <label class="radio-inline"><input type="radio" name="reclamaciones" value="2" class="radios reclamaciones" <?=($cliente['reclamaciones'] == '2') ? 'checked' : '' ?>>N/A</label>
 	                            	<label class="radio-inline" id="add_reclamaciones" <?=($cliente["reclamaciones"] != '1') ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=reclamaciones][value=1]'),'div#reclamaciones','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
 		                        </div>
 		                    </div>

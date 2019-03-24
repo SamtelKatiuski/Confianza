@@ -42,3 +42,10 @@ ALTER TABLE `cliente_sarlaft_natural` MODIFY `verificacion` INT(1) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_natural` MODIFY `entrevista` INT(1) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_natural` MODIFY `autoriza_tratamiento` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_natural` MODIFY `autoriza_info_fasecolda` VARCHAR(5) DEFAULT NULL;
+
+-- CLIENTE_SARLAFT_JURIDICO
+
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_persona_publica` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_recursos_publicos` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_obligaciones_tributarias` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `anexo_accionistas` VARCHAR(5) DEFAULT NULL;

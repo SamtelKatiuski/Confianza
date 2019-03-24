@@ -1435,8 +1435,8 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label class="control-label title">Anexo preguntas <strong>PPE:</strong></label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="anexo_preguntas_ppes" value="1" <?=($cliente["anexo_preguntas_ppes"] == 1) ? "checked" : ""; ?> class="radios persona_publica" onclick="checkboxEnabledField(true,this,'label#add_preguntas_rep_legal','hide')">Si</label>
-                                <label class="radio-inline"><input type="radio" name="anexo_preguntas_ppes" value="0" <?=(empty($cliente["anexo_preguntas_ppes"])) ? "checked" : ""; ?> class="radios persona_publica" onclick="checkboxEnabledField(false,this,'label#add_preguntas_rep_legal','hide')">No</label>
+                                <label class="radio-inline"><input type="radio" name="anexo_preguntas_ppes" value="1" <?=($cliente["anexo_preguntas_ppes"] == '1') ? "checked" : ""; ?> class="radios persona_publica" onclick="checkboxEnabledField(true,this,'label#add_preguntas_rep_legal','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="anexo_preguntas_ppes" value="0" <?=($cliente["anexo_preguntas_ppes"] === '0') ? "checked" : ""; ?> class="radios persona_publica" onclick="checkboxEnabledField(false,this,'label#add_preguntas_rep_legal','hide')">No</label>
                                 <label class="radio-inline" id="add_preguntas_rep_legal" <?=($cliente["anexo_preguntas_ppes"] != 1) ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=anexo_preguntas_ppes][value=1]'),'div#anexo_preguntas_ppes','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
                             </div>
                         </div>
@@ -1688,7 +1688,7 @@
                                 <select class="form-control" name="tipo_moneda" id="tipo_moneda">
                                     <option value="">Seleccione una moneda...</option>
                                     <?php foreach($monedas as $row):?>
-                                        <option type="radio" value="<?=$row['Descripcion']?>" <?= $cliente['tipo_moneda'] == $row['Descripcion'] ? 'selected' : '' ?>><?=$row['Descripcion']?></option>
+                                        <option type="radio" value="<?=$row['Descripcion']?>" <?= (strcasecmp($row['Descripcion'], $cliente['tipo_moneda']) == 0) ? 'selected' : '' ?>><?= $row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
                                     <?php endforeach;?>
                                 </select>
                             </div>
@@ -1928,7 +1928,7 @@
                                 <div class="form-group">                   
                                     <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones campo_obligatorio" <?= ($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamos','hide')">Si</label>
                                     <label class="radio-inline"><input type="radio" name="reclamaciones" value="0" class="radios reclamaciones" <?= ($cliente['reclamaciones'] === '0') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">No</label>
-                                    <label class="radio-inline"><input type="radio" name="reclamaciones" value="" class="radios reclamaciones" <?= (is_null($cliente['reclamaciones'])) ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">N/A</label>
+                                    <label class="radio-inline"><input type="radio" name="reclamaciones" value="2" class="radios reclamaciones" <?= ($cliente['reclamaciones'] == '2') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">N/A</label>
                                     <label class="radio-inline" id="add_reclamos" style="display: <?=($cliente["reclamaciones"] != '1') ? 'none' : ''?>"><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=reclamaciones][value=1]'),'div#reclamaciones','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
                                 </div>
                             </div>
