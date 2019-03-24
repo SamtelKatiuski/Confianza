@@ -241,7 +241,7 @@ class homeController extends Controller {
                                     }
 
                                     // solo si anexa productos los extrae
-                                    if($cliente["productos_exterior"] == 1){
+                                    if($cliente["productos_exterior"] == 'SI'){
                                         $productos_financieros = $this->_clientes->getAllProductosClienteById($InfoCliente["cliente_id"]);
                                     }
 
