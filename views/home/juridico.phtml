@@ -1351,8 +1351,8 @@
                                                                 <th>
                                                                     <select name="anexo_accionistas_sub_accionista[<?=$contador?>][sub_accionista_tipo_documento]" id="sub_accionista_tipo_documento_<?=$contador?>" class="form-control">
                                                                         <option value="" hidden>Seleccione tipo de documento.</option>
-                                                                        <?php foreach($tiposDocumentos as $roww):?>
-                                                                            <option value="<?=$roww['id']?>" <?= $row['sub_accionista_tipo_documento'] == $roww['id'] ? 'selected' : '' ?> ><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
+                                                                        <?php foreach($tiposDocumentos as $valTipoDoc):?>
+                                                                            <option value="<?=$valTipoDoc['id']?>" <?= $row['sub_accionista_tipo_documento'] == $valTipoDoc['id'] ? 'selected' : '' ?> ><?=$valTipoDoc['descripcion'] . '(' . $valTipoDoc['codigo'] . ')' ?></option>
                                                                         <?php endforeach;?>
                                                                     </select>
                                                                 </th>
@@ -1380,8 +1380,8 @@
                                                                 <th>
                                                                     <select name="anexo_accionistas_sub_accionista[<?=$i?>][sub_accionista_tipo_documento]" id="sub_accionista_tipo_documento_<?=$i?>" class="form-control">
                                                                         <option value="" hidden>Seleccione tipo de documento.</option>
-                                                                        <?php foreach($tiposDocumentos as $roww):?>
-                                                                            <option value="<?=$roww['id']?>"><?=$roww['descripcion'] . '(' . $roww['codigo'] . ')' ?></option>
+                                                                        <?php foreach($tiposDocumentos as $valTipoDoc):?>
+                                                                            <option value="<?=$valTipoDoc['id']?>"><?=$valTipoDoc['descripcion'] . '(' . $valTipoDoc['codigo'] . ')' ?></option>
                                                                         <?php endforeach;?>
                                                                     </select>
                                                                 </th>
