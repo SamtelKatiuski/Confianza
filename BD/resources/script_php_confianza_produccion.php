@@ -175,8 +175,8 @@ class Query {
 					"vinculo_persona_publica VARCHAR(5) DEFAULT NULL",
 					"productos_publicos VARCHAR(5) DEFAULT NULL",
 					"obligaciones_tributarias_otro_pais VARCHAR(5) DEFAULT NULL",
-					"desc_obligaciones_tributarias_otro_pais VARCHAR(130)",
-					"anexo_preguntas_ppes INT(1)",
+					"desc_obligaciones_tributarias_otro_pais VARCHAR(130) DEFAULT NULL",
+					"anexo_preguntas_ppes INT(1) DEFAULT NULL",
 					"operaciones_moneda_extranjera VARCHAR(5) DEFAULT NULL",
 					"cuentas_moneda_exterior VARCHAR(5) DEFAULT NULL",
 					"productos_exterior VARCHAR(5) DEFAULT NULL",
@@ -197,7 +197,9 @@ class Query {
 					"entrevista INT(1) DEFAULT NULL",
 					"autoriza_tratamiento VARCHAR(5) DEFAULT NULL",
 					"autoriza_info_fasecolda VARCHAR(5) DEFAULT NULL",
-					"tipo_moneda VARCHAR(80) DEFAULT NULL"
+					"tipo_moneda VARCHAR(80) DEFAULT NULL",
+					"actividad_eco_principal VARCHAR(50) DEFAULT NULL",
+					"ciiu_cod VARCHAR(50) DEFAULT NULL"
 				];
 				break;
 			case 'cliente_sarlaft_juridico':
@@ -218,6 +220,7 @@ class Query {
 					"rep_legal_recursos_publicos VARCHAR(5) DEFAULT NULL",
 					"rep_legal_obligaciones_tributarias VARCHAR(5) DEFAULT NULL",
 					"anexo_accionistas VARCHAR(5) DEFAULT NULL",
+					"anexo_sub_accionistas INT(1) DEFAULT NULL",
 					"anexo_preguntas_ppes INT(1) DEFAULT NULL",
 					"operaciones_moneda_extranjera VARCHAR(5) DEFAULT NULL",
 					"cuentas_moneda_exterior VARCHAR(5) DEFAULT NULL",
@@ -228,7 +231,9 @@ class Query {
 					"entrevista INT(1) DEFAULT NULL",
 					"autoriza_tratamiento VARCHAR(5) DEFAULT NULL",
 					"autoriza_info_fasecolda VARCHAR(5) DEFAULT NULL",
-					"tipo_moneda VARCHAR(80) DEFAULT NULL"
+					"tipo_moneda VARCHAR(80) DEFAULT NULL",
+					"ofi_principal_ciiu VARCHAR(50) DEFAULT NULL",
+					"ofi_principal_ciiu_cod VARCHAR(50) DEFAULT NULL"
 				];
 				break;
 			case 'accionistas':

@@ -635,9 +635,9 @@ function checkboxEnabledField(status,e,field,callback){
             } else
             $(field).fadeOut(300);
             
-        if (callback == 'hide' && field == 'div#informacion_entrevista') {
+        /* if (callback == 'hide' && field == 'div#informacion_entrevista') {
             $($('div[id=informacion_entrevista]').find(':input[type=radio][name=entrevista_resultado]')[0]).addClass('campo_obligatorio').attr('data-required', true);
-        }
+        } */
 
         if(callback == 'disabled')
             if($(e).is(":checked"))
@@ -658,9 +658,9 @@ function checkboxEnabledField(status,e,field,callback){
     }else{
         if(callback == 'hide')
             $(field).fadeOut(300);
-            if (callback == 'hide' && field == 'div#informacion_entrevista') {
+            /* if (callback == 'hide' && field == 'div#informacion_entrevista') {
                 $($('div[id=informacion_entrevista]').find(':input[type=radio][name=entrevista_resultado]')[0]).removeClass('campo_obligatorio').removeAttr('data-required', true);
-            }
+            } */
         if(callback == 'disabled')
             $(field).attr('disabled',false);
         if(callback == 'modal'){
