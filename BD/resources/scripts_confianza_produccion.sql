@@ -62,6 +62,12 @@ ALTER TABLE `cliente_sarlaft_juridico` MODIFY `anexo_accionistas` VARCHAR(5) DEF
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `operaciones_moneda_extranjera` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `cuentas_moneda_exterior` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `productos_exterior` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `huella` INT(1) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `firma` INT(1) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `verificacion` INT(1) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `entrevista` INT(1) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `autoriza_tratamiento` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `autoriza_info_fasecolda` VARCHAR(5) DEFAULT NULL;
 
 -- ACCIONISTAS
 

@@ -44,6 +44,9 @@ $(document).ready(function(){
                     $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="text"]'),function(index,el){
                         $(el).val('').removeAttr('value');
                     });
+                    $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="number"]'),function(index,el){
+                        $(el).val('').removeAttr('value');
+                    });
                     $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="date"]'),function(index,el){
                         $(el).val('').removeAttr('value');
                     });
@@ -57,6 +60,9 @@ $(document).ready(function(){
                     $(el).val('');
                 });
                 $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="text"]'),function(index,el){
+                    $(el).val('').removeAttr('value');
+                });
+                $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="number"]'),function(index,el){
                     $(el).val('').removeAttr('value');
                 });
                 $.each($('div#anexo_preguntas_ppes div.modal-body table > tbody > tr').find('input[type="date"]'),function(index,el){

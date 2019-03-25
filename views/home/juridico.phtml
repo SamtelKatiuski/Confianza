@@ -1838,7 +1838,7 @@
                                                                     <select class="form-control" name="productos_financieros[<?=$contProductFin?>][pais]" id="pais">
 																		<option value="">Seleccione un pais...</option>
 																		<?php foreach($paises as $row):?>
-																			<option type="radio" value="<?=$row['id']?>" <?= $valueProductosFinancieros['pais'] == $row['id'] ? 'selected' : '' ?>><?=$row['nombre_pais']?></option>
+																			<option type="radio" value="<?=$row['nombre_pais']?>" <?= ($row['nombre_pais'] == $valueProductosFinancieros['pais']) ? 'selected' : '' ?>><?=$row['nombre_pais']?></option>
 																		<?php endforeach;?>
 																	</select>
                                                                 </th>
@@ -1846,7 +1846,7 @@
                                                                     <select class="form-control" name="productos_financieros[<?=$contProductFin?>][moneda]" id="moneda">
 																		<option value="">Seleccione una moneda...</option>
 																		<?php foreach($monedas as $row):?>
-																			<option type="radio" value="<?=$row['Descripcion']?>" <?=$valueProductosFinancieros['moneda'] == $row['id'] ? 'selected' : '' ?>><?=$row['Descripcion']?></option>
+																			<option type="radio" value="<?=$row['Descripcion']?>" <?= (strcasecmp($row['Descripcion'], $valueProductosFinancieros['moneda']) == 0) ? 'selected' : '' ?>><?= $row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
 																		<?php endforeach;?>
 																	</select>
                                                                 </th>
@@ -1879,10 +1879,10 @@
                                                                             <input type="text" class="form-control" name="txt_productos_financieros[<?=$i?>][ciudad]" id="ciudad<?=$i?>" style="display:none">
                                                                         </th>
                                                                         <th>
-                                                                            <select class="form-control" name="productos_financieros[<?=$contProductFin?>][pais]" id="pais">
+                                                                            <select class="form-control" name="productos_financieros[<?=$i?>][pais]" id="pais">
 																				<option value="">Seleccione un pais...</option>
 																				<?php foreach($paises as $row):?>
-																					<option type="radio" value="<?=$row['id']?>"><?=$row['nombre_pais']?></option>
+																					<option type="radio" value="<?=$row['nombre_pais']?>"><?=$row['nombre_pais']?></option>
 																				<?php endforeach;?>
 																			</select>
                                                                         </th>
@@ -1890,7 +1890,7 @@
                                                                             <select class="form-control" name="productos_financieros[<?=$i?>][moneda]" id="moneda">
 																				<option value="">Seleccione una moneda...</option>
 																				<?php foreach($monedas as $row):?>
-																					<option type="radio" value="<?=$row['Descripcion']?>"><?=$row['Descripcion']?></option>
+																					<option type="radio" value="<?=$row['Descripcion']?>"><?= $row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
 																				<?php endforeach;?>
 																			</select>
                                                                         </th>

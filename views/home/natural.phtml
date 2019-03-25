@@ -829,8 +829,8 @@
 	                    <?php endif;?>
 	                    <?php if(!in_array($InfoCliente["estado_formulario_id"],[6])):?>
 		                    <div class="form-group">
-		                        <label class="required-field" for="fax">Fax empresa:</label>
-	                        <input type="text" name="fax" id="fax" class="form-control" value="<?=$cliente['fax_empresa']?>" data-required="true" onkeypress="OnlyNumbers(this)">
+		                        <label class="required-field" for="fax_empresa">Fax empresa:</label>
+	                        	<input type="text" name="fax_empresa" id="fax_empresa" class="form-control" value="<?=$cliente['fax_empresa']?>" data-required="true" onkeypress="OnlyNumbers(this)">
 								<small class="help-error-block"></small>
 		                    </div>
 	                    <?php endif;?>
@@ -1303,7 +1303,7 @@
 																	<select class="form-control" name="productos_financieros[<?=$contProductFin?>][moneda]" id="moneda">
 																		<option value="">Seleccione una moneda...</option>
 																		<?php foreach($monedas as $row):?>
-																			<option type="radio" value="<?=$row['Descripcion']?>" <?= (strcasecmp($row['Descripcion'], $valueProductosFinancieros['moneda']) == 0) ? 'selected' : '' ?>><?=$row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
+																			<option type="radio" value="<?=$row['Descripcion']?>" <?= (strcasecmp($row['Descripcion'], $valueProductosFinancieros['moneda']) == 0) ? 'selected' : '' ?>><?= $row['Descripcion'] . " (" . $row['Codigo'] . ")" ?></option>
 																		<?php endforeach;?>
 																	</select>
 		                                                        </th>
