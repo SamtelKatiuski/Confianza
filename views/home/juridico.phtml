@@ -488,14 +488,14 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" readonly="readonly" name="ofi_principal_direccion" id="ofi_principal_direccion" value="<?=$cliente['ofi_principal_direccion']?>" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
+                                <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                    <div class="radio_fields_verificacion">
+                                        <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                        <label class="label_left_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="SI" name="verificacion_direccion_oficina_principal" <?=((isset($cliente['verificacion_direccion_oficina_principal']) && !empty($cliente['verificacion_direccion_oficina_principal'])) && ($cliente['verificacion_direccion_oficina_principal'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                        <label class="label_right_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="NO" name="verificacion_direccion_oficina_principal" <?=((isset($cliente['verificacion_direccion_oficina_principal']) && !empty($cliente['verificacion_direccion_oficina_principal'])) && ($cliente['verificacion_direccion_oficina_principal'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
-                                <div class="radio_fields_verificacion">
-                                    <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="SI" name="verificacion_direccion_oficina_principal" <?=((isset($cliente['verificacion_direccion_oficina_principal']) && !empty($cliente['verificacion_direccion_oficina_principal'])) && ($cliente['verificacion_direccion_oficina_principal'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_direccion_oficina_principal"><input type="radio" value="NO" name="verificacion_direccion_oficina_principal" <?=((isset($cliente['verificacion_direccion_oficina_principal']) && !empty($cliente['verificacion_direccion_oficina_principal'])) && ($cliente['verificacion_direccion_oficina_principal'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
@@ -826,22 +826,22 @@
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['rep_legal_tipo_documento']))): ?>
                         <div class="col-md-12 content-radio-buttons">
                             <div class="form-group">
-                                <label for="rep_legal_tipo_documento" class="title">Tipo de documento:</label>
-                                <select class="form-control" name="rep_legal_tipo_documento" id="rep_legal_tipo_documento" data-required="true">
+                                <label for="rep_legal_tipo_documento" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="display: inherit;"' : ''; ?> class="title">Tipo de documento:</label>
+                                <select class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" name="rep_legal_tipo_documento" id="rep_legal_tipo_documento" data-required="true">
                                     <option value="">Seleccione un tipo de documento...</option>
                                     <?php foreach($natural as $row):?>
                                         <option type="radio" value="<?=$row['id']?>" <?=($cliente['rep_legal_tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>
                                     <?php endforeach;?>
                                 </select>
                                 <small class="help-error-block"></small>
+                                <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
+                                    <div class="radio_fields_verificacion">
+                                        <label class="label_fields_verificacion required-field">¿Verificado?</label>
+                                        <label class="label_left_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="SI" name="verificacion_rep_legal_tipo_documento" <?=((isset($cliente['verificacion_rep_legal_tipo_documento']) && !empty($cliente['verificacion_rep_legal_tipo_documento'])) && ($cliente['verificacion_rep_legal_tipo_documento'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
+                                        <label class="label_right_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="NO" name="verificacion_rep_legal_tipo_documento" <?=((isset($cliente['verificacion_rep_legal_tipo_documento']) && !empty($cliente['verificacion_rep_legal_tipo_documento'])) && ($cliente['verificacion_rep_legal_tipo_documento'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
-                                <div class="radio_fields_verificacion" style="float: right; position: relative; bottom: 70px;">
-                                    <label class="label_fields_verificacion required-field">¿Verificado?</label>
-                                    <label class="label_left_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="SI" name="verificacion_rep_legal_tipo_documento" <?=((isset($cliente['verificacion_rep_legal_tipo_documento']) && !empty($cliente['verificacion_rep_legal_tipo_documento'])) && ($cliente['verificacion_rep_legal_tipo_documento'] == 'SI')) ? 'checked' : ''; ?>>SI</label>
-                                    <label class="label_right_verificacion" for="verificacion_rep_legal_tipo_documento"><input type="radio" value="NO" name="verificacion_rep_legal_tipo_documento" <?=((isset($cliente['verificacion_rep_legal_tipo_documento']) && !empty($cliente['verificacion_rep_legal_tipo_documento'])) && ($cliente['verificacion_rep_legal_tipo_documento'] == 'NO')) ? 'checked' : ''; ?>>NO</label>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
