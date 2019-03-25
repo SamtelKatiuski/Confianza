@@ -44,7 +44,17 @@ ALTER TABLE `cliente_sarlaft_natural` MODIFY `autoriza_tratamiento` VARCHAR(5) D
 ALTER TABLE `cliente_sarlaft_natural` MODIFY `autoriza_info_fasecolda` VARCHAR(5) DEFAULT NULL;
 
 -- CLIENTE_SARLAFT_JURIDICO
-
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamaciones` INT(1) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_anio` INT(4) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_ramo` VARCHAR(40) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_compania` VARCHAR(40) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_valor` BIGINT(100) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_resultado` INT(1) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_anio_2` INT(11) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_ramo_2` VARCHAR(40) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_compania_2` VARCHAR(40) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_valor_2` BIGINT(100) DEFAULT NULL;
+ALTER TABLE `cliente_sarlaft_juridico` MODIFY `reclamacion_resultado_2` INT(1) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_persona_publica` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_recursos_publicos` VARCHAR(5) DEFAULT NULL;
 ALTER TABLE `cliente_sarlaft_juridico` MODIFY `rep_legal_obligaciones_tributarias` VARCHAR(5) DEFAULT NULL;
