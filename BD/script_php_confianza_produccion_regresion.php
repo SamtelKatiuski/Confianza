@@ -6,7 +6,7 @@ class Query {
 
 	function __construct() {
 		try {
-			$this->db = new PDO('mysql:host=localhost; dbname=confianza_uno', 'root', '');
+			$this->db = new PDO('mysql:host=localhost; dbname=confianza_test', 'root', '');
 			$this->db->exec('set character set utf8');
 		} catch (PDOException $ex) {
 			throw new Exception("Error de conexion", 1);
