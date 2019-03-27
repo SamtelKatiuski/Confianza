@@ -94,7 +94,7 @@ class ConsultaFechasController extends Controller
                             'ultima_fecha_actualizacion' => $ult_fecha_actualizacion["FECHA_ULT_ACTUALIZACION"],
                             'nombre_cliente' => $ult_fecha_actualizacion["NOMBRE_CLIENTE"],
                             'tipo_documento' => strtoupper($ult_fecha_actualizacion["TIPO_DOCUMENTO"]),
-                            'respuesta_consulta' => '<li>Agradecemos informar a su cliente sobre nuestras líneas gratuitas de actualización de información telefónica 018000112684 opción 3 a nivel nacional.</li>',
+                            'respuesta_consulta' => '<li>Agradecemos informar a su cliente sobre nuestras líneas gratuitas de actualización de información telefónica XXXXXXXXXXX opción 3 a nivel nacional.</li>',
                             'utima_fecha_expedicion_docs' => $abreviadosFecha
                         ));
                     }else if($interval < 365){
@@ -102,7 +102,7 @@ class ConsultaFechasController extends Controller
                             'ultima_fecha_actualizacion' => $ult_fecha_actualizacion["FECHA_ULT_ACTUALIZACION"],
                             'nombre_cliente' => $ult_fecha_actualizacion["NOMBRE_CLIENTE"],
                             'tipo_documento' => strtoupper($ult_fecha_actualizacion["TIPO_DOCUMENTO"]),
-                            'respuesta_consulta' => '<li>No es necesario el diligenciamiento de un nuevo formulario Sarlaft. Sin embargo si se encuentra próximo a vencerse, su cliente podrá actualizar la información vía telefónica a  través de nuestra línea 018000112684 opción 3 a nivel nacional.</li>',
+                            'respuesta_consulta' => '<li>No es necesario el diligenciamiento de un nuevo formulario Sarlaft. Sin embargo si se encuentra próximo a vencerse, su cliente podrá actualizar la información vía telefónica a  través de nuestra línea XXXXXXXXXXX opción 3 a nivel nacional.</li>',
                             'utima_fecha_expedicion_docs' => $abreviadosFecha
                         ));
                     }
