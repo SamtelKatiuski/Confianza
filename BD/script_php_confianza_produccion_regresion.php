@@ -6,8 +6,8 @@ class Query {
 
 	function __construct() {
 		try {
-			$this->db = new PDO('mysql:host=localhost; dbname=confianza', 'root', '');
-			$this->db->exec('set character set utf8');	
+			$this->db = new PDO('mysql:host=localhost; dbname=confianza_test', 'root', '');
+			$this->db->exec('set character set utf8');
 		} catch (PDOException $ex) {
 			throw new Exception("Error de conexion", 1);
 		}
@@ -147,9 +147,9 @@ class Query {
 				$campos = [
 					"ppes_vinculo_relacion VARCHAR(255) DEFAULT NULL",
 					"ppes_nombre VARCHAR(255) DEFAULT NULL",
-					"ppes_tipo_identificacion INT(1) DEFAULT NULL",
+					"ppes_tipo_identificacion INT(11) DEFAULT NULL",
 					"ppes_no_documento VARCHAR(255) DEFAULT NULL",
-					"ppes_nacionalidad INT(1) DEFAULT NULL",
+					"ppes_nacionalidad INT(11) DEFAULT NULL",
 					"ppes_entidad VARCHAR(255) DEFAULT NULL",
 					"ppes_cargo VARCHAR(255) DEFAULT NULL",
 					"ppes_fecha_ingreso DATE DEFAULT NULL",
@@ -171,15 +171,15 @@ class Query {
 			case 'cliente_sarlaft_natural':
 				$campos = [
 					"sucursal VARCHAR(30) DEFAULT NULL",
-					"persona_publica VARCHAR(5) DEFAULT NULL",
-					"vinculo_persona_publica VARCHAR(5) DEFAULT NULL",
-					"productos_publicos VARCHAR(5) DEFAULT NULL",
-					"obligaciones_tributarias_otro_pais VARCHAR(5) DEFAULT NULL",
+					"persona_publica INT(1) DEFAULT NULL",
+					"vinculo_persona_publica INT(1) DEFAULT NULL",
+					"productos_publicos INT(1) DEFAULT NULL",
+					"obligaciones_tributarias_otro_pais INT(1) DEFAULT NULL",
 					"desc_obligaciones_tributarias_otro_pais VARCHAR(130) DEFAULT NULL",
-					"anexo_preguntas_ppes INT(1) DEFAULT NULL",
-					"operaciones_moneda_extranjera VARCHAR(5) DEFAULT NULL",
-					"cuentas_moneda_exterior VARCHAR(5) DEFAULT NULL",
-					"productos_exterior VARCHAR(5) DEFAULT NULL",
+					"anexo_preguntas_ppes INT(11) DEFAULT NULL",
+					"operaciones_moneda_extranjera INT(1) DEFAULT NULL",
+					"cuentas_moneda_exterior INT(1) DEFAULT NULL",
+					"productos_exterior INT(1) DEFAULT NULL",
 					"reclamaciones INT(1) DEFAULT NULL",
 					"reclamacion_anio INT(4) DEFAULT NULL",
 					"reclamacion_ramo VARCHAR(40) DEFAULT NULL",
@@ -191,40 +191,40 @@ class Query {
 					"reclamacion_compania_2 VARCHAR(40) DEFAULT NULL",
 					"reclamacion_valor_2 BIGINT(100) DEFAULT NULL",
 					"reclamacion_resultado_2 INT(1) DEFAULT NULL",
-					"huella INT(1) DEFAULT NULL",
-					"firma INT(1) DEFAULT NULL",
-					"verificacion INT(1) DEFAULT NULL",
-					"entrevista INT(1) DEFAULT NULL",
+					"huella INT(1) NOT NULL",
+					"firma INT(1) NOT NULL",
+					"verificacion INT(1) NOT NULL",
+					"entrevista INT(1) NOT NULL",
 					"autoriza_tratamiento VARCHAR(5) DEFAULT NULL",
 					"autoriza_info_fasecolda VARCHAR(5) DEFAULT NULL",
 					"tipo_moneda VARCHAR(80) DEFAULT NULL",
-					"actividad_eco_principal VARCHAR(50) DEFAULT NULL",
-					"ciiu_cod VARCHAR(50) DEFAULT NULL"
+					"actividad_eco_principal VARCHAR(50) DEFAULT 0000",
+					"ciiu_cod VARCHAR(50) DEFAULT 0000"
 				];
 				break;
 			case 'cliente_sarlaft_juridico':
 				$campos = [
 					"residencia_sociedad VARCHAR(30) DEFAULT NULL",
-					"reclamaciones INT(1) DEFAULT NULL",
-					"reclamacion_anio INT(4) DEFAULT NULL",
-					"reclamacion_ramo VARCHAR(40) DEFAULT NULL",
-					"reclamacion_compania VARCHAR(40) DEFAULT NULL",
+					"reclamaciones TINYINT(4) DEFAULT NULL",
+					"reclamacion_anio VARCHAR(10) DEFAULT NULL",
+					"reclamacion_ramo VARCHAR(255) DEFAULT NULL",
+					"reclamacion_compania VARCHAR(255) DEFAULT NULL",
 					"reclamacion_valor BIGINT(100) DEFAULT NULL",
-					"reclamacion_resultado INT(1) DEFAULT NULL",
-					"reclamacion_anio_2 INT(11) DEFAULT NULL",
-					"reclamacion_ramo_2 VARCHAR(40) DEFAULT NULL",
-					"reclamacion_compania_2 VARCHAR(40) DEFAULT NULL",
+					"reclamacion_resultado TINYINT(4) DEFAULT NULL",
+					"reclamacion_anio_2 VARCHAR(10) DEFAULT NULL",
+					"reclamacion_ramo_2 VARCHAR(255) DEFAULT NULL",
+					"reclamacion_compania_2 VARCHAR(255) DEFAULT NULL",
 					"reclamacion_valor_2 BIGINT(100) DEFAULT NULL",
-					"reclamacion_resultado_2 INT(1) DEFAULT NULL",
-					"rep_legal_persona_publica VARCHAR(5) DEFAULT NULL",
-					"rep_legal_recursos_publicos VARCHAR(5) DEFAULT NULL",
-					"rep_legal_obligaciones_tributarias VARCHAR(5) DEFAULT NULL",
-					"anexo_accionistas VARCHAR(5) DEFAULT NULL",
+					"reclamacion_resultado_2 TINYINT(4) DEFAULT NULL",
+					"rep_legal_persona_publica INT(1) DEFAULT NULL",
+					"rep_legal_recursos_publicos INT(1) DEFAULT NULL",
+					"rep_legal_obligaciones_tributarias INT(1) DEFAULT NULL",
+					"anexo_accionistas INT(1) DEFAULT NULL",
 					"anexo_sub_accionistas INT(1) DEFAULT NULL",
 					"anexo_preguntas_ppes INT(1) DEFAULT NULL",
-					"operaciones_moneda_extranjera VARCHAR(5) DEFAULT NULL",
-					"cuentas_moneda_exterior VARCHAR(5) DEFAULT NULL",
-					"productos_exterior VARCHAR(5) DEFAULT NULL",
+					"operaciones_moneda_extranjera TINYINT(4) DEFAULT NULL",
+					"cuentas_moneda_exterior TINYINT(4) DEFAULT NULL",
+					"productos_exterior TINYINT(4) DEFAULT NULL",
 					"huella INT(1) DEFAULT NULL",
 					"firma INT(1) DEFAULT NULL",
 					"verificacion INT(1) DEFAULT NULL",
@@ -232,15 +232,15 @@ class Query {
 					"autoriza_tratamiento VARCHAR(5) DEFAULT NULL",
 					"autoriza_info_fasecolda VARCHAR(5) DEFAULT NULL",
 					"tipo_moneda VARCHAR(80) DEFAULT NULL",
-					"ofi_principal_ciiu VARCHAR(50) DEFAULT NULL",
-					"ofi_principal_ciiu_cod VARCHAR(50) DEFAULT NULL"
+					"ofi_principal_ciiu VARCHAR(50) NOT NULL DEFAULT 0000",
+					"ofi_principal_ciiu_cod VARCHAR(50) DEFAULT 0000"
 				];
 				break;
 			case 'accionistas':
 				$campos = [
-					"accionista_cotiza_bolsa VARCHAR(5) DEFAULT NULL",
-					"accionista_persona_publica VARCHAR(5) DEFAULT NULL",
-					"accionista_obligaciones_otro_pais VARCHAR(5) DEFAULT NULL"
+					"accionista_cotiza_bolsa INT(1) NOT NULL DEFAULT 0",
+					"accionista_persona_publica INT(1) NOT NULL DEFAULT 0",
+					"accionista_obligaciones_otro_pais INT(1) NOT NULL DEFAULT 0"
 				];
 				break;
 		}

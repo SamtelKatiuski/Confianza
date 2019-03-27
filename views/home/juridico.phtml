@@ -189,7 +189,7 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="fecha_diligenciamiento" class="required-field">Fecha de diligenciamiento:</label>
-                            <input type="date" required id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control campo_obligatorio" readonly='true' value=<?=$InfoCliente['fecha_diligenciamiento']?> max=<?=(date("Y-m-d"))?> data-required="true">
+                            <input type="date" required id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control campo_obligatorio" readonly='true' value=<?=$InfoCliente['fecha_diligenciamiento']?> max=<?=(date("Y-m-d"))?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             <small class="help-error-block"></small>
                         </div>
 
@@ -207,7 +207,7 @@
 
                             <div class="form-group">
                                 <label for="sucursal" class="required-field" >Sucursal:</label>
-                                <select name="sucursal" id="sucursal" class="form-control" data-required="true">
+                                <select name="sucursal" id="sucursal" class="form-control" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                     <option value="">Seleccione sucursal...</option>
                                     <?php foreach($sucursal as $row):?>
                                         <option value="<?=$row['Sucursal']?>" <?= !empty($cliente['sucursal'] && strcasecmp($cliente["sucursal"], $row['Sucursal']) == 0) ? 'selected' : ''?>><?=$row['Sucursal']?></option>
@@ -351,7 +351,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="info_no_nit" class="required-field" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="display: inline-block; width: 17%; height: 33px;"' : ''; ?>>NIT:</label>
-                            <input class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" type="number" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 83%; bottom: 37px;"' : ''; ?> name="info_no_nit" value='<?=$InfoCliente['documento']?>' readonly="readonly" data-required="true">
+                            <input class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" type="number" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="width: 83%; bottom: 37px;"' : ''; ?> name="info_no_nit" value='<?=$InfoCliente['documento']?>' readonly="readonly" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>data-required="true">
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion" style="margin-left: 20px; bottom: 25px; width: 10.8%;">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
@@ -609,7 +609,7 @@
                         </div>
                         <div class="form-group" >
                             <label <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="display: inherit;"' : ''; ?> for="ofi_principal_ciiu_cod" class="required-field">CIIU(cod):</label>
-                            <input type="text" name="ofi_principal_ciiu_cod" id="ofi_principal_ciiu_cod" class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?> campo_obligatorio" value="<?=$cliente['ofi_principal_ciiu_cod']?>" min='0' onkeyup="OnlyNumbers(this)" data-required="true">
+                            <input type="text" name="ofi_principal_ciiu_cod" id="ofi_principal_ciiu_cod" class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?> campo_obligatorio" value="<?=$cliente['ofi_principal_ciiu_cod']?>" min='0' onkeyup="OnlyNumbers(this)" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                             <?php if (in_array($InfoCliente['estado_formulario_id'], [5])): ?>
                                 <div class="radio_fields_verificacion">
                                     <label class="label_fields_verificacion required-field">¿Verificado?</label>
@@ -623,7 +623,7 @@
                     <?php if(!in_array($InfoCliente['estado_formulario_id'],[6]) || (in_array($InfoCliente['estado_formulario_id'],[6]) && empty($cliente['ofi_principal_sector']))): ?>
                         <div class="form-group" >
                             <label for="ofi_principal_sector" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="display: inherit;"' : ''; ?> class="required-field">Sector:</label>
-                            <select name="ofi_principal_sector" id="ofi_principal_sector" class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?> campo_obligatorio" data-required="true">
+                            <select name="ofi_principal_sector" id="ofi_principal_sector" class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?> campo_obligatorio" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                 <option value="" >Seleccione sector...</option>
                                 <?php foreach($sectores as $row):?>
                                     <option value="<?=$row['id']?>" <?= $cliente['ofi_principal_sector'] == $row['id'] ? 'selected' : '' ?>><?=$row['desc_sector']?></option>
@@ -1130,7 +1130,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="anexo_ppe_accionistas" class="control-label title required-field">Presenta información de Accionistas ?</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="SI" class="campo_obligatorio" data-required="true" <?=($cliente["anexo_accionistas"] == "SI") ? 'checked' : ''?> onclick="checkboxEnabledField(true,this,'label#add_accionistas','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="SI" class="campo_obligatorio" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> <?=($cliente["anexo_accionistas"] == "SI") ? 'checked' : ''?> onclick="checkboxEnabledField(true,this,'label#add_accionistas','hide')">Si</label>
                                 <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="NO" <?=($cliente["anexo_accionistas"] == "NO") ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">No</label>
                                 <label class="radio-inline"><input type="radio" name="anexo_accionistas" id="anexo_accionistas" value="VACIO" <?=($cliente["anexo_accionistas"] == "VACIO") ? 'checked' : ''?> onclick="checkboxEnabledField(false,this,'label#add_accionistas','hide')">N/A</label>
                                 <label class="radio-inline" id="add_accionistas" <?=($cliente["anexo_accionistas"] != "SI") ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=anexo_accionistas][value=SI]'),'div#anexo_accionistas','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
@@ -1224,7 +1224,7 @@
                                                                 <th>
                                                                     <div class="form-group">
                                                                         <label for="anexo_ppe_accionistas[<?=$contador;?>][accionista_cotiza_bolsa]" style="display:none">¿Es persona juridica que cotiza en bolsa? (Anexo Accionistas)</label>
-                                                                        <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico accionista_cotiza_bolsa campo_obligatorio" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_cotiza_bolsa]" id="accionista_cotiza_bolsa_<?=$contador?>" value="SI" <?= $row["accionista_cotiza_bolsa"] == "SI" ? 'checked' : '' ?> data-required="true">Si</label>
+                                                                        <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico accionista_cotiza_bolsa campo_obligatorio" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_cotiza_bolsa]" id="accionista_cotiza_bolsa_<?=$contador?>" value="SI" <?= $row["accionista_cotiza_bolsa"] == "SI" ? 'checked' : '' ?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>Si</label>
                                                                         <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_cotiza_bolsa]" id="accionista_cotiza_bolsa_<?=$contador?>" value="NO" <?= $row["accionista_cotiza_bolsa"] == "NO" ? 'checked' : '' ?> >No</label>
                                                                         <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_cotiza_bolsa]" id="accionista_cotiza_bolsa_<?=$contador?>" value="VACIO" <?= $row["accionista_cotiza_bolsa"] == "VACIO" ? 'checked' : '' ?> >N/A</label>
                                                                     </div>
@@ -1232,7 +1232,7 @@
                                                                 <th>
                                                                     <div class="form-group">
                                                                         <label for="anexo_ppe_accionistas[<?=$contador;?>][accionista_persona_publica]" style="display:none">¿Expuesto publicamente? (Anexo Accionistas)</label>
-                                                                        <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico accionista_persona_publica campo_obligatorio" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_persona_publica]" id="accionista_persona_publica_<?=$contador?>" value="SI" <?= $row["accionista_persona_publica"] == "SI" ? 'checked' : '' ?> data-required="true">Si</label>
+                                                                        <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico accionista_persona_publica campo_obligatorio" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_persona_publica]" id="accionista_persona_publica_<?=$contador?>" value="SI" <?= $row["accionista_persona_publica"] == "SI" ? 'checked' : '' ?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>Si</label>
                                                                         <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_persona_publica]" id="accionista_persona_publica_<?=$contador?>" value="NO" <?= $row["accionista_persona_publica"] == "NO" ? 'checked' : '' ?> >No</label>
                                                                         <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_persona_publica]" id="accionista_persona_publica_<?=$contador?>" value="VACIO" <?= $row["accionista_persona_publica"] == "VACIO" ? 'checked' : '' ?> >N/A</label>
                                                                     </div>
@@ -1240,7 +1240,7 @@
                                                                 <th>
                                                                     <div class="form-group">
                                                                         <label for="anexo_ppe_accionistas[<?=$contador;?>][accionista_obligaciones_otro_pais]" style="display:none">¿Tributación en otro país? (Anexo Accionistas)</label>
-                                                                        <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico accionista_obligaciones_otro_pais campo_obligatorio" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_obligaciones_otro_pais]" id="accionista_obligaciones_otro_pais_<?=$contador?>" data-obl-pais-otro="true" value="SI" <?= $row["accionista_obligaciones_otro_pais"] == "SI" ? 'checked' : '' ?> data-required="true"> Si</label>
+                                                                        <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico accionista_obligaciones_otro_pais campo_obligatorio" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_obligaciones_otro_pais]" id="accionista_obligaciones_otro_pais_<?=$contador?>" data-obl-pais-otro="true" value="SI" <?= $row["accionista_obligaciones_otro_pais"] == "SI" ? 'checked' : '' ?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>> Si</label>
                                                                         <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_obligaciones_otro_pais]" id="accionista_obligaciones_otro_pais_<?=$contador?>" data-obl-pais-otro="false" value="NO" <?= $row["accionista_obligaciones_otro_pais"] == "NO" ? 'checked' : '' ?> >No</label>
                                                                         <label class="radio-inline"><input type="radio" class="add_anexos_ppes_juridico" name="anexo_ppe_accionistas[<?=$contador;?>][accionista_obligaciones_otro_pais]" id="accionista_obligaciones_otro_pais_<?=$contador?>" data-obl-pais-otro="false" value="VACIO" <?= $row["accionista_obligaciones_otro_pais"] == "VACIO" ? 'checked' : '' ?> >N/A</label>
                                                                     </div>
@@ -1741,7 +1741,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="operaciones_moneda_extranjera" class="required-field title">¿Realiza transacciones en moneda extranjera?:</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" data-required="true" value="SI" class="radios operaciones_moneda_extranjera campo_obligatorio" <?= ($cliente['operaciones_moneda_extranjera'] == "SI") ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'div#operaciones_moneda_extranjera','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> value="SI" class="radios operaciones_moneda_extranjera campo_obligatorio" <?= ($cliente['operaciones_moneda_extranjera'] == "SI") ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'div#operaciones_moneda_extranjera','hide')">Si</label>
                                 <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" value="NO" class="radios operaciones_moneda_extranjera" <?= ($cliente['operaciones_moneda_extranjera'] == "NO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'div#operaciones_moneda_extranjera','hide')">No</label>
                                 <label class="radio-inline"><input type="radio" name="operaciones_moneda_extranjera" value="VACIO" class="radios operaciones_moneda_extranjera" <?= ($cliente['operaciones_moneda_extranjera'] == "VACIO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'div#operaciones_moneda_extranjera','hide')">N/A</label>
                                 <small class="help-error-block"></small>
@@ -1765,7 +1765,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="cuentas_moneda_exterior" class="required-field title">¿Poseee cuentas en moneda extranjera?:</label>
                             <div class="form-group">                           
-                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" data-required="true" value="SI" class="radios cuentas_moneda_exterior campo_obligatorio" <?= ($cliente['cuentas_moneda_exterior'] == "SI") ? 'checked' : '' ?>>Si</label>
+                                <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> value="SI" class="radios cuentas_moneda_exterior campo_obligatorio" <?= ($cliente['cuentas_moneda_exterior'] == "SI") ? 'checked' : '' ?>>Si</label>
                                 <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" value="NO" class="radios cuentas_moneda_exterior" <?= ($cliente['cuentas_moneda_exterior'] == "NO") ? 'checked' : '' ?>>No</label>
                                 <label class="radio-inline"><input type="radio" name="cuentas_moneda_exterior" value="VACIO" class="radios cuentas_moneda_exterior" <?= ($cliente['cuentas_moneda_exterior'] == "VACIO") ? 'checked' : '' ?>>N/A</label>
                                 <small class="help-error-block"></small>
@@ -1774,7 +1774,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="productos_exterior" class="required-field title">¿Posee productos financieros en el exterior?:</label>
                             <div  class="form-group">                           
-                                <label class="radio-inline"><input type="radio" name="productos_exterior" data-required="true" value="SI" class="radios productos_exterior campo_obligatorio" <?= ($cliente['productos_exterior'] == "SI") ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_productos','hide')">Si</label>
+                                <label class="radio-inline"><input type="radio" name="productos_exterior" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> value="SI" class="radios productos_exterior campo_obligatorio" <?= ($cliente['productos_exterior'] == "SI") ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_productos','hide')">Si</label>
                                 <label class="radio-inline"><input type="radio" name="productos_exterior" value="NO" class="radios productos_exterior" <?= ($cliente['productos_exterior'] == "NO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_productos','hide')">No</label>
                                 <label class="radio-inline"><input type="radio" name="productos_exterior" value="VACIO" class="radios productos_exterior" <?= ($cliente['productos_exterior'] == "VACIO") ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_productos','hide')">N/A</label>
                                 <label class="radio-inline" id="add_productos" <?=($cliente["productos_exterior"] != "SI") ? 'style="display: none;"' : ''?>><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=productos_exterior][value=SI]'),'div#productos_exterior','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
@@ -1926,7 +1926,7 @@
                             <div class="col-md-12 content-radio-buttons">
                                 <label for="reclamaciones" class="required-field title">¿Ha presentado reclamaciones o ha recibido indemnizacion en seguros en los dos ultimos años?:</label>
                                 <div class="form-group">                   
-                                    <label class="radio-inline"><input type="radio" name="reclamaciones" data-required="true" value="1" class="radios reclamaciones campo_obligatorio" <?= ($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamos','hide')">Si</label>
+                                    <label class="radio-inline"><input type="radio" name="reclamaciones" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> value="1" class="radios reclamaciones campo_obligatorio" <?= ($cliente['reclamaciones'] == '1') ? 'checked' : '' ?> onclick="checkboxEnabledField(true,this,'label#add_reclamos','hide')">Si</label>
                                     <label class="radio-inline"><input type="radio" name="reclamaciones" value="0" class="radios reclamaciones" <?= ($cliente['reclamaciones'] === '0') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">No</label>
                                     <label class="radio-inline"><input type="radio" name="reclamaciones" value="2" class="radios reclamaciones" <?= ($cliente['reclamaciones'] == '2') ? 'checked' : '' ?> onclick="checkboxEnabledField(false,this,'label#add_reclamos','hide')">N/A</label>
                                     <label class="radio-inline" id="add_reclamos" style="display: <?=($cliente["reclamaciones"] != '1') ? 'none' : ''?>"><button type="button" class="btn btn-sm btn-success" onclick="checkboxEnabledField(true,$('input[name=reclamaciones][value=1]'),'div#reclamaciones','modal')">AGREGAR <small class="glyphicon glyphicon-plus"></small></button></label>
@@ -2123,7 +2123,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="autoriza_tratamiento" class="required-field title">Autorizacion tratamiento de informacion fines comerciales:</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma campo_obligatorio" value="SI" <?=$cliente["autoriza_tratamiento"] == "SI" ? "checked" : ""?> data-required="true" >Si</label>
+                                <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma campo_obligatorio" value="SI" <?=$cliente["autoriza_tratamiento"] == "SI" ? "checked" : ""?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >Si</label>
                                 <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma" value="NO" <?=$cliente["autoriza_tratamiento"] == "NO" ? "checked" : ""?>>No</label>
                                 <label class="radio-inline"><input type="radio" name="autoriza_tratamiento" class="radios firma" value="VACIO" <?=$cliente["autoriza_tratamiento"] == "VACIO" ? "checked" : ""?>>N/A</label>
                                 <small class="help-error-block"></small>
@@ -2132,7 +2132,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <label for="autoriza_info_fasecolda" class="required-field title">Autorización tratamiento de información fasecolda:</label>
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma campo_obligatorio" value="SI" <?=$cliente["autoriza_info_fasecolda"] == "SI" ? "checked" : ""?> data-required="true" >Si</label>
+                                <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma campo_obligatorio" value="SI" <?=$cliente["autoriza_info_fasecolda"] == "SI" ? "checked" : ""?> <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?> >Si</label>
                                 <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma" value="NO" <?=$cliente["autoriza_info_fasecolda"] == "NO" ? "checked" : ""?>>No</label>
                                 <label class="radio-inline"><input type="radio" name="autoriza_info_fasecolda" class="radios firma" value="VACIO" <?=$cliente["autoriza_info_fasecolda"] == "VACIO" ? "checked" : ""?>>N/A</label>
                                 <small class="help-error-block"></small>

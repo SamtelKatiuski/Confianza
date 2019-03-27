@@ -1826,7 +1826,7 @@ class reportesController extends Controller
 						$resultadoReporte[$keyResultadoReporte]['A' . ($keyAccionista+1) . '_PARTICIPACION'] = $valueAccionista['accionista_participacion'];
 						$resultadoReporte[$keyResultadoReporte]['A' . ($keyAccionista+1) . '_PERSONA_JURIDICA_QUE_COTIZA_EN_BOLSA'] = $valueAccionista['accionista_cotiza_bolsa'];
 						$resultadoReporte[$keyResultadoReporte]['A' . ($keyAccionista+1) . '_PERSONA_PUBLICAMENTE_EXPUESTA_O_VINCULADO_CON_UNA_DE_ELLAS'] = $valueAccionista['accionista_persona_publica'];
-						$resultadoReporte[$keyResultadoReporte]['A' . ($keyAccionista+1) . '_SUJETO_DE_TRIBUTACION_EN_OTRO_PAIS'] = ($valueAccionista['accionista_obligaciones_otro_pais'] == 1) ? $valueAccionista['accionista_obligaciones_otro_pais_desc'] : $valueAccionista['accionista_obligaciones_otro_pais'] ;
+						$resultadoReporte[$keyResultadoReporte]['A' . ($keyAccionista+1) . '_SUJETO_DE_TRIBUTACION_EN_OTRO_PAIS'] = ($valueAccionista['accionista_obligaciones_otro_pais'] == 'SI') ? $valueAccionista['accionista_obligaciones_otro_pais_desc'] : $valueAccionista['accionista_obligaciones_otro_pais'] ;
 					}
 
 					$anexo_SubAccionistas_cliente = $this->_clientes->getSubAccionistasClienteById($valueResultadoReporte['CLIENTE_ID']);
@@ -2587,7 +2587,7 @@ class reportesController extends Controller
 					$resultadoReporte[$keyReporte]['ACCIONISTA_' . ($keyAccionista + 1) . '_PARTICIPACION'] = $valueAccionista['accionista_participacion'];
 					$resultadoReporte[$keyReporte]['ACCIONISTA_' . ($keyAccionista + 1) . '_PERSONA_JURIDICA_QUE_COTIZA_EN_BOLSA'] = $valueAccionista['accionista_cotiza_bolsa'];
 					$resultadoReporte[$keyReporte]['ACCIONISTA_' . ($keyAccionista + 1) . '_PERSONA_PUBLICAMENTE_EXPUESTA_O_VINCULADO_CON_UNA_DE_ELLAS'] = $valueAccionista['accionista_persona_publica'];
-					$resultadoReporte[$keyReporte]['ACCIONISTA_' . ($keyAccionista + 1) . '_SUJETO_DE_TRIBUTACION_EN_OTRO_PAIS'] = ($valueAccionista['accionista_obligaciones_otro_pais'] == 1) ? $valueAccionista['accionista_obligaciones_otro_pais_desc'] : $valueAccionista['accionista_obligaciones_otro_pais'] ;
+					$resultadoReporte[$keyReporte]['ACCIONISTA_' . ($keyAccionista + 1) . '_SUJETO_DE_TRIBUTACION_EN_OTRO_PAIS'] = ($valueAccionista['accionista_obligaciones_otro_pais'] == 'SI') ? $valueAccionista['accionista_obligaciones_otro_pais_desc'] : $valueAccionista['accionista_obligaciones_otro_pais'] ;
 				}
 
 				$anexo_SubAccionistas_cliente = $this->_clientes->getSubAccionistasClienteById($dataReporte['CLIENTE_ID']);
