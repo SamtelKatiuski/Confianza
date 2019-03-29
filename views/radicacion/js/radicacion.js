@@ -378,8 +378,10 @@ $(document).ready(function () {
 		 */
 		$('input[id=renombramiento_fecha_emision_mes]').val('');
 		$('input[id=renombramiento_fecha_emision_anio]').val('');
+		$('input[id=renombramiento_fecha_actualizacion]').val('');
 		$('div#div_fecha_expedicion').attr('hidden', 'true');
 		$('div#div_anio_expedicion').attr('hidden', 'true');
+		$('div#div_fecha_actualizacion').attr('hidden', 'true');
 		validarSarlarf();
 	});
 
@@ -445,17 +447,33 @@ $(document).ready(function () {
 		var numero_identificacion_actual = $('input[id=numero_identificacion]').val();
 		var tipo_proceso_cookie = getCookie('tipo_proceso_' + numero_identificacion_actual).split(' ')[0];
 		var numero_identificacion_cookie = getCookie('tipo_proceso_' + numero_identificacion_actual).split(' ')[1];
+
+		/* var tipos_documentos = [
+			'RUT',
+			'CCO',
+			'DDC',
+			'ACC',
+			'EFC',
+			'EFI',
+			'NEF',
+			'RTA',
+			'RET'
+		];
+
+		if (tipos_documentos.includes($(this).val())) {
+			
+		} */
+
 		switch ($('select[name="renombramiento_tipo_documento"]').val()) {
 			case "MAC":
-				if (numero_identificacion_actual == numero_identificacion_cookie && tipo_proceso_cookie == 'Confirmacion') {
-					$('div.renombramiento_fecha_actualizacion').prop('hidden', false);
-					$('input[name="renombramiento_fecha_actualizacion"]').val("");
-				}
-				break;
 			case "FAC":
 				if (numero_identificacion_actual == numero_identificacion_cookie && tipo_proceso_cookie == 'Confirmacion') {
 					$('div.renombramiento_fecha_actualizacion').prop('hidden', false);
 					$('input[name="renombramiento_fecha_actualizacion"]').val("");
+					$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
+					$('input[name="renombramiento_fecha_emision_mes"]').val("");
+					$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
+					$('input[name="renombramiento_fecha_emision_anio"]').val("");
 				}
 				break;
 			case "RUT":
@@ -468,12 +486,16 @@ $(document).ready(function () {
 				$('div.renombramiento_fecha_emision_mes').prop('hidden', false);
 				$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
 				$('input[name="renombramiento_fecha_emision_anio"]').val("");
+				$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
+				$('input[name="renombramiento_fecha_actualizacion"]').val("");
 				break;
 			case "RTA":
 			case "RET":
 				$('div.renombramiento_fecha_emision_anio').prop('hidden', false);
 				$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
 				$('input[name="renombramiento_fecha_emision_mes"]').val("");
+				$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
+				$('input[name="renombramiento_fecha_actualizacion"]').val("");
 				break;
 			default:
 				$('input[name="renombramiento_fecha_emision_mes"]').val("");
@@ -484,7 +506,6 @@ $(document).ready(function () {
 				$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
 				break;
 		}
-
 	});
 
 	$('body').on('keypress', 'input[name="renombramiento_fecha_emision_anio"]', function (event) {
