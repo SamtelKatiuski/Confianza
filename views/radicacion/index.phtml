@@ -28,9 +28,9 @@
 				<button style="margin-left: 15px;" class="btn btn-sm btn-toogle <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" id="nuevo-radicado">Nuevo 
 					<span class="glyphicon glyphicon-plus"></span>
 				</button>
-				<select style="display: inline-block; width: 42%;" class="form-control <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" name="tipo_proceso">
+				<select style="display: inline-block; width: 42%;" class="form-control <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" id="new_tipo_proceso">
 					<option value="" hidden>Seleccione tipo de proceso</option>
-					<?php foreach($tipo_proceso as $valueTipoProceso):?>
+					<?php foreach($this->tipo_proceso as $valueTipoProceso):?>
 							<option value="<?=$valueTipoProceso['descripcion']?>"><?=$valueTipoProceso['descripcion'] ?></option>
 					<?php endforeach;?>
 				</select>
@@ -326,7 +326,7 @@
 						</div>
 						<div class="form-group">
 							<label>Tipo proceso cliente</label>
-							<select class="form-control" name="tipo_proceso">
+							<select class="form-control" name="tipo_proceso" id="tipo_proceso">
 								<option value="" hidden>Seleccione tipo de proceso</option>
 								<?php foreach($this->tipo_proceso as $valueTipoProceso):?>
 										<option value="<?=$valueTipoProceso['descripcion']?>"><?=$valueTipoProceso['descripcion'] ?></option>
@@ -391,6 +391,10 @@
 						<div class="form-group renombramiento_fecha_emision_anio" id="div_anio_expedicion" hidden="true">
 							<label for="renombramiento_fecha_emision_anio">Año Expedición</label>
 							<input type="number" name="renombramiento_fecha_emision_anio" id="renombramiento_fecha_emision_anio" class="form-control" placeholder="YYYY">
+						</div>
+						<div class="form-group renombramiento_fecha_actualizacion" id="div_fecha_actualizacion" hidden="true">
+							<label for="renombramiento_fecha_actualizacion">Fecha de actualización</label>
+							<input type="date" name="renombramiento_fecha_actualizacion" id="renombramiento_fecha_actualizacion" class="form-control">
 						</div>
 						<div class="form-group">
 							<label for="renombramiento_tipo_id">Tipo ID</label>
