@@ -22,16 +22,24 @@
 		</div>
 		
 		<!-- TITULO -->
-		<div class="row">
-			<h2 class="col-xs-6 col-md-3" style="text-align:left; margin-bottom: 30px;">
-				<?php echo $this->titulo ?>
-				<button class="btn btn-sm btn-toogle <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" id="nuevo-radicado">Nuevo 
-		    		<span class="glyphicon glyphicon-plus"></span>
-		    	</button>
-			</h2>
-			<div class="col-xs-6 col-md-3 pull-right" style="font-size: 18px;bottom: 0px;margin-top: 2%; text-align: right;">
-		    	<span style="font-size: 18px;bottom: 0px;margin-top: 10px;" id="NRadicado"><?=(isset($InfoRadicado["CONSECUTIVO_RADICADO"])) ? $InfoRadicado["CONSECUTIVO_RADICADO"] : '';?></span>
-				<span  class="label label-<?=(isset($InfoRadicado["FORMULARIO"])) ? (($InfoRadicado["FORMULARIO"] == 'Nuevo') ? 'danger' : 'default') : '';?>" style="font-size: 12px;bottom: 0px;margin-top: 10px;margin-left: 6px;" id="ClienteRadicado"><?=(isset($InfoRadicado["FORMULARIO"])) ? $InfoRadicado["FORMULARIO"] : '';?></span>
+		<div class="row" style="margin: 25px 0;">
+			<div class="col-lg-6" style="padding: 0 !important;">
+				<h2 style="display: inline; margin: 0; padding: 0;"><?php echo $this->titulo ?></h2>
+				<button style="margin-left: 15px;" class="btn btn-sm btn-toogle <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" id="nuevo-radicado">Nuevo 
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+				<select style="display: inline-block; width: 42%;" class="form-control <?=((isset($InfoRadicado["FORMULARIO"]) && $InfoRadicado["FORMULARIO"] == 'Viejo') || (isset($InfoRadicado["RADICACION_PROCESO"]) && !empty($InfoRadicado["RADICACION_PROCESO"]))) ? '' : 'hidden';?>" name="tipo_proceso">
+					<option value="" hidden>Seleccione tipo de proceso</option>
+					<?php foreach($tipo_proceso as $valueTipoProceso):?>
+							<option value="<?=$valueTipoProceso['descripcion']?>"><?=$valueTipoProceso['descripcion'] ?></option>
+					<?php endforeach;?>
+				</select>
+			</div>
+			<div class="col-lg-6">
+				<div style="text-align: right;">
+					<span style="font-size: 18px;bottom: 0px;margin-top: 10px;" id="NRadicado"><?=(isset($InfoRadicado["CONSECUTIVO_RADICADO"])) ? $InfoRadicado["CONSECUTIVO_RADICADO"] : '';?></span>
+					<span  class="label label-<?=(isset($InfoRadicado["FORMULARIO"])) ? (($InfoRadicado["FORMULARIO"] == 'Nuevo') ? 'danger' : 'default') : '';?>" style="font-size: 12px;bottom: 0px;margin-top: 10px;margin-left: 6px;" id="ClienteRadicado"><?=(isset($InfoRadicado["FORMULARIO"])) ? $InfoRadicado["FORMULARIO"] : '';?></span>
+				</div>
 			</div>
 		</div>
 

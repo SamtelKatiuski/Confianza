@@ -38,8 +38,6 @@ class radicacionController extends Controller
 
     //Visualizacion de la pantalla principal
     public function index(){
-
-
         //Visualiza la pagina de radicacion con los modelos que se necesiten
         $this->_view->titulo = "Radicacion";
         $this->_view->SelectTipoDocumento = $this->_global->getAllTypeClients();
