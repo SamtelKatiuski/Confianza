@@ -43,6 +43,7 @@ class radicacionController extends Controller
         //Visualiza la pagina de radicacion con los modelos que se necesiten
         $this->_view->titulo = "Radicacion";
         $this->_view->SelectTipoDocumento = $this->_global->getAllTypeClients();
+        $this->_view->tipo_proceso = $this->_global->getTipoProceso('tipo_proceso');
         $this->_view->CantidadRadicacionesUser = $this->_model->cantidadRadicacionesUser($_SESSION["Mundial_authenticate_user_id"]);
         $this->_view->setJS(array('radicacion'));
         $this->_view->renderizar('index','radicacion');
@@ -67,6 +68,7 @@ class radicacionController extends Controller
                             $documentos_pendientes["CADENA_PENDIENTES"][] = $documento_pendiente["DOCUMENTOS_PENDIENTES_CODIGO"];
                         }
                     }
+                    $tipo_proceso                          = $this->_global->getTipoProceso('tipo_proceso');
                     $sucursal                              = $this->_global->getSucursales();
                     $anio                                  = $this->_global->getAnios();
                     $usersConfianza                        = $this->_model->getAllUsuariosConfiaza();
@@ -683,6 +685,7 @@ class radicacionController extends Controller
             if(!isset($InfoRadicado['error'])){
 
                 if($InfoRadicado){
+                    $tipo_proceso                         = $this->_global->getTipoProceso('tipo_proceso');
                     $sucursal                              = $this->_global->getSucursales();
                     $anio                                  = $this->_global->getAnios();
                     $usersConfianza                        = $this->_model->getAllUsuariosConfiaza();

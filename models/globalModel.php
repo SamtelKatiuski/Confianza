@@ -203,4 +203,15 @@ class globalModel extends Model
         else
             return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
+
+    public function getTipoProceso($tipoProceso) {
+        $result = $this->_db->prepare("SELECT * FROM multi_param where nombre_parametro = :tipo_proceso");
+        $result->bindParam(':tipo_proceso', $tipoProceso, PDO::PARAM_STR);
+        $result->execute();
+
+        if(!is_null($result->errorInfo()[2]))
+            return array('error' => $result->errorInfo()[2]);
+        else
+            return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
 }

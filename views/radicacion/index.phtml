@@ -303,20 +303,29 @@
 		    </div>
 		    <div class="modal-body">
 		    	<form action="<?=BASE_URL?>radicacion/saveClientNew" method="POST" autocomplete="off" name="form-radicacion-new-cliente">
-					<div class="form-group">
-	                    <label>Tipo documento Cliente</label>
-	                    <select class="form-control" name="tipo_documento">
-	                        <option value="" hidden>Seleccione tipo de documento</option>
-	                        <?php foreach($this->SelectTipoDocumento as $row):?>
-	                            <option value="<?=$row['id']?>" ><?=$row['descripcion'] . '(' . $row['codigo'] . ')' ?></option>
-	                        <?php endforeach;?>
-	                    </select>
-	                </div>
-	                <div class="form-group">
-	                    <label for="documentClient">Numero Identificación</label>
-	                    <input type="text" class="form-control" name="documentClient" readonly="readonly">
-	                </div>
-                </form>
+						<div class="form-group">
+							<label>Tipo documento Cliente</label>
+							<select class="form-control" name="tipo_documento">
+								<option value="" hidden>Seleccione tipo de documento</option>
+								<?php foreach($this->SelectTipoDocumento as $row):?>
+										<option value="<?=$row['id']?>" ><?=$row['descripcion'] . '(' . $row['codigo'] . ')' ?></option>
+								<?php endforeach;?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="documentClient">Numero Identificación</label>
+							<input type="text" class="form-control" name="documentClient" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>Tipo proceso cliente</label>
+							<select class="form-control" name="tipo_proceso">
+								<option value="" hidden>Seleccione tipo de proceso</option>
+								<?php foreach($this->tipo_proceso as $valueTipoProceso):?>
+										<option value="<?=$valueTipoProceso['descripcion']?>"><?=$valueTipoProceso['descripcion'] ?></option>
+								<?php endforeach;?>
+							</select>
+						</div>
+					</form>
 		    </div>
 	    	<div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

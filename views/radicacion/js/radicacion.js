@@ -367,54 +367,48 @@ $(document).ready(function () {
 	});
 
 	$('body').on('click', 'button#save-new-client', function (event) {
-
 		if ($('select[name="tipo_documento"]').val().length) {
-
 			if ($('input[name="documentClient"]').val().length) {
-
-				var Send = false;
-
-				if ($('select[name="tipo_documento"]').val() == 3 && $('input[name="documentClient"]').val().length > 8 || $('input[name="documentClient"]').val().length == 3) {
-					Send = true;
-				} else if ($('select[name="tipo_documento"]').val() != 3) {
-					Send = true;
-				}
-
-				if (Send) {
-
-					var formNewClient = $('form[name="form-radicacion-new-cliente"]');
-					var url = $(formNewClient).attr('action');
-					var data = $(formNewClient).serializeArray();
-					var method = $(formNewClient).attr('method');
-
-					config_ajax = {
-
-						beforeSend: function () {
-							$("body").find('div#modal-radicacion div.modal-footer').html('<h4 class="text-left">Un momento se esta registrando el cliente...</h4>');
-						},
-						success: function (response) {
-
-							if (response.carga_cliente.resultado) {
-
-								$('div#modal-new-client').on('hidden.bs.modal', function () {
-
-									AlertMessage(STATES_OK, 'EXITO !!!', 'Se cargaron Correctamente Los Datos del Cliente.');
-
-									//Ejecuta la funcion de buscar nueva mente el cliente ya radicado para generar la primera radicacion
-									SearchRadicacion($('input[name="documentClient"]').val());
-								}).modal('hide');
-							} else {
-
-								//ERROR CUANDO EL CLIENTE NO SE REGISTRO CORRECTAMENTE
-								AlertMessage(STATES_ERROR, 'ERROR !!!', 'el cliente no se pudo cargar en el sistema.');
+				if ($('select[name="tipo_proceso"]').val().length) {
+					var Send = false;
+					if ($('select[name="tipo_documento"]').val() == 3 && $('input[name="documentClient"]').val().length > 8 || $('input[name="documentClient"]').val().length == 3) {
+						Send = true;
+					} else if ($('select[name="tipo_documento"]').val() != 3) {
+						Send = true;
+					}
+					if (Send) {
+						var formNewClient = $('form[name="form-radicacion-new-cliente"]');
+						var url = $(formNewClient).attr('action');
+						var data = $(formNewClient).serializeArray();
+						var method = $(formNewClient).attr('method');
+						config_ajax = {
+							beforeSend: function () {
+								$("body").find('div#modal-radicacion div.modal-footer').html('<h4 class="text-left">Un momento se esta registrando el cliente...</h4>');
+							},
+							success: function (response) {
+	
+								if (response.carga_cliente.resultado) {
+	
+									$('div#modal-new-client').on('hidden.bs.modal', function () {
+	
+										AlertMessage(STATES_OK, 'EXITO !!!', 'Se cargaron Correctamente Los Datos del Cliente.');
+	
+										//Ejecuta la funcion de buscar nueva mente el cliente ya radicado para generar la primera radicacion
+										SearchRadicacion($('input[name="documentClient"]').val());
+									}).modal('hide');
+								} else {
+	
+									//ERROR CUANDO EL CLIENTE NO SE REGISTRO CORRECTAMENTE
+									AlertMessage(STATES_ERROR, 'ERROR !!!', 'el cliente no se pudo cargar en el sistema.');
+								}
 							}
 						}
+						SendData(url, data, method, config_ajax);
+					} else {
+						alert('El número de Identificación del cliente debe ser mayor a 10 digitos');
 					}
-
-					SendData(url, data, method, config_ajax);
 				} else {
-
-					alert('El número de Identificación del cliente debe ser mayor a 10 digitos');
+					alert('El tipo de proceso del cliente se encuentra vacio');
 				}
 			} else {
 				alert('El numero del documento del cliente se encuentra vacio');
