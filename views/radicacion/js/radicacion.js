@@ -412,9 +412,14 @@ $(document).ready(function () {
 	
 										AlertMessage(STATES_OK, 'EXITO !!!', 'Se cargaron Correctamente Los Datos del Cliente.');
 										//Crea una cookie para almacenar el tipo de proceso seleccionado
-										if (!$('select[name="tipo_proceso"]').val() == 'Nueva radicacion') {
-											document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=' + $('select[name="tipo_proceso"]').val() + ' ' + $('input[id=numero_identificacion]').val();
+										var proceso_select = null;
+										if ($('select[name="tipo_proceso"]').val() == 'Nueva radicacion') {
+											proceso_select = 'Nueva_radicacion';
+										} else {
+											proceso_select = $('select[name="tipo_proceso"]').val();
 										}
+										var anio = new Date().getFullYear();
+										document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=' + proceso_select + ' ' + $('input[id=numero_identificacion]').val() + '; expires=Thu, 31 Dec ' + (anio+1) + ' 12:00:00 UTC;';
 										//Ejecuta la funcion de buscar nueva mente el cliente ya radicado para generar la primera radicacion
 										SearchRadicacion($('input[name="documentClient"]').val());
 									}).modal('hide');
@@ -448,63 +453,36 @@ $(document).ready(function () {
 		var tipo_proceso_cookie = getCookie('tipo_proceso_' + numero_identificacion_actual).split(' ')[0];
 		var numero_identificacion_cookie = getCookie('tipo_proceso_' + numero_identificacion_actual).split(' ')[1];
 
-		/* var tipos_documentos = [
+		var valueTipoDoc = $(this).val();
+
+		var mesAnio = [
 			'RUT',
 			'CCO',
 			'DDC',
 			'ACC',
 			'EFC',
 			'EFI',
-			'NEF',
+			'NEF'
+		];
+
+		var anio = [
 			'RTA',
 			'RET'
 		];
 
-		if (tipos_documentos.includes($(this).val())) {
-			
-		} */
+		var actualizacion = [
+			'MAC',
+			'FAC'
+		];
 
-		switch ($('select[name="renombramiento_tipo_documento"]').val()) {
-			case "MAC":
-			case "FAC":
-				if (numero_identificacion_actual == numero_identificacion_cookie && tipo_proceso_cookie == 'Confirmacion') {
-					$('div.renombramiento_fecha_actualizacion').prop('hidden', false);
-					$('input[name="renombramiento_fecha_actualizacion"]').val("");
-					$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
-					$('input[name="renombramiento_fecha_emision_mes"]').val("");
-					$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
-					$('input[name="renombramiento_fecha_emision_anio"]').val("");
-				}
-				break;
-			case "RUT":
-			case "CCO":
-			case "DDC":
-			case "ACC":
-			case "EFC":
-			case "EFI":
-			case "NEF":
-				$('div.renombramiento_fecha_emision_mes').prop('hidden', false);
-				$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
-				$('input[name="renombramiento_fecha_emision_anio"]').val("");
-				$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
-				$('input[name="renombramiento_fecha_actualizacion"]').val("");
-				break;
-			case "RTA":
-			case "RET":
-				$('div.renombramiento_fecha_emision_anio').prop('hidden', false);
-				$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
-				$('input[name="renombramiento_fecha_emision_mes"]').val("");
-				$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
-				$('input[name="renombramiento_fecha_actualizacion"]').val("");
-				break;
-			default:
-				$('input[name="renombramiento_fecha_emision_mes"]').val("");
-				$('input[name="renombramiento_fecha_emision_anio"]').val("");
-				$('input[name="renombramiento_fecha_actualizacion"]').val("");
-				$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
-				$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
-				$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
-				break;
+		if (mesAnio.includes(valueTipoDoc)) {
+			visualizaMesAnio();
+		}
+		if (anio.includes(valueTipoDoc)) {
+			visualizaAnio();
+		}
+		if (actualizacion.includes(valueTipoDoc)) {
+			visualizaActualizacion(numero_identificacion_actual, numero_identificacion_cookie, tipo_proceso_cookie);
 		}
 	});
 
@@ -526,6 +504,38 @@ $(document).ready(function () {
 		}
 	});
 });
+
+function visualizaMesAnio() {
+	if (!$('div.renombramiento_fecha_emision_anio').prop('hidden')) {
+		$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
+	}
+	if (!$('div.renombramiento_fecha_actualizacion').prop('hidden')) {
+		$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
+	}
+	$('div.renombramiento_fecha_emision_mes').prop('hidden', false);
+}
+
+function visualizaAnio() {
+	if (!$('div.renombramiento_fecha_emision_mes').prop('hidden')) {
+		$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
+	}
+	if (!$('div.renombramiento_fecha_actualizacion').prop('hidden')) {
+		$('div.renombramiento_fecha_actualizacion').prop('hidden', true);
+	}
+	$('div.renombramiento_fecha_emision_anio').prop('hidden', false);
+}
+
+function visualizaActualizacion(numero_identificacion_actual, numero_identificacion_cookie, tipo_proceso_cookie) {
+	if (!$('div.renombramiento_fecha_emision_mes').prop('hidden')) {
+		$('div.renombramiento_fecha_emision_mes').prop('hidden', true);
+	}
+	if (!$('div.renombramiento_fecha_emision_anio').prop('hidden')) {
+		$('div.renombramiento_fecha_emision_anio').prop('hidden', true);
+	}
+	if (numero_identificacion_actual == numero_identificacion_cookie && tipo_proceso_cookie == 'Confirmacion') {
+		$('div.renombramiento_fecha_actualizacion').prop('hidden', false);
+	}
+}
 
 function validarSarlarf() {
 
@@ -635,7 +645,13 @@ var SearchRadicacion = function (cliente) {
 				//Al dar click en un nuevo radicado se ejecuta y se limpia el formulario
 				$('button#nuevo-radicado').on('click', function () {
 					if (confirm("Esta seguro de crear una nueva radicación?")) {
-
+						/**
+						 * Si NO existe una opción de tipo de proceso seleccionada
+						 */
+						if (!$('select#new_tipo_proceso').val().length) {
+							var anio = new Date().getFullYear();
+							document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=Nueva_radicacion ' + $('input[id=numero_identificacion]').val() + '; expires=Thu, 31 Dec ' + (anio+1) + ' 12:00:00 UTC;';
+						}
 						$(this).addClass('hidden');
 						$('select[id=new_tipo_proceso]').addClass('hidden');
 
@@ -698,13 +714,20 @@ var SearchRadicacion = function (cliente) {
 							});
 							input.val($.trim(values.join('~')));
 						}
+					} else {
+						$('select#new_tipo_proceso').val('');
 					}
 				});
 
 				$('select#new_tipo_proceso').on('change', function () {
-					if (!$(this).val() == 'Nueva radicacion') {
-						document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=' + $(this).val() + ' ' + $('input[id=numero_identificacion]').val();
+					var proceso_select = null;
+					if ($(this).val() == 'Nueva radicacion') {
+						proceso_select = 'Nueva_radicacion';
+					} else {
+						proceso_select = $(this).val();
 					}
+					var anio = new Date().getFullYear();
+					document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=' + proceso_select + ' ' + $('input[id=numero_identificacion]').val() + '; expires=Thu, 31 Dec ' + (anio+1) + ' 12:00:00 UTC;';
 					$('button#nuevo-radicado').click();
 				});
 
@@ -1107,6 +1130,13 @@ function EditRadicacion(el, id) {
 					//Al dar click en un nuevo radicado se ejecuta y se limpia el formulario
 					$('button#nuevo-radicado').on('click', function () {
 						if (confirm("Esta seguro de crear una nueva radicación?")) {
+							/**
+							 * Si NO existe una opción de tipo de proceso seleccionada
+							 */
+							if (!$('select#new_tipo_proceso').val().length) {
+								var anio = new Date().getFullYear();
+								document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=Nueva_radicacion ' + $('input[id=numero_identificacion]').val() + '; expires=Thu, 31 Dec ' + (anio+1) + ' 12:00:00 UTC;';
+							}
 							selected_radicacion = false;
 							$(this).addClass('hidden');
 							$('select[id=new_tipo_proceso]').addClass('hidden');
@@ -1129,13 +1159,20 @@ function EditRadicacion(el, id) {
 							$('input[name="numero_identificacion"').val(doc);
 							$('div[id="cantidad_separado"').hide();
 							$('div#table-renombramientos').removeClass('hidden');
+						} else {
+							$('select#new_tipo_proceso').val('');
 						}
 					});
 
 					$('select#new_tipo_proceso').on('change', function () {
-						if (!$(this).val() == 'Nueva radicacion') {
-							document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=' + $(this).val() + ' ' + $('input[id=numero_identificacion]').val();
+						var proceso_select = null;
+						if ($(this).val() == 'Nueva radicacion') {
+							proceso_select = 'Nueva_radicacion';
+						} else {
+							proceso_select = $(this).val();
 						}
+						var anio = new Date().getFullYear();
+						document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=' + proceso_select + ' ' + $('input[id=numero_identificacion]').val() + '; expires=Thu, 31 Dec ' + (anio+1) + ' 12:00:00 UTC;';
 						$('button#nuevo-radicado').click();
 					});
 
