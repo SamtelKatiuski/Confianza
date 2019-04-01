@@ -1,6 +1,12 @@
 var selected_radicacion = false;
 $(document).ready(function () {
 
+	if (getCookie('uso_cookie') == "") {
+		alert('Es necesario que habilite el uso de cookies en su navegador para visualizar correctamente el contenido.');
+	}
+
+	document.cookie = 'uso_cookie=1';
+	
 	disabledFields = $(":disabled");
 
 
