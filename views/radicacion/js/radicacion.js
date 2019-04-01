@@ -375,7 +375,14 @@ $(document).ready(function () {
 				fecha_actualizacion = "";
 			}
 
-			$('table#table-content-files-rename tbody').find('tr#' + $('input[id="pos_file_rename"]').val() + ' th').find(':input[name="file_renombrado[' + $(':input[id="pos_file_rename"]').val() + ']"]').val(nameRenombramiento.join('-') + fecha_emision + fecha_actualizacion);
+			var proceso_actualizacion;
+			if ((getCookie('tipo_proceso_' + $('input[id=numero_identificacion]').val()).split(' ')[0] == 'Actualizacion') && ($('select[id=renombramiento_tipo_documento]').val() == 'MAC' || $('select[id=renombramiento_tipo_documento]').val() == 'FAC')) {
+				proceso_actualizacion = "~Actualizacion:";
+			} else {
+				proceso_actualizacion = "";
+			}
+
+			$('table#table-content-files-rename tbody').find('tr#' + $('input[id="pos_file_rename"]').val() + ' th').find(':input[name="file_renombrado[' + $(':input[id="pos_file_rename"]').val() + ']"]').val(nameRenombramiento.join('-') + fecha_emision + fecha_actualizacion + proceso_actualizacion);
 			$('div#modal-renombramiento-file').modal('hide');
 		}
 		/**

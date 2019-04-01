@@ -389,158 +389,221 @@ class radicacionController extends Controller
                                 }
 
                                 if($data["devuelto"] == 'No'){
-
-                                    if(isset($dataQuery["formulario_sarlaft"])){
-
-                                        if(isset($dataQuery["fecha_diligenciamiento"]) && $dataQuery["formulario_sarlaft"] == 1){
-
-                                            if($Tipo_cliente['TIPO_PERSONA'] == 'NAT'){
-
-                                                $VerifyClientExist = $this->_clientes->getInfoClienteNaturalByClienteId($dataQuery["cliente_id"]);
-                                            }else{
-
-                                                $VerifyClientExist = $this->_clientes->getInfoClienteJuridicoByClienteId($dataQuery["cliente_id"]);
-                                            }
-
-                                            if(!isset($VerifyClientExist['error'])){
-
-                                                if(!$VerifyClientExist){
-
-                                                    $insert_new = $this->_clientes->insertClient($Tipo_cliente["TIPO_PERSONA"],array('cliente' => $data["cliente_id"]));
-
-                                                    if(!isset($insert_new['error'])){
-
-                                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
-                                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
-                                                                'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
-                                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
-                                                                'ESTADO_PROCESO_ID'                 => 1,
-                                                                'RADICACION_ID'                     => $resultado_save_radicado
-                                                              )
-                                                        );
-
-                                                        if(!isset($ingresarProcesoCliente['error'])){
-                                                            $return["radicacion"]["nuevo_cliente"] = true;
-                                                        }else{
-                                                            throw new Exception('La gestion del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
-                                                        }
-                                                    }else{
-                                                        throw new Exception('No se guardo correctamente el cliente por : ' . $insert_new['error']);
-                                                    }
-                                                }else{
-
-                                                    if(date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) > date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"]))){
-
-                                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
-                                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
-                                                                'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
-                                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
-                                                                'ESTADO_PROCESO_ID'                 => 1,
-                                                                'RADICACION_ID'                     => $resultado_save_radicado 
-                                                            )
-                                                        );
-
-                                                        if(!isset($ingresarProcesoCliente['error'])){
-                                                            $return["radicacion"]["nuevo_cliente"] = true;
-                                                        }else{
-                                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
-                                                        }
-                                                    }else if((date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) == date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"]))) && $data['ESTADO_PROCESO_ID'] == 2){
-                                                        
-                                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
-                                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
-                                                                'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
-                                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
-                                                                'ESTADO_PROCESO_ID'                 => 1,
-                                                                'RADICACION_ID'                     => $resultado_save_radicado
-                                                            )
-                                                        );
-
-                                                        if(!isset($ingresarProcesoCliente['error'])){
-                                                            $return["radicacion"]["nuevo_cliente"] = true;
-                                                        }else{
-                                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
-                                                        }
-                                                    }
-                                                }
-                                            }else{
-                                                throw new Exception('No se pudo verificar el cliente por : ' . $VerifyClientExist['error']);
-                                            }
-                                        }else{
-                                            throw new Exception('Falta enviar la fecha de diligenciamiento');
-                                        }
-                                    }
-                                }else if($data["devuelto"] == 'Si'){
-
-                                    if(isset($data["formulario_sarlaft"])){
-
-                                        $ingresarProcesoCliente = $this->_crud->Save(
-                                            'zr_estado_proceso_clientes_sarlaft',
-                                            array(
-                                                'PROCESO_USUARIO_ID'                => $_SESSION["Mundial_authenticate_user_id"],
+                                    //Si el tipo de proceso es Confirmacion
+                                    if ($fecha[0] == 'Fecha_Actualizacion') {
+                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
-                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => isset($dataQuery["fecha_diligenciamiento"]) ? $dataQuery["fecha_diligenciamiento"] : '0000-00-00',
-                                                'ESTADO_PROCESO_ID'                 => 2,
-                                                'RADICACION_ID'                     => $resultado_save_radicado 
+                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                'ESTADO_PROCESO_ID'                 => 3, //FINALIZADO
+                                                'RADICACION_ID'                     => $resultado_save_radicado
                                             )
                                         );
-                                    }
 
-                                    if(isset($ingresarProcesoCliente['error'])){
-                                        throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
-                                    }
-
-                                    $remitente = array(
-                                        'email' => Security::decode(MAIL_USER,MAIL_KEYHASH), 
-                                        'name' => 'Informes Mundial'
-                                    );
-
-                                    $templatePath = ROOT . "public/templates/devueltos.html";
-                                    $content_template = file_get_contents($templatePath);
-
-                                    $cids = array(
-                                        "[cid:DOCUMENTO]",
-                                        "[cid:DESCRIPCION_DEVUELTO]",
-                                        "[cid:RADICADO]"
-                                    );
-
-                                    $replace = array(
-                                        $data['numero_identificacion'],
-                                        strtoupper(trim($data['radicacion_observacion'])),
-                                        $TempNRadicado
-                                    );
-
-                                    $bodyHTML = str_replace($cids, $replace, $content_template);
-
-                                    $SendCorreos = Email::configEmail(
-                                        array(
-                                            'remitente' => $remitente,
-                                            'receptor' => array('email' => $data['correo_radicacion'], 'name' => ''),
-                                            'isHTML' => true,
-                                            'Asunto' => "Informa de Novedad radicacion N°{$TempNRadicado} - Estado Devuelto",
-                                            'Contenido' => $bodyHTML,
-                                            'Contenido-noHTML' => 'El informe de este correo es dado a que la radicacion de los documentos quedaron en estado devuelto por el motivo de: &nbsp'."<strong>".strtoupper(trim($data['radicacion_observacion']))."</strong>"
-                                        ),
-                                        array(
-                                            "path" => ROOT . 'public/img/logo_mundial.png',
-                                            "cid" => "LOGO_MUNDIAL"
-                                        )
-                                    );
-
-                                    if((bool)$SendCorreos){
-
-                                        $return['correo'] = array(
-                                            'type' => 'STATES_OK',
-                                            'titulo' => 'Exito!!!',
-                                            'message' => 'Se envio correctamente el correo ' . $data["correo_radicacion"] . ' al cliente ' . $data['numero_identificacion']
+                                        if(!isset($ingresarProcesoCliente['error'])){
+                                            $return["radicacion"]["nuevo_cliente"] = true;
+                                        }else{
+                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                        }
+                                    } else if ($fecha[0] == 'Actualizacion') {
+                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
+                                                'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                'ESTADO_PROCESO_ID'                 => 17, //ACTUALIZACION
+                                                'RADICACION_ID'                     => $resultado_save_radicado
+                                            )
                                         );
-                                    }else{
 
-                                        $return['correo'] = array(
-                                            'type' => 'STATES_ERROR',
-                                            'titulo' => 'ERROR !!!',
-                                            'message' => 'No se pudo enviar el correo ' . $data['correo_radicacion'] . ' al cliente ' . $data['numero_identificacion'] . ' por favor verifique el correo'
+                                        if(!isset($ingresarProcesoCliente['error'])){
+                                            $return["radicacion"]["nuevo_cliente"] = true;
+                                        }else{
+                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                        }
+                                    } else {
+                                        if(isset($dataQuery["formulario_sarlaft"])){
+    
+                                            if(isset($dataQuery["fecha_diligenciamiento"]) && $dataQuery["formulario_sarlaft"] == 1){
+    
+                                                if($Tipo_cliente['TIPO_PERSONA'] == 'NAT'){
+    
+                                                    $VerifyClientExist = $this->_clientes->getInfoClienteNaturalByClienteId($dataQuery["cliente_id"]);
+                                                }else{
+    
+                                                    $VerifyClientExist = $this->_clientes->getInfoClienteJuridicoByClienteId($dataQuery["cliente_id"]);
+                                                }
+    
+                                                if(!isset($VerifyClientExist['error'])){
+    
+                                                    if(!$VerifyClientExist){
+    
+                                                        $insert_new = $this->_clientes->insertClient($Tipo_cliente["TIPO_PERSONA"],array('cliente' => $data["cliente_id"]));
+    
+                                                        if(!isset($insert_new['error'])){
+    
+                                                            $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                                    'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
+                                                                    'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                                    'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                                    'ESTADO_PROCESO_ID'                 => 1,
+                                                                    'RADICACION_ID'                     => $resultado_save_radicado
+                                                                    )
+                                                            );
+    
+                                                            if(!isset($ingresarProcesoCliente['error'])){
+                                                                $return["radicacion"]["nuevo_cliente"] = true;
+                                                            }else{
+                                                                throw new Exception('La gestion del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                                            }
+                                                        }else{
+                                                            throw new Exception('No se guardo correctamente el cliente por : ' . $insert_new['error']);
+                                                        }
+                                                    } else {
+                                                        if(date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) > date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"]))){
+    
+                                                            $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                                    'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
+                                                                    'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                                    'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                                    'ESTADO_PROCESO_ID'                 => 1, //CAPTURA
+                                                                    'RADICACION_ID'                     => $resultado_save_radicado 
+                                                                )
+                                                            );
+    
+                                                            if(!isset($ingresarProcesoCliente['error'])){
+                                                                $return["radicacion"]["nuevo_cliente"] = true;
+                                                            }else{
+                                                                throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                                            }
+                                                        }else if((date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) == date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"]))) && $data['ESTADO_PROCESO_ID'] == 2){
+                                                            
+                                                            $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                                    'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
+                                                                    'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                                    'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                                    'ESTADO_PROCESO_ID'                 => 1, //CAPTURA
+                                                                    'RADICACION_ID'                     => $resultado_save_radicado
+                                                                )
+                                                            );
+    
+                                                            if(!isset($ingresarProcesoCliente['error'])){
+                                                                $return["radicacion"]["nuevo_cliente"] = true;
+                                                            }else{
+                                                                throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                                            }
+                                                        }
+                                                    }
+                                                }else{
+                                                    throw new Exception('No se pudo verificar el cliente por : ' . $VerifyClientExist['error']);
+                                                }
+                                            }else{
+                                                throw new Exception('Falta enviar la fecha de diligenciamiento');
+                                            }
+                                        }
+                                    }
+                                } else if($data["devuelto"] == 'Si'){
+                                    //Si el tipo de proceso es Confirmacion
+                                    if ($fecha[0] == 'Fecha_Actualizacion') {
+                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
+                                                'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                'ESTADO_PROCESO_ID'                 => 3, //FINALIZADO
+                                                'RADICACION_ID'                     => $resultado_save_radicado
+                                            )
                                         );
+
+                                        if(!isset($ingresarProcesoCliente['error'])){
+                                            $return["radicacion"]["nuevo_cliente"] = true;
+                                        }else{
+                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                        }
+                                    } else if ($fecha[0] == 'Actualizacion') {
+                                        $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
+                                                'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
+                                                'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                'PROCESO_FECHA_DILIGENCIAMIENTO'    => $dataQuery["fecha_diligenciamiento"],
+                                                'ESTADO_PROCESO_ID'                 => 17, //ACTUALIZACION
+                                                'RADICACION_ID'                     => $resultado_save_radicado
+                                            )
+                                        );
+
+                                        if(!isset($ingresarProcesoCliente['error'])){
+                                            $return["radicacion"]["nuevo_cliente"] = true;
+                                        }else{
+                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                        }
+                                    } else {
+                                        if(isset($data["formulario_sarlaft"])){
+    
+                                            $ingresarProcesoCliente = $this->_crud->Save(
+                                                'zr_estado_proceso_clientes_sarlaft',
+                                                array(
+                                                    'PROCESO_USUARIO_ID'                => $_SESSION["Mundial_authenticate_user_id"],
+                                                    'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
+                                                    'PROCESO_FECHA_DILIGENCIAMIENTO'    => isset($dataQuery["fecha_diligenciamiento"]) ? $dataQuery["fecha_diligenciamiento"] : '0000-00-00',
+                                                    'ESTADO_PROCESO_ID'                 => 2, //DEVUELTO
+                                                    'RADICACION_ID'                     => $resultado_save_radicado 
+                                                )
+                                            );
+                                        }
+    
+                                        if(isset($ingresarProcesoCliente['error'])){
+                                            throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
+                                        }
+    
+                                        $remitente = array(
+                                            'email' => Security::decode(MAIL_USER,MAIL_KEYHASH), 
+                                            'name' => 'Informes Mundial'
+                                        );
+    
+                                        $templatePath = ROOT . "public/templates/devueltos.html";
+                                        $content_template = file_get_contents($templatePath);
+    
+                                        $cids = array(
+                                            "[cid:DOCUMENTO]",
+                                            "[cid:DESCRIPCION_DEVUELTO]",
+                                            "[cid:RADICADO]"
+                                        );
+    
+                                        $replace = array(
+                                            $data['numero_identificacion'],
+                                            strtoupper(trim($data['radicacion_observacion'])),
+                                            $TempNRadicado
+                                        );
+    
+                                        $bodyHTML = str_replace($cids, $replace, $content_template);
+    
+                                        $SendCorreos = Email::configEmail(
+                                            array(
+                                                'remitente' => $remitente,
+                                                'receptor' => array('email' => $data['correo_radicacion'], 'name' => ''),
+                                                'isHTML' => true,
+                                                'Asunto' => "Informa de Novedad radicacion N°{$TempNRadicado} - Estado Devuelto",
+                                                'Contenido' => $bodyHTML,
+                                                'Contenido-noHTML' => 'El informe de este correo es dado a que la radicacion de los documentos quedaron en estado devuelto por el motivo de: &nbsp'."<strong>".strtoupper(trim($data['radicacion_observacion']))."</strong>"
+                                            ),
+                                            array(
+                                                "path" => ROOT . 'public/img/logo_mundial.png',
+                                                "cid" => "LOGO_MUNDIAL"
+                                            )
+                                        );
+    
+                                        if((bool)$SendCorreos){
+    
+                                            $return['correo'] = array(
+                                                'type' => 'STATES_OK',
+                                                'titulo' => 'Exito!!!',
+                                                'message' => 'Se envio correctamente el correo ' . $data["correo_radicacion"] . ' al cliente ' . $data['numero_identificacion']
+                                            );
+                                        }else{
+    
+                                            $return['correo'] = array(
+                                                'type' => 'STATES_ERROR',
+                                                'titulo' => 'ERROR !!!',
+                                                'message' => 'No se pudo enviar el correo ' . $data['correo_radicacion'] . ' al cliente ' . $data['numero_identificacion'] . ' por favor verifique el correo'
+                                            );
+                                        }
                                     }
                                 }
                             }else{
