@@ -158,12 +158,26 @@ class radicacionController extends Controller
                             'files_move_error' => array(),
                         );
 
-                        // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
+                        $fechaActualizacion = [];
 
+                        // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
                         foreach ($data['file_renombrado'] as $keyFile => $valueFile) {
 
-                            $archivo[$keyFile-1] = explode("~", $valueFile);$valueFile = $archivo[$keyFile-1][0];
-                            $fecha = explode(":", $archivo[$keyFile-1][1]);$archivo[$keyFile-1][1] = $fecha[1];
+                            $actualizacion = false;
+
+                            $archivo[$keyFile-1] = explode("~", $valueFile); //Obtiene nombre y Fecha
+                            $valueFile = $archivo[$keyFile-1][0]; //Obtine nombre
+                            $fecha = explode(":", $archivo[$keyFile-1][1]); //Obtiene datos de fecha
+                            $archivo[$keyFile-1][1] = $fecha[1]; //Reemplaza solo la fecha
+
+                            /**
+                             * Si existe Fecha_Actualizacion quiere decir que el tipo de proceso es Confirmacion,
+                             * por lo tanto, se valida para finalizar el cliente
+                             */
+                            if ($fecha[0] == 'Fecha_Actualizacion') {
+                                $actualizacion = true;
+                                $fechaActualizacion[] = $fecha[1];
+                            }
 
                             $files_move['files_move_total']++;
                             $_FILES['archivo_renombramiento_' . $keyFile]['name'] = strtoupper(Security::normalizeChars(Security::limpiarCadena($valueFile)).'.'.pathinfo($_FILES['archivo_renombramiento_' . $keyFile]['name'], PATHINFO_EXTENSION));
@@ -174,7 +188,11 @@ class radicacionController extends Controller
 
                                 //Obtiene el nombre del archivo para insertar en relación_archivo_radicacion
                                 $moveFiles[$keyFile-1]['nombre'] = $resultMoveRenombramiento['success']['ruta_temp'];
-                                $moveFiles[$keyFile-1]['fecha'] = $archivo[$keyFile-1][1];
+                                if (!$actualizacion) {
+                                    $moveFiles[$keyFile-1]['fecha'] = $archivo[$keyFile-1][1];
+                                } else {
+                                    $moveFiles[$keyFile-1]['fecha'] = null;
+                                }
 
                                 $files_move['files_move_ok']++;
 
@@ -317,6 +335,21 @@ class radicacionController extends Controller
 
                             if(isset($dataQuery['repetido']) && $dataQuery['repetido'] == 1){
                                 $dataQuery['devuelto'] = 'Si';
+                            }
+
+                            //Filtro las fechas de actualizacion
+                            if ((isset($fechaActualizacion) && !empty($fechaActualizacion)) && count($fechaActualizacion) >= 1) {
+                                $valueFechaActualizacion = $fechaActualizacion[0];
+                                array_shift($fechaActualizacion);
+                                foreach ($fechaActualizacion as $keyFecha => $valueFecha) {
+                                    if (strtotime($valueFechaActualizacion) > strtotime($valueFecha)) {
+                                        unset($fechaActualizacion[$keyFecha]);
+                                    } else {
+                                        $valueFechaActualizacion = $valueFecha;
+                                        unset($fechaActualizacion[$keyFecha]);
+                                    }
+                                }
+                                $dataQuery['fecha_actualizacion'] = $valueFechaActualizacion;
                             }
 
                             // Retorna el resultado de la insercion de los datos
@@ -775,14 +808,17 @@ class radicacionController extends Controller
                             'files_move_ok' => 0,
                             'files_move_error' => array(),
                         );
-                        // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
 
+                        
+                        // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
                         if(isset($data['file_renombrado'])){
                             
                             foreach ($data['file_renombrado'] as $keyFile => $valueFile) {
 
-                                $archivo[$keyFile-1] = explode(" ", $valueFile);$valueFile = $archivo[$keyFile-1][0];
-                                $fecha = explode(":", $archivo[$keyFile-1][1]);$archivo[$keyFile-1][1] = $fecha[1];
+                                $archivo[$keyFile-1] = explode(" ", $valueFile); //Obtiene nombre y Fecha
+                                $valueFile = $archivo[$keyFile-1][0]; //Obtine nombre
+                                $fecha = explode(":", $archivo[$keyFile-1][1]); //Obtiene datos de fecha
+                                $archivo[$keyFile-1][1] = $fecha[1]; //Reemplaza solo la fecha
 
                                 $files_move['files_move_total']++;
                                 $_FILES['archivo_renombramiento_' . $keyFile]['name'] = strtoupper(Security::normalizeChars(Security::limpiarCadena($valueFile)).'.'.pathinfo($_FILES['archivo_renombramiento_' . $keyFile]['name'], PATHINFO_EXTENSION));
@@ -829,7 +865,6 @@ class radicacionController extends Controller
                                 if(isset($data['ESTADO_PROCESO_ID'])){
 
                                     if($data['ESTADO_PROCESO_ID'] == 12){
-
                                         $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                             'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                             'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -898,7 +933,6 @@ class radicacionController extends Controller
                                                         ));
                                                     }
                                                 }else{
-
                                                     $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                         'PROCESO_USUARIO_ID'                => $_SESSION["Mundial_authenticate_user_id"],
                                                         'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -995,7 +1029,6 @@ class radicacionController extends Controller
                                                     $insert_new = $this->_clientes->insertClient($Tipo_cliente["TIPO_PERSONA"],array('cliente' => $data["cliente_id"]));
 
                                                     if(!isset($insert_new['error'])){
-
                                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -1016,7 +1049,6 @@ class radicacionController extends Controller
                                                 }else{
 
                                                     if(date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) > date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"]))){
-
                                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -1032,7 +1064,6 @@ class radicacionController extends Controller
                                                             throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
                                                         }
                                                     }else if((date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) == date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"]))) && $data['ESTADO_PROCESO_ID'] == 2){
-                                                        
                                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -1060,7 +1091,6 @@ class radicacionController extends Controller
                                 }else if($data["devuelto"] == 'Si'){
 
                                     if(isset($dataQuery["formulario_sarlaft"])){
-
                                         $ingresarProcesoCliente = $this->_crud->Save(
                                             'zr_estado_proceso_clientes_sarlaft',
                                             array(

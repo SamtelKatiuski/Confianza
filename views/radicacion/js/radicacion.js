@@ -9,7 +9,6 @@ $(document).ready(function () {
 	
 	disabledFields = $(":disabled");
 
-
 	// Al dar Enter busca el documento del cliente radicado en el sistema
 	$('body').on('keypress', 'input[name="numero_identificacion"]', function (event) {
 
@@ -1051,6 +1050,9 @@ ListRadicacion = function (cliente) {
 
 // Modificar radicación seleccionada
 function EditRadicacion(el, id) {
+
+	var anio = new Date().getFullYear();
+	document.cookie = 'tipo_proceso_' + $('input[id=numero_identificacion]').val() + '=Nueva_radicacion ' + $('input[id=numero_identificacion]').val() + '; expires=Thu, 31 Dec ' + (anio+1) + ' 12:00:00 UTC;';
 
 	var doc = $($(el).parents("tr").children("td")[2]).html();
 	var continuar = false;
