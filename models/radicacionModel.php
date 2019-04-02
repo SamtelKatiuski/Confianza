@@ -39,7 +39,7 @@ class radicacionModel extends Model {
 				LEFT JOIN zr_radicacion AS Radicacion ON Radicacion.cliente_id = Cliente.id
 					AND Radicacion.created = (SELECT MAX(created) FROM zr_radicacion WHERE cliente_id = Radicacion.cliente_id)
 				LEFT JOIN zr_estado_proceso_clientes_sarlaft ZEPCS ON ZEPCS.PROCESO_CLIENTE_ID = Radicacion.cliente_id
-					AND ZEPCS.FECHA_PROCESO = (SELECT MAX(FECHA_PROCESO) FROM zr_estado_proceso_clientes_sarlaft WHERE PROCESO_CLIENTE_ID = Cliente.id AND PROCESO_FECHA_DILIGENCIAMIENTO = (SELECT MAX(fecha_diligenciamiento) FROM zr_radicacion WHERE cliente_id = Cliente.id AND formulario_sarlaft = 1))
+					AND ZEPCS.FECHA_PROCESO = (SELECT MAX(FECHA_PROCESO) FROM zr_estado_proceso_clientes_sarlaft WHERE PROCESO_CLIENTE_ID = Cliente.id AND PROCESO_FECHA_DILIGENCIAMIENTO = (SELECT MAX(fecha_diligenciamiento) FROM zr_radicacion WHERE cliente_id = Cliente.id))
 				LEFT JOIN estados_sarlaft ES ON ES.id = ZEPCS.ESTADO_PROCESO_ID
 				WHERE 
 					Cliente.documento = :document_cliente_radicado";
