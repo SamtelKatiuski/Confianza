@@ -826,16 +826,15 @@ var SearchRadicacion = function (cliente) {
 							$("#modal-radicacion").find('.modal-footer').html('<h4 class="pull-left"> Un momento se esta guardando la radicación </h4>');
 						},
 						success: function (response) {
-
 							if (response.length != 0 && response['radicacion'] != undefined) {
-
 								if (response['radicacion'].nuevo_cliente == true) {
-
-									if (confirm(response['radicacion'].message + " , Desea ir a realizar la captura de datos ?")) {
-
-										window.location.href = base_url + 'home?capture_client=' + $("input[name='cliente_id']").val()
+									if (!(response['radicacion'].tipo_proceso != undefined)) {
+										if (confirm(response['radicacion'].message + " , Desea ir a realizar la captura de datos ?")) {
+											window.location.href = base_url + 'home?capture_client=' + $("input[name='cliente_id']").val()
+										} else {
+											location.reload();
+										}
 									} else {
-
 										location.reload();
 									}
 								} else if (response['radicacion'].cliente_repetido == true) {
@@ -1316,14 +1315,14 @@ function EditRadicacion(el, id) {
 							},
 							success: function (response) {
 								if (response.length != 0 && response['radicacion'] != undefined) {
-
 									if (response['radicacion'].nuevo_cliente == true) {
-
-										if (confirm(response['radicacion'].message + " , Desea ir a realizar la captura de datos ?")) {
-
-											window.location.href = base_url + 'home?capture_client=' + $("input[name='cliente_id']").val()
+										if (!(response['radicacion'].tipo_proceso != undefined)) {
+											if (confirm(response['radicacion'].message + " , Desea ir a realizar la captura de datos ?")) {
+												window.location.href = base_url + 'home?capture_client=' + $("input[name='cliente_id']").val()
+											} else {
+												location.reload();
+											}
 										} else {
-
 											location.reload();
 										}
 									} else if (response['radicacion'].cliente_repetido == true) {

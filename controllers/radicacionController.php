@@ -158,25 +158,31 @@ class radicacionController extends Controller
                             'files_move_error' => array(),
                         );
 
-                        $fechaActualizacion = [];
+                        $fechaConfirmacion = [];
+                        $tipo_proceso = null;
 
                         // Recorre los archivos y los renombra dependiendo de la estructura pasada desde el formulario
                         foreach ($data['file_renombrado'] as $keyFile => $valueFile) {
 
-                            $actualizacion = false;
+                            $confirmacion = false;
 
                             $archivo[$keyFile-1] = explode("~", $valueFile); //Obtiene nombre y Fecha
                             $valueFile = $archivo[$keyFile-1][0]; //Obtine nombre
                             $fecha = explode(":", $archivo[$keyFile-1][1]); //Obtiene datos de fecha
                             $archivo[$keyFile-1][1] = $fecha[1]; //Reemplaza solo la fecha
 
+                            if ($fecha[0] == 'Actualizacion') {
+                                $tipo_proceso = 'Actualizacion';
+                            }
+
                             /**
                              * Si existe Fecha_Actualizacion quiere decir que el tipo de proceso es Confirmacion,
                              * por lo tanto, se valida para finalizar el cliente
                              */
                             if ($fecha[0] == 'Fecha_Actualizacion') {
-                                $actualizacion = true;
-                                $fechaActualizacion[] = $fecha[1];
+                                $confirmacion = true;
+                                $fechaConfirmacion[] = $fecha[1];
+                                $tipo_proceso = 'Fecha_Actualizacion';
                             }
 
                             $files_move['files_move_total']++;
@@ -188,7 +194,7 @@ class radicacionController extends Controller
 
                                 //Obtiene el nombre del archivo para insertar en relación_archivo_radicacion
                                 $moveFiles[$keyFile-1]['nombre'] = $resultMoveRenombramiento['success']['ruta_temp'];
-                                if (!$actualizacion) {
+                                if (!$confirmacion && !empty($archivo[$keyFile-1][1])) {
                                     $moveFiles[$keyFile-1]['fecha'] = $archivo[$keyFile-1][1];
                                 } else {
                                     $moveFiles[$keyFile-1]['fecha'] = null;
@@ -329,7 +335,7 @@ class radicacionController extends Controller
 
                                 if((date('Y-m-d',strtotime($dataQuery["fecha_diligenciamiento"])) == date('Y-m-d',strtotime($anterior_fecha_diligenciamiento["ULT_FECHA_DILIGENCIAMIENTO"])))){
                                     $cliente_repetido++;
-                                    $dataQuery['repetido'] = 1;                              
+                                    $dataQuery['repetido'] = 1;
                                 }
                             }
 
@@ -338,18 +344,23 @@ class radicacionController extends Controller
                             }
 
                             //Filtro las fechas de actualizacion
-                            if ((isset($fechaActualizacion) && !empty($fechaActualizacion)) && count($fechaActualizacion) >= 1) {
-                                $valueFechaActualizacion = $fechaActualizacion[0];
-                                array_shift($fechaActualizacion);
-                                foreach ($fechaActualizacion as $keyFecha => $valueFecha) {
+                            if ((isset($fechaConfirmacion) && !empty($fechaConfirmacion)) && count($fechaConfirmacion) >= 1) {
+                                $valueFechaActualizacion = $fechaConfirmacion[0];
+                                array_shift($fechaConfirmacion);
+                                foreach ($fechaConfirmacion as $keyFecha => $valueFecha) {
                                     if (strtotime($valueFechaActualizacion) > strtotime($valueFecha)) {
-                                        unset($fechaActualizacion[$keyFecha]);
+                                        unset($fechaConfirmacion[$keyFecha]);
                                     } else {
                                         $valueFechaActualizacion = $valueFecha;
-                                        unset($fechaActualizacion[$keyFecha]);
+                                        unset($fechaConfirmacion[$keyFecha]);
                                     }
                                 }
                                 $dataQuery['fecha_actualizacion'] = $valueFechaActualizacion;
+                            }
+
+                            //Si fecha de diligenciamiento es nula o está vacia
+                            if (!isset($dataQuery["fecha_diligenciamiento"]) || empty($dataQuery["fecha_diligenciamiento"])) {
+                                $dataQuery["fecha_diligenciamiento"] = '2000-01-01';
                             }
 
                             // Retorna el resultado de la insercion de los datos
@@ -390,7 +401,7 @@ class radicacionController extends Controller
 
                                 if($data["devuelto"] == 'No'){
                                     //Si el tipo de proceso es Confirmacion
-                                    if ($fecha[0] == 'Fecha_Actualizacion') {
+                                    if ($tipo_proceso == 'Fecha_Actualizacion') {
                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -402,10 +413,11 @@ class radicacionController extends Controller
 
                                         if(!isset($ingresarProcesoCliente['error'])){
                                             $return["radicacion"]["nuevo_cliente"] = true;
+                                            $return["radicacion"]["tipo_proceso"] = 'Confirmacion';
                                         }else{
                                             throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
                                         }
-                                    } else if ($fecha[0] == 'Actualizacion') {
+                                    } else if ($tipo_proceso == 'Actualizacion') {
                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -503,7 +515,7 @@ class radicacionController extends Controller
                                     }
                                 } else if($data["devuelto"] == 'Si'){
                                     //Si el tipo de proceso es Confirmacion
-                                    if ($fecha[0] == 'Fecha_Actualizacion') {
+                                    if ($tipo_proceso == 'Fecha_Actualizacion') {
                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
@@ -515,10 +527,11 @@ class radicacionController extends Controller
 
                                         if(!isset($ingresarProcesoCliente['error'])){
                                             $return["radicacion"]["nuevo_cliente"] = true;
+                                            $return["radicacion"]["tipo_proceso"] = 'Confirmacion';
                                         }else{
                                             throw new Exception('El estado del cliente no se guardo correctamente por : ' . $ingresarProcesoCliente['error']);
                                         }
-                                    } else if ($fecha[0] == 'Actualizacion') {
+                                    } else if ($tipo_proceso == 'Actualizacion') {
                                         $ingresarProcesoCliente = $this->_crud->Save('zr_estado_proceso_clientes_sarlaft', array(
                                                 'PROCESO_USUARIO_ID'                => $_SESSION['Mundial_authenticate_user_id'],
                                                 'PROCESO_CLIENTE_ID'                => $dataQuery["cliente_id"],
