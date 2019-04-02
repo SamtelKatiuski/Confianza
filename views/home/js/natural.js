@@ -512,7 +512,6 @@ function GuardarFormulario(form){
                 $.each(response, function(indexResult, valResult) {
                     var configAlert = {
                         afterHidden: function(){
-
                             total_alerts--;
                             if(total_alerts == 0){
                                 window.location.reload();

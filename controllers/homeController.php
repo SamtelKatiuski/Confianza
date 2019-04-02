@@ -414,7 +414,7 @@ class homeController extends Controller {
                     if($data["tipo_cliente"] == "NAT"){
                         $columnsSQL = $this->_global->getColumnsTable('cliente_sarlaft_natural');
                     }else if($data["tipo_cliente"] == "JUR"){
-                        $columnsSQL = $this->_global->getColumnsTable('cliente_sarlaft_juridico');                
+                        $columnsSQL = $this->_global->getColumnsTable('cliente_sarlaft_juridico');
                     }
                     if(!isset($columnsSQL["error"])){
 
