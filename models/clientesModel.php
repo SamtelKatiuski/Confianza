@@ -187,10 +187,9 @@ class clientesModel extends Model
                                 ZR.id 
                                 FROM zr_radicacion ZR 
                                 WHERE 
-                                ZR.repetido = 0 
-                                AND ZR.formulario_sarlaft = 1  
+                                ZR.repetido = 0
                                 AND ZR.cliente_id = Cliente.id
-                                AND ZR.created = (SELECT MAX(B.created) FROM zr_radicacion B WHERE B.cliente_id = ZR.cliente_id AND B.repetido = 0 AND B.formulario_sarlaft = 1 )
+                                AND ZR.created = (SELECT MAX(B.created) FROM zr_radicacion B WHERE B.cliente_id = ZR.cliente_id AND B.repetido = 0)
                             ),
                             !IFNULL(archivo_organizado.radicacion_id, 0)
                         )
