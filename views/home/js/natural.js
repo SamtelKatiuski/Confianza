@@ -169,8 +169,7 @@ $(document).ready(function(){
         var form = $('form[name="form-captura-persona-natural"]');
         var formName = form.name
 
-        if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,3,4,13,11,15,16,14]) != -1){
-
+        if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,3,4,13,11,15,16,14,17]) != -1){
             GuardarFormularioCaptura(form);
         }else if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[6,5]) != -1){
 
@@ -509,10 +508,8 @@ function GuardarFormulario(form){
                 $(form).find('button.btn-guardar').html('Guardando...').prop('disabled', true);
             },
             success : function(response){
-
                 var total_alerts = response.length;
                 $.each(response, function(indexResult, valResult) {
-                    
                     var configAlert = {
                         afterHidden: function(){
 
@@ -522,11 +519,9 @@ function GuardarFormulario(form){
                             }
                         }
                     }
-
                     if(eval(valResult.type) == STATES_ERROR){
                         configAlert['hideAfter'] = false;
                     }
-
                     AlertMessage(eval(valResult.type),valResult.title,valResult.message,configAlert);
                 });
             },
