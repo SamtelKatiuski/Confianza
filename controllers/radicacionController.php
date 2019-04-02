@@ -566,7 +566,6 @@ class radicacionController extends Controller
                                         }
                                     } else {
                                         if(isset($data["formulario_sarlaft"])){
-    
                                             $ingresarProcesoCliente = $this->_crud->Save(
                                                 'zr_estado_proceso_clientes_sarlaft',
                                                 array(

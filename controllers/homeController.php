@@ -93,7 +93,7 @@ class homeController extends Controller {
                 $id = Server::post("id");
 
                 //Verifica el tipo de cliente dependiendo del ID que envie para captura 
-                $tipo_cliente = $this->_clientes->getTypeClienteID($id);                
+                $tipo_cliente = $this->_clientes->getTypeClienteID($id);
 
                 if($tipo_cliente){
 
