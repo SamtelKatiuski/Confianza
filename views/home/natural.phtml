@@ -157,6 +157,14 @@
 				<?php endif; ?>
 			<?php endif; ?>
 
+			<?php if(in_array($InfoCliente["estado_formulario_id"],[17])): ?>
+				<div class="form-group">
+					<label class="required-field" for="fecha_diligenciamiento">Fecha de diligenciamiento:</label>
+					<input type="hidden" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" value=<?=$InfoCliente['fecha_diligenciamiento']?>>
+					<small class="help-error-block"></small>
+				</div>
+			<?php endif; ?>
+
 			<?php if(!in_array($InfoCliente["estado_formulario_id"],[17])): ?>
 				<!-- INICIO RADICACION -->
 				<div class="panel section-form">
@@ -171,7 +179,7 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<label class="required-field" for="fecha_diligenciamiento">Fecha de diligenciamiento:</label>
-							<input type="date" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control campo_obligatorio" value=<?=$InfoCliente['fecha_diligenciamiento']?> data-required="true" readonly="true" max=<?=(date("Y-m-d"))?> data-required="true">
+							<input type="date" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control campo_obligatorio" value=<?=$InfoCliente['fecha_diligenciamiento']?> data-required="true" readonly="true" max=<?=(date("Y-m-d"))?>>
 							<small class="help-error-block"></small>
 						</div>
 						

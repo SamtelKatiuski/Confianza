@@ -82,9 +82,11 @@
         <?php $captura_enabled = array(1,4,3,11,13,9);?>
         <?php $completitud_enabled = array(5,6,3,9,10);?>
         <?php $verificacion_enabled = array(5,6,3,9,10);?>
+        <?php $actualizacion_enabled = array(17);?>
         <?=(in_array($InfoCliente["estado_formulario_id"],$captura_enabled)) ? "<li data-form-juridica='captura' data-form-proceso='1' ><a href='javascript:void(0)'>Captura</a></li>" : "<li class='active' style='pointer-events: none;opacity: 0.4;'>Captura</li>"?>
         <?=(in_array($InfoCliente["estado_formulario_id"],$completitud_enabled)) ? "<li data-form-juridica='completitud' data-form-proceso='6'><a href='javascript:void(0)'>Completitud</a></li>" : "<li class='active no-completitud' style='pointer-events: none;opacity: 0.4;'>Completitud</li>"?>
         <?=(in_array($InfoCliente["estado_formulario_id"],$verificacion_enabled)) ? "<li data-form-juridica='verificacion' data-form-proceso='5'><a href='javascript:void(0)'>Verificación</a></li>" : "<li class='active' style='pointer-events: none;opacity: 0.4;'>Verificación</li>"?>
+        <?=(in_array($InfoCliente["estado_formulario_id"],$actualizacion_enabled)) ? "<li data-form-juridica='actualizacion' data-form-proceso='17'><a href='javascript:void(0)'>Actualización</a></li>" : "<li class='active' style='pointer-events: none;opacity: 0.4;'>Actualización</li>"?>
     </ol>
 
     <div class="alert alert-info col-md-12" role="alert">
@@ -175,6 +177,14 @@
                   </div>
                 </div>
             <?php endif; ?>
+
+            <?php if(in_array($InfoCliente["estado_formulario_id"],[17])): ?>
+				<div class="form-group">
+					<label class="required-field" for="fecha_diligenciamiento">Fecha de diligenciamiento:</label>
+					<input type="hidden" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" value=<?=$InfoCliente['fecha_diligenciamiento']?>>
+					<small class="help-error-block"></small>
+				</div>
+			<?php endif; ?>
             
             <!-- INCIO RADICACION -->
             <div class="panel section-form">

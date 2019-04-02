@@ -376,7 +376,7 @@ $(document).ready(function () {
 			}
 
 			var proceso_actualizacion;
-			if ((getCookie('tipo_proceso_' + $('input[id=numero_identificacion]').val()).split(' ')[0] == 'Actualizacion') && ($('select[id=renombramiento_tipo_documento]').val() == 'MAC' || $('select[id=renombramiento_tipo_documento]').val() == 'FAC')) {
+			if ((getCookie('tipo_proceso_' + $('input[id=numero_identificacion]').val()).split(' ')[0] == 'Actualizacion') && ($('select[id=renombramiento_tipo_documento]').val() == 'MAC' || $('select[id=renombramiento_tipo_documento]').val() == 'FAC' || $('select[id=renombramiento_tipo_documento]').val() == 'FCC')) {
 				proceso_actualizacion = "~Actualizacion:";
 			} else {
 				proceso_actualizacion = "";

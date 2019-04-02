@@ -1156,7 +1156,7 @@ class clientesModel extends Model
                 LEFT JOIN zr_estado_proceso_clientes_sarlaft ZEPCS
                 ON ZEPCS.PROCESO_CLIENTE_ID = ZR.cliente_id
                 AND ZEPCS.PROCESO_FECHA_DILIGENCIAMIENTO = ZR.fecha_diligenciamiento
-                WHERE ZR.repetido = 0 AND ZR.formulario_sarlaft = 1
+                WHERE ZR.repetido = 0
                 AND ZR.cliente_id = :id AND ZR.fecha_diligenciamiento = :fecha_diligenciamiento
                 GROUP BY ZR.id";
         $result = $this->_db->prepare($sql);

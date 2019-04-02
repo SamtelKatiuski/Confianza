@@ -448,7 +448,7 @@ class homeController extends Controller {
                                             }else{
                                                 
                                                 $dataQuery["chk_formulario_sarlaft"] = 1; //Checkea el campo de verificacion del documento sarlaft
-                                                $dataQuery["chk_documentos"] = 1; //Checkea que los documnetos en el sistema estan completos
+                                                $dataQuery["chk_documentos"] = 1; //Checkea que los documentos en el sistema estan completos
 
                                                 if(!isset($data['llamada_cliente_sarlaft']) || (strtolower($data['llamada_cliente_sarlaft']) != 'modificacion')){
 
@@ -788,7 +788,7 @@ class homeController extends Controller {
                                                     $huella = isset($data['huella']) ? $data['huella'] : $cliente['huella'];
                                                     $entrevista = isset($data['entrevista']) ? $data['entrevista'] : $cliente['entrevista'];
 
-                                                    if($firma != 1 || $huella != 1 || $entrevista != 1){
+                                                    if(($firma != 1 || $huella != 1 || $entrevista != 1) && $data['estado_form_id'] != 17){
 
                                                         $resultado_formulario = 11; // ESTADO PENDIENTE (FIRMA,HUELLA,ENTREVISTA)
                                                     }else{
