@@ -141,8 +141,8 @@ class pendientesController extends Controller
                         'Contenido-noHTML' => "Se informa que el cliente " . $info["NOMBRE_CLIENTE"] . "  identificado con el documento " . $info["DOCUMENTO_CLIENTE"] . " se encuentra pendiente en el sistema por la siguiente razón: " . $info["ESTADO_PROCESO"]
                     ),
                     array(
-                        "path" => ROOT . 'public/img/logo_mundial.png',
-                        "cid" => "LOGO_MUNDIAL"
+                        "path" => ROOT . 'public/img/logo_confianza.png',
+                        "cid" => "LOGO_CONFIANZA"
                     )
                 );
 
