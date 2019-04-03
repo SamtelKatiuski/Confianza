@@ -63,7 +63,7 @@ class reportesModel extends Model
     }
 
     public function getFacturacion($fechasReporte = array()){
-        $sql = "SELECT * FROM reporte_facturacion WHERE FECHA_RADICACION BETWEEN :inicio AND :fin";
+        $sql = "SELECT DISTINCT * FROM reporte_facturacion WHERE FECHA_RADICACION BETWEEN :inicio AND :fin";
 
         $result = $this->_db->prepare($sql);
 

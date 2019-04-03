@@ -104,7 +104,7 @@ $(document).ready(function(){
     });
     
     $("#role").change(function(){
-        if($("#role").val() == '4'){
+        if($("#role").val() == '4' || $("#role").val() == '7'){
             $("#li_correo").fadeIn(100);
         }
         else{
