@@ -13,7 +13,7 @@ class ConsultaFechasController extends Controller
 	public function __construct(){
         if(Session::get('Mundial_authenticate')){
 
-            if(in_array(Session::getLevel(Session::get("Mundial_user_rol")),[Session::getLevel('Gerente'),Session::getLevel('Consulta Fechas')])){
+            if(in_array(Session::getLevel(Session::get("Mundial_user_rol")),[Session::getLevel('Gerente'),Session::getLevel('Consulta Fechas'),Session::getLevel('Perfil Intermedio')])){
 
                 try {
 

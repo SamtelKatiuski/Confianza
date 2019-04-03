@@ -115,6 +115,7 @@ class Session
 	public static function getLevel($level)
 	{
 		//Se declaran los roles de usuario con sus valores
+		$role['Perfil Intermedio'] = 7;
 		$role['Operador Radicador'] = 6;
 		$role['Gerente'] = 5;
 		$role['Operador Mundial'] = 4;

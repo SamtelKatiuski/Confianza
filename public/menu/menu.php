@@ -152,4 +152,22 @@ if(Session::get("Mundial_authenticate")){
             ],
         );
     }
+
+    if(Session::getLevel(Session::get("Mundial_user_rol")) == Session::getLevel('Perfil Intermedio')){
+
+        $menu = array(
+            [
+                'id' => 'consulta_fechas',
+                'titulo' => 'Consulta de fechas',
+                'enlace' => BASE_URL . 'consultaFechas',
+                'user_rol' => 'Perfil Intermedio'          
+            ],
+            [
+                'id'    => 'visualizacion',
+                'titulo'=> 'Visualizacion',
+                'enlace'=> BASE_URL . 'visualizacion',
+                'user_rol' => 'Perfil Intermedio'
+            ],
+        );
+    }
 }
