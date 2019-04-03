@@ -81,14 +81,14 @@ if(Session::get("Mundial_authenticate")){
         );
     }
 
-    if(Session::getLevel(Session::get("Mundial_user_rol")) == Session::getLevel('Operador Mundial')){
+    if(Session::getLevel(Session::get("Mundial_user_rol")) == Session::getLevel('Operador Cliente')){
 
         $menu = array(
             [
                 'id'    => 'visualizacion',
                 'titulo'=> 'Visualizacion',
                 'enlace'=> BASE_URL . 'visualizacion',
-                'user_rol' => 'Operador Mundial'
+                'user_rol' => 'Operador Cliente'
             ],
         );
     }
