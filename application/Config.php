@@ -48,8 +48,9 @@ define("FTP_PASSWORD","FM7SsKVoXywWhw0V0gx0pDZ8v5+NWgyFZRvwjbrx6r4=");
 //Configuración para envío de correos
 define("MAIL_SMTP","BsGw8AXCHlUU+je4RND5BCV3KnRKr6BQnRixu6R7Eh4=");
 define("MAIL_PORT", 25);
-define("MAIL_USER","AFDyDOQnvHzIF07rBfLBLtRrCSJgUM/8QrhWjtKeTqhfEZT8B+MVJ5UR1lx51WoWR6ZrdmCMwBrbjWbkLroTZA==");
-define("MAIL_PASSWORD","23M6UQedcVARDuVwrZPyUgdBqBb1UOVxbV3IzSHUBkA=");
+//define("MAIL_USER","ukiY1ReUPaDdMwqiIdggaHKvgB+2+GiFpPsnv8CE6ZJNn6ARejsnRDdtS4OET9OjPOLSLT2lpvdrcTnDush");
+define("MAIL_USER","ukiY1ReUPaDdMwqiIdggaHKvgB+2+GiFpPsnv8CE6ZJNn6ARejsnRDdtS4OET9OjPOLSLT2lpvdrcTnDushpPg==");
+define("MAIL_PASSWORD","OOPQPFFMpjE1FBJCo1zpHiQHRSjP0JGP0YgS0BQAp9w=");
 
 define('COMPLETITUD', 6);
 define('DEVUELTO', 2);
