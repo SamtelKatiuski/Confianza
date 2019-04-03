@@ -118,7 +118,7 @@ class Session
 		$role['Perfil Intermedio'] = 7;
 		$role['Operador Radicador'] = 6;
 		$role['Gerente'] = 5;
-		$role['Operador Mundial'] = 4;
+		$role['Operador Cliente'] = 4;
 		$role['Operador Asistemyca'] = 3;
 		$role['Consulta Fechas'] = 2;
 		$role['Reportes'] = 1;

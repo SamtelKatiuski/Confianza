@@ -614,8 +614,8 @@ class radicacionController extends Controller
                                                 'Contenido-noHTML' => 'El informe de este correo es dado a que la radicacion de los documentos quedaron en estado devuelto por el motivo de: &nbsp'."<strong>".strtoupper(trim($data['radicacion_observacion']))."</strong>"
                                             ),
                                             array(
-                                                "path" => ROOT . 'public/img/logo_mundial.png',
-                                                "cid" => "LOGO_MUNDIAL"
+                                                "path" => ROOT . 'public/img/logo_confianza.png',
+                                                "cid" => "LOGO_CONFIANZA"
                                             )
                                         );
     
@@ -1228,8 +1228,8 @@ class radicacionController extends Controller
                                             'Contenido-noHTML' => 'El informe de este correo es dado a que la radicacion de los documentos quedaron en estado devuelto por el motivo de: &nbsp'."<strong>".strtoupper(trim($data['radicacion_observacion']))."</strong>"
                                         ),
                                         array(
-                                            "path" => ROOT . 'public/img/logo_mundial.png',
-                                            "cid" => "LOGO_MUNDIAL"
+                                            "path" => ROOT . 'public/img/logo_confianza.png',
+                                            "cid" => "LOGO_CONFIANZA"
                                         )
                                     );
 

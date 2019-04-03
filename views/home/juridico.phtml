@@ -109,9 +109,9 @@
         <div class="panel-group categorias" id="accordion" role="tablist" aria-multiselectable="true">
         
             <?php if(in_array($InfoCliente["estado_formulario_id"],[17])): ?>
-				<div class="form-group">
+				<div class="form-group" hidden="true">
 					<label class="required-field" for="fecha_diligenciamiento">Fecha de diligenciamiento:</label>
-					<input type="hidden" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" value=<?=$InfoCliente['fecha_diligenciamiento']?>>
+					<input type="text" id="fecha_diligenciamiento" name="fecha_diligenciamiento" class="form-control" value=<?=$InfoCliente['fecha_diligenciamiento']?>>
 					<small class="help-error-block"></small>
 				</div>
 			<?php endif; ?>
