@@ -11,7 +11,7 @@ class visualizacionController extends Controller
             if(in_array(Session::getLevel(Session::get("Mundial_user_rol")),[
                 Session::getLevel('Gerente'),
                 Session::getLevel('Operador Asistemyca'),
-                Session::getLevel('Operador Mundial'),
+                Session::getLevel('Operador Cliente'),
                 Session::getLevel('Reportes'),
                 Session::getLevel('Operador Radicador'),
                 Session::getLevel('Perfil Intermedio')
