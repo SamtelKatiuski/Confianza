@@ -238,7 +238,7 @@ $(document).ready(function(){
         // Inicializa la variables de la captura del formulario
         var form = $('form[name="form-captura-persona-juridica"]');
         var formName = form.name
-        if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,2,4,13,11,3,15,16,9,14]) != -1){
+        if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[1,2,4,13,11,3,15,16,9,14,17]) != -1){
             GuardarFormularioCaptura(form);
         }else if($.inArray(eval($(form).find('input[name="estado_form_id"]').val()),[6,5]) != -1){
 
