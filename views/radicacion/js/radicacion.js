@@ -275,17 +275,30 @@ $(document).ready(function () {
 
 	$('body').on('click', 'button#btn-cargar-renombramiento', function (event) {
 
-		var requeridos = [
-			'renombramiento_tipo_documento',
-			'renombramiento_fecha_emision_mes',
-			'renombramiento_fecha_emision_anio',
-			'renombramiento_fecha_actualizacion',
-			'renombramiento_tipo_id',
-			'renombramiento_numero_identificacion',
-			'renombramiento_nombre_cliente',
-			'renombramiento_fecha_actual',
-			'renombramiento_anio_actual'
-		];
+		if($('select#radicacion_proceso').val()=='LEGAL'){
+			var requeridos = [
+				'renombramiento_tipo_documento',
+				'renombramiento_fecha_emision_mes',
+				'renombramiento_fecha_emision_anio',
+				'renombramiento_fecha_actualizacion',
+				'renombramiento_tipo_id',
+				'renombramiento_numero_identificacion',
+				'renombramiento_nombre_cliente',
+				'renombramiento_fecha_actual'
+			];
+		} else if($('select#radicacion_proceso').val()=='AREA'){
+			var requeridos = [
+				'renombramiento_tipo_documento',
+				'renombramiento_fecha_emision_mes',
+				'renombramiento_fecha_emision_anio',
+				'renombramiento_fecha_actualizacion',
+				'renombramiento_tipo_id',
+				'renombramiento_numero_identificacion',
+				'renombramiento_nombre_cliente',
+				'renombramiento_fecha_actual',
+				'renombramiento_no_poliza'
+			];
+		}
 
 		var datosCompletos = 0;
 
@@ -335,7 +348,7 @@ $(document).ready(function () {
 				'renombramiento_nombre_cliente',
 				'renombramiento_fecha_actual',
 				'renombramiento_anio_actual',
-				'renombramiento_no_siniestro',
+				'renombramiento_no_poliza',
 				'renombramiento_tipo_id_consorcio',
 				'renombramiento_num_id_consorcio',
 				'renombramiento_nombre_consorcio'

@@ -13,7 +13,8 @@ class visualizacionController extends Controller
                 Session::getLevel('Operador Asistemyca'),
                 Session::getLevel('Operador Mundial'),
                 Session::getLevel('Reportes'),
-                Session::getLevel('Operador Radicador')
+                Session::getLevel('Operador Radicador'),
+                Session::getLevel('Perfil Intermedio')
             ])){
 
                 try {

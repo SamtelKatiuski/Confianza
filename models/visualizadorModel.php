@@ -90,7 +90,7 @@ class visualizadorModel extends Model
         $res->bindValue(":anio", '');
         $res->bindValue(":name", $parms["nombre_cliente"]);
         $res->bindValue(":document", $parms["numero_documento"]);
-        $res->bindValue(":poliza", '');
+        $res->bindValue(":poliza", $parms["poliza"]);
         $res->bindValue(":siniestro", '');
         $res->bindValue(":linea", '');
 

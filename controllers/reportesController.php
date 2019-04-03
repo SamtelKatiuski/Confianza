@@ -651,6 +651,11 @@ class reportesController extends Controller
 				'caption'       => 'NUMERO RADICACION'
 			),
 			array(
+				'dataField'     => 'RADICACION_PROCESO',
+				'dataType'      => 'string',
+				'caption'       => 'RADICACION PROCESO'
+			),
+			array(
 				'dataField'     => 'TIPO_CLIENTE_CODIGO',
 				'dataType'      => 'string',
 				'caption'       => 'TIPO CLIENTE CODIGO'
@@ -659,6 +664,11 @@ class reportesController extends Controller
 				'dataField'     => 'CLIENTE_DOCUMENTO',
 				'dataType'      => 'string',
 				'caption'       => 'NUMERO ID CLIENTE'
+			),
+			array(
+				'dataField'     => 'NUMERO_POLIZA',
+				'dataType'      => 'string',
+				'caption'       => 'NUMERO POLIZA'
 			),
 			array(
 				'dataField'     => 'NOMBRE_TOMADOR',
@@ -691,6 +701,16 @@ class reportesController extends Controller
 				'dataField'     => 'INTERMEDIARIO_CLIENTE',
 				'dataType'      => 'number',
 				'caption'       => 'INTERMEDIARIO O CLIENTE'
+			),
+			array(
+				'dataField'     => 'HORA_RECEPCION',
+				'dataType'      => 'time',
+				'caption'       => 'HORA RECEPCION'
+			),
+			array(
+				'dataField'     => 'FECHA_RECEPCION',
+				'dataType'      => 'date',
+				'caption'       => 'FECHA RECEPCION'
 			),
 			array(
 				'dataField'     => 'FORMA_RECEPCION',
@@ -2660,61 +2680,52 @@ class reportesController extends Controller
 			array(
 				'dataField' => 'FCC',
 				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'format'  	=> 'dd/MM/yyyy',
 				'caption'   => 'FCC'
 			),
 			array(
 				'dataField' => 'RUT',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'RUT'
 			),
 			array(
 				'dataField' => 'CCO',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'CCO'
 			),
 			array(
 				'dataField' => 'DDC',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'DDC'
 			),
 			array(
 				'dataField' => 'ACC',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'ACC'
 			),
 			array(
 				'dataField' => 'EFC',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'EFC'
 			),
 			array(
 				'dataField' => 'EFI',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'EFI'
 			),
 			array(
 				'dataField' => 'NEF',
-				'dataType'  => 'date',
-				'format'  	=> 'MM/yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'NEF'
 			),
 			array(
 				'dataField' => 'RTA',
-				'dataType'  => 'date',
-				'format'  	=> 'yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'RTA'
 			),
 			array(
 				'dataField' => 'RET',
-				'dataType'  => 'date',
-				'format'  	=> 'yyyy',
+				'dataType'  => 'string',
 				'caption'   => 'RET'
 			),
 		];
@@ -2732,6 +2743,13 @@ class reportesController extends Controller
 				$reporteClientes[$resultado['CLIENTE_ID']]['TIPO_ID_CLIENTE'] = $resultado['TIPO_ID_CLIENTE'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['NUMERO_ID_CLIENTE'] = $resultado['NUMERO_ID_CLIENTE'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['NOMBRE_CLIENTE'] = $resultado['NOMBRE_CLIENTE'];
+				if($resultado['TIPO_DOC'] == 'RTA' || $resultado['TIPO_DOC'] == 'RET'){
+					$fechaEmision = explode('-', $resultado['FECHA_EMISION']);
+					$resultado['FECHA_EMISION'] = $fechaEmision[0];
+				} else{
+					$fechaEmision = explode('-',$resultado['FECHA_EMISION']);
+					$resultado['FECHA_EMISION'] = $fechaEmision[0] . '/' . $fechaEmision[1];
+				}
 				$reporteClientes[$resultado['CLIENTE_ID']][$resultado['TIPO_DOC']] = $resultado['FECHA_EMISION'];
 				$reporteClientes[$resultado['CLIENTE_ID']]['FCC'] = $resultado['FCC'];
 			}

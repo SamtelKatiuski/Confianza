@@ -847,7 +847,7 @@
                         <div class="col-md-12 content-radio-buttons">
                             <div class="form-group">
                                 <label for="rep_legal_tipo_documento" <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'style="display: inherit;"' : ''; ?> class="title">Tipo de documento:</label>
-                                <select class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" name="rep_legal_tipo_documento" id="rep_legal_tipo_documento" data-required="true">
+                                <select class="form-control <?=(in_array($InfoCliente['estado_formulario_id'], [5])) ? 'input_fields_verificacion' : ''; ?>" name="rep_legal_tipo_documento" id="rep_legal_tipo_documento" <?php if(!in_array($InfoCliente['estado_formulario_id'],[5,6])):?> data-required="true" <?php endif;?>>
                                     <option value="">Seleccione un tipo de documento...</option>
                                     <?php foreach($natural as $row):?>
                                         <option type="radio" value="<?=$row['id']?>" <?=($cliente['rep_legal_tipo_documento'] == $row['id']) ? 'selected' : '' ?>><?=$row['descripcion'] . " (" . $row['codigo'] . ")"?></option>

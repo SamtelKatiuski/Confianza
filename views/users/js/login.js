@@ -84,6 +84,9 @@ $(document).ready(function(){
                             case 6:
                                 window.location = base_url + "radicacion";
                                 break;
+                            case 7:
+                                window.location = base_url + "consultaFechas";
+                                break;
                             case -13:
                                 //Usuario no existe
                                 errMsg.fadeIn(250).find(".error-message").html("El usuario no existe.").fadeIn(230);
