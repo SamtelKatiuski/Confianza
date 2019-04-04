@@ -99,7 +99,7 @@ class pendientesController extends Controller
 
             $remitente = array(
                 'email' => Security::decode(MAIL_USER,MAIL_KEYHASH), 
-                'name' => 'Informes Mundial'
+                'name' => 'Informes Confianza'
             );
 
             $return = array();

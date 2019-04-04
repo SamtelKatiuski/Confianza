@@ -397,7 +397,7 @@ function ValidateField(field,tag,type){
 function AlertMessage(status,titulo,message,msg_options) {
 
     var options = {
-        heading: 'Notificacion Mundial',
+        heading: 'Notificacion Confianza',
         text: 'No se envio mensaje',
         showHideTransition: 'slide',
         icon: 'error'
