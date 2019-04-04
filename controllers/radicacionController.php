@@ -584,7 +584,7 @@ class radicacionController extends Controller
     
                                         $remitente = array(
                                             'email' => Security::decode(MAIL_USER,MAIL_KEYHASH), 
-                                            'name' => 'Informes Mundial'
+                                            'name' => 'Informes Confianza'
                                         );
     
                                         $templatePath = ROOT . "public/templates/devueltos.html";
