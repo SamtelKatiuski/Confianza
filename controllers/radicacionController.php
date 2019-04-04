@@ -355,7 +355,7 @@ class radicacionController extends Controller
                                         unset($fechaConfirmacion[$keyFecha]);
                                     }
                                 }
-                                $dataQuery['fecha_actualizacion'] = $valueFechaActualizacion;
+                                $dataQuery['fecha_confirmacion'] = $valueFechaActualizacion;
                             }
 
                             //Si fecha de diligenciamiento es nula o está vacia
