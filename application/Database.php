@@ -26,7 +26,8 @@ class Database extends PDO
 			if(DB_NAME != "" && DB_HOST != "" && DB_USER != "" )
 			{
 				parent::__construct(
-					'mysql:host='. Security::decode(DB_HOST, DB_KEYHASH) .
+					/* 'mysql:host='. Security::decode(DB_HOST, DB_KEYHASH) . */
+					'mysql:host='. '192.165.30.31' .
 					';dbname='. Security::decode(DB_NAME, DB_KEYHASH) .
 					';chatset='. DB_CHAR,
 					Security::decode(DB_USER, DB_KEYHASH),

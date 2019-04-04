@@ -131,7 +131,7 @@ class reportesModel extends Model
         CL.id AS CLIENTE_ID,
         DATE_FORMAT(ZR.created, '%Y-%m-%d') AS FECHA_RADICACION,
         US.nombre AS USUARIO_RADICADOR,
-        (SELECT correo_radicacion FROM zr_radicacion WHERE created = (SELECT MAX(created) FROM zr_radicacion WHERE cliente_id = CL.id)) AS USUARIO_SUSCRIPTOR,
+        (SELECT correo_radicacion FROM zr_radicacion WHERE created = (SELECT MAX(created) FROM zr_radicacion WHERE cliente_id = CL.id LIMIT 1) ORDER BY id DESC LIMIT 1) AS USUARIO_SUSCRIPTOR,
         TD.codigo AS TIPO_ID_CLIENTE,
         CL.documento AS NUMERO_ID_CLIENTE,
         AO.nombre_cliente AS NOMBRE_CLIENTE,
